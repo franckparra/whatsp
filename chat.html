@@ -32,14 +32,19 @@
      Reset & layout geral
      ------------------------------------------------- */
   *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%;overflow:hidden}
+  html,body{
+    height:100%;
+    /* Permite rolagem quando o conteúdo ultrapassa a altura da tela */
+    overflow:auto;
+  }
   body{
     font-family:'Inter',sans-serif;
     background:var(--wp-gray-light);
     color:var(--wp-text-dark);
     display:flex;
     flex-direction:column;
-    height:100vh;
+    /* Garante que o body ocupe ao menos a altura da janela */
+    min-height:100vh;
   }
 
   /* -------------------------------------------------
@@ -57,8 +62,7 @@
   }
   .header-left{display:flex;align-items:center;gap:0.8rem}
   .debora-avatar{
-    /* aumente o avatar do cabeçalho de 42 px → 56 px */
-    width:56px;height:56px;
+    width:56px;height:56px;               /* aumente o avatar do cabeçalho */
     border-radius:50%;
     border:2px solid var(--wp-white);
     background:var(--wp-gray-dark);
@@ -134,8 +138,7 @@
   }
   @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
   .welcome-avatar{
-    /* aumente o avatar de boas‑vindas de 72 px → 96 px */
-    width:72px;height:72px;
+    width:96px;height:96px;               /* aumente o avatar de boas‑vindas */
     border-radius:50%;
     background:var(--wp-green);
     border:3px solid var(--wp-white);
@@ -608,6 +611,14 @@
     flex-shrink:0;
     letter-spacing:.04em;
   }
+
+  /* -------------------------------------------------
+     RESPONSIVE ADJUSTMENTS (pequenas telas)
+     ------------------------------------------------- */
+  @media (max-width:480px){
+    .welcome-avatar{width:84px;height:84px;}
+    .debora-avatar{width:48px;height:48px;}
+  }
 </style>
 </head>
 <body>
@@ -715,56 +726,56 @@ const PERSONAS = {
   "maria":{
     "nome":"Maria Clara",
     "avatar":"maria.jpg",
-    "badge":"",
+    "badge":" ",
     "welcomeTitle":"Olá! Sou a Maria Clara",
     "welcomeSubtitle":"31 anos - Rio de Janeiro - RJ",
     "welcomeQuote":"Sua amiga aqui no chat. Vamos conversar?",
-    "apiUrl":"https://api.zap01.tokenslp.com.br"
+    "apiUrl":"https://api.maria.tokenslp.com.br"
   },
   "laura":{
     "nome":"Laura Oliveira",
     "avatar":"laura.jpg",
-    "badge":"",
+    "badge":" ",
     "welcomeTitle":"Oi! Sou a Laura",
     "welcomeSubtitle":"28 anos - Rio de Janeiro - RJ",
     "welcomeQuote":"Sua amiga aqui no chat. Vamos conversar?",
-    "apiUrl":"https://api.zap02.tokenslp.com.br"
+    "apiUrl":"https://api.laura.tokenslp.com.br"
   },
   "fernanda":{
     "nome":"Fernanda Ribeiro",
     "avatar":"fernanda.jpg",
-    "badge":"",
+    "badge":" ",
     "welcomeTitle":"Saudações! Sou a Fernanda",
     "welcomeSubtitle":"38 anos - Belo Horizonte - MG",
     "welcomeQuote":"Sua amiga aqui no chat. Vamos conversar?",
-    "apiUrl":"https://api.zap03.tokenslp.com.br"
+    "apiUrl":"https://api.tutor2pl2.tokenslp.com.br"
   },
   "flavio":{
     "nome":"Flávio Carvalho",
     "avatar":"flavio.jpg",
-    "badge":"",
+    "badge":" ",
     "welcomeTitle":"E aí! Sou o Flávio",
     "welcomeSubtitle":"31 anos - Porto Alegre - RS",
     "welcomeQuote":"Seu amigo aqui no chat. Vamos conversar?",
-    "apiUrl":"https://api.zap04.tokenslp.com.br"
+    "apiUrl":"https://api.flavio.tokenslp.com.br"
   },
   "ricardo":{
     "nome":"Ricardo Costa",
     "avatar":"ricardo.jpg",
-    "badge":"",
+    "badge":" ",
     "welcomeTitle":"Oi! Sou o Ricardo",
     "welcomeSubtitle":"40 anos - Salvador - BA",
     "welcomeQuote":"Seu amigo aqui no chat. Vamos conversar?",
-    "apiUrl":"https://api.zap05.tokenslp.com.br"
+    "apiUrl":"https://api.ricardo.tokenslp.com.br"
   },
   "tiago":{
     "nome":"Tiago Martins",
     "avatar":"tiago.jpg",
-    "badge":"",
+    "badge":" ",
     "welcomeTitle":"Olá! Sou o Tiago",
     "welcomeSubtitle":"47 anos - Curitiba - PR",
     "welcomeQuote":"Seu amigo aqui no chat. Vamos conversar?",
-    "apiUrl":"https://api.zap06.tokenslp.com.br"
+    "apiUrl":"https://api.tiago.tokenslp.com.br"
   }
 };
 
