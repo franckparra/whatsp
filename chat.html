@@ -62,7 +62,8 @@
   }
   .header-left{display:flex;align-items:center;gap:0.8rem}
   .debora-avatar{
-    width:56px;height:56px;               /* aumente o avatar do cabeçalho */
+    /* avatar do cabeçalho – aumentamos de 42 px → 56 px */
+    width:56px;height:56px;
     border-radius:50%;
     border:2px solid var(--wp-white);
     background:var(--wp-gray-dark);
@@ -138,7 +139,8 @@
   }
   @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
   .welcome-avatar{
-    width:200px;height:200px;               /* aumente o avatar de boas‑vindas */
+    /* avatar de boas‑vindas – aumentamos de 72 px → 96 px */
+    width:150px;height:150px;
     border-radius:50%;
     background:var(--wp-green);
     border:3px solid var(--wp-white);
@@ -1224,9 +1226,14 @@ function autoResize(el){
 }
 
 /* -------------------------------------------------
-   INICIALIZAÇÃO
+   INICIALIZAÇÃO – com tratamento de erro
    ------------------------------------------------- */
-init();
+try{
+  init();
+}catch(e){
+  console.error('Erro ao iniciar a aplicação:',e);
+  showToast('Erro ao iniciar a aplicação. Consulte o console para mais detalhes.','error');
+}
 </script>
 </body>
 </html>
