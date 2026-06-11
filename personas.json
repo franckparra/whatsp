@@ -1,4 +1,7 @@
 {
+  "display": "standalone",
+  "orientation": "portrait",
+  "type": "image/jpg"
   "maria": {
     "nome": "Maria Clara",
     "avatar": "maria.jpg",
