@@ -34,8 +34,7 @@
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{
     height:100%;
-    /* Permite rolagem quando o conteúdo ultrapassa a altura da tela */
-    overflow:auto;
+    overflow:auto;               /* permite rolagem em telas pequenas */
   }
   body{
     font-family:'Inter',sans-serif;
@@ -43,8 +42,7 @@
     color:var(--wp-text-dark);
     display:flex;
     flex-direction:column;
-    /* Garante que o body ocupe ao menos a altura da janela */
-    min-height:100vh;
+    height:100vh;                /* garante altura completa da viewport */
   }
 
   /* -------------------------------------------------
@@ -62,8 +60,7 @@
   }
   .header-left{display:flex;align-items:center;gap:0.8rem}
   .debora-avatar{
-    /* avatar do cabeçalho – aumentamos de 42 px → 56 px */
-    width:56px;height:56px;
+    width:56px;height:56px;               /* avatar do cabeçalho aumentada */
     border-radius:50%;
     border:2px solid var(--wp-white);
     background:var(--wp-gray-dark);
@@ -139,8 +136,7 @@
   }
   @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
   .welcome-avatar{
-    /* avatar de boas‑vindas – aumentamos de 72 px → 96 px */
-    width:150px;height:150px;
+    width:150px;height:150px;               /* avatar de boas‑vindas aumentada */
     border-radius:50%;
     background:var(--wp-green);
     border:3px solid var(--wp-white);
@@ -803,19 +799,26 @@ function getPersonaGender(pid){
 function loadPersona(){
   const pid = getPersonaId();
   const p = PERSONAS[pid] || PERSONAS['maria'];
+  try{
+    // Header
+    const avatarImg = document.querySelector('#avatarHeader img');
+    if(avatarImg) avatarImg.src = p.avatar;
+    document.getElementById('headerName').textContent = p.nome;
+    document.getElementById('headerBadge').textContent = p.badge;
 
-  // Header
-  document.querySelector('#avatarHeader img').src = p.avatar;
-  document.getElementById('headerName').textContent = p.nome;
-  document.getElementById('headerBadge').textContent = p.badge;
-
-  // Welcome
-  const welcomeAvatar = document.getElementById('welcomeAvatar');
-  welcomeAvatar.innerHTML = `<img src="${p.avatar}" alt="${p.nome}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
-  document.getElementById('welcomeBadge').textContent = p.badge;
-  document.getElementById('welcomeTitle').textContent = p.welcomeTitle;
-  document.getElementById('welcomeSubtitle').textContent = p.welcomeSubtitle;
-  document.getElementById('welcomeQuote').textContent = p.welcomeQuote;
+    // Welcome
+    const welcomeAvatar = document.getElementById('welcomeAvatar');
+    welcomeAvatar.innerHTML = `<img src="${p.avatar}" alt="${p.nome}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+    document.getElementById('welcomeBadge').textContent = p.badge;
+    document.getElementById('welcomeTitle').textContent = p.welcomeTitle;
+    document.getElementById('welcomeSubtitle').textContent = p.welcomeSubtitle;
+    document.getElementById('welcomeQuote').textContent = p.welcomeQuote;
+  }catch(e){
+    console.error('Erro ao carregar persona:',e);
+    // fallback simples
+    document.getElementById('headerName').textContent = 'Chat';
+    document.getElementById('welcome').style.display='none';
+  }
 }
 
 /* -------------------------------------------------
@@ -1226,14 +1229,16 @@ function autoResize(el){
 }
 
 /* -------------------------------------------------
-   INICIALIZAÇÃO – com tratamento de erro
+   INICIALIZAÇÃO – garante que o DOM esteja pronto
    ------------------------------------------------- */
-try{
-  init();
-}catch(e){
-  console.error('Erro ao iniciar a aplicação:',e);
-  showToast('Erro ao iniciar a aplicação. Consulte o console para mais detalhes.','error');
-}
+document.addEventListener('DOMContentLoaded', () => {
+  try{
+    init();
+  }catch(e){
+    console.error('Erro ao iniciar a aplicação:',e);
+    showToast('Erro ao iniciar a aplicação. Consulte o console.','error');
+  }
+});
 </script>
 </body>
 </html>
