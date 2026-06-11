@@ -1,0 +1,50 @@
+{
+  "maria": {
+    "nome": "Maria Clara",
+    "avatar": "avatars/maria.jpg",
+    "badge": " ",
+    "welcomeTitle": "Olá! Sou a Maria Clara",
+    "welcomeSubtitle": "31 anos - Rio de Janeiro - RJ",
+    "welcomeQuote": "Sua amiga aqui no chat. Vamos conversar?"
+  },
+  "laura": {
+    "nome": "Laura Oliveira",
+    "avatar": "avatars/laura.jpg",
+    "badge": "Consultora Financeira",
+    "welcomeTitle": "Oi! Sou a Laura",
+    "welcomeSubtitle": "28 anos - Rio de Janeiro - RJ",
+    "welcomeQuote": "Sua amiga aqui no chat. Vamos conversar?"
+  },
+  "fernanda": {
+    "nome": "Fernanda Ribeiro",
+    "avatar": "avatars/fernanda.jpg",
+    "badge": "Professora de História",
+    "welcomeTitle": "Saudações! Sou a Fernanda",
+    "welcomeSubtitle": "38 anos - Belo Horizonte - MG",
+    "welcomeQuote": "Sua amiga aqui no chat. Vamos conversar?"
+  },
+  "flavio": {
+    "nome": "Flávio Carvalho",
+    "avatar": "avatars/flavio.jpg",
+    "badge": "Engenheiro de Software",
+    "welcomeTitle": "E aí! Sou o Flávio",
+    "welcomeSubtitle": "31 anos - Porto Alegre - RS",
+    "welcomeQuote": "Seu amigo aqui no chat. Vamos conversar?"
+  },
+  "ricardo": {
+    "nome": "Ricardo Costa",
+    "avatar": "avatars/ricardo.jpg",
+    "badge": "Coach de Carreira",
+    "welcomeTitle": "Oi! Sou o Ricardo",
+    "welcomeSubtitle": "40 anos - Salvador - BA",
+    "welcomeQuote": "Seu amigo aqui no chat. Vamos conversar?"
+  },
+  "tiago": {
+    "nome": "Tiago Martins",
+    "avatar": "avatars/tiago.jpg",
+    "badge": "Especialista em IA",
+    "welcomeTitle": "Olá! Sou o Tiago",
+    "welcomeSubtitle": "47 anos - Curitiba - PR",
+    "welcomeQuote": "Seu amigo aqui no chat. Vamos conversar?"
+  }
+}
