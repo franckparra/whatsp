@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Whats Personas – Maria Clara</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#25D366">
+<meta name="description" content="Chat com persona sintética – Maria Clara">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body class="flex flex-col min-h-screen font-inter bg-gray-100 text-gray-800">
+
+<!-- HEADER -->
+<header id="chatHeader" class="bg-green-800 text-white flex items-center justify-between p-3 border-b border-gray-300 shadow-md">
+  <div class="flex items-center gap-3">
+    <div class="w-14 h-14 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
+      <img id="avatarHeader" src="" alt="Avatar" class="w-full h-full object-cover">
+    </div>
+    <div>
+      <h1 id="headerName" class="text-sm font-semibold">Carregando…</h1>
+      <p id="headerBadge" class="text-xs text-gray-200"></p>
+    </div>
+  </div>
+  <div class="flex items-center gap-2">
+    <div class="flex items-center gap-1 text-xs text-gray-200">
+      <div id="statusDot" class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+      <span id="statusText">Disponível</span>
+    </div>
+  </div>
+</header>
+
+<!-- CONTROLES DA CONVERSA -->
+<div class="flex justify-center gap-3 p-2 bg-gray-100 border-b border-gray-300">
+  <button class="bg-green-800 text-white px-4 py-1 rounded hover:bg-green-900" onclick="exitChat()">Sair da Conversa</button>
+  <button class="bg-green-800 text-white px-4 py-1 rounded hover:bg-green-900" onclick="clearChat()">Limpar Conversa</button>
+</div>
+
+<!-- CHAT AREA -->
+<div id="chat" class="flex-1 overflow-y-auto p-4 flex flex-col gap-4 bg-gray-100">
+
+  <!-- WELCOME -->
+  <div id="welcome" class="flex flex-col items-center text-center animate-fadeIn">
+    <div id="welcomeAvatar" class="w-36 h-36 rounded-full bg-green-800 flex items-center justify-center text-white text-3xl mb-4"></div>
+    <div id="welcomeBadge" class="inline-block bg-gray-300 text-gray-600 text-xs font-medium uppercase px-2 py-1 rounded-full mb-2"></div>
+    <h2 id="welcomeTitle" class="text-lg font-semibold mb-1"></h2>
+    <h3 id="welcomeSubtitle" class="text-sm text-gray-600 mb-3"></h3>
+    <blockquote id="welcomeQuote" class="bg-white border-l-4 border-green-800 p-3 rounded shadow-sm max-w-xl text-left text-gray-700 italic"></blockquote>
+  </div>
+
+</div>
+
+<!-- INPUT AREA -->
+<div class="flex items-end gap-2 p-3 bg-white border-t border-gray-300 shadow-inner">
+  <button id="configBtn" class="w-10 h-10 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300"
+          title="Configurações" onclick="toggleConfig()">⚙</button>
+  <button id="micBtn" class="w-10 h-10 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300"
+          title="Gravar voz">🎤</button>
+  <textarea id="userInput" rows="1"
+            class="flex-1 bg-gray-200 border border-gray-300 rounded-full px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-green-500"
+            placeholder="Digite sua conversa..."
+            onkeydown="handleKey(event)"
+            oninput="autoResize(this)"></textarea>
+  <button id="sendBtn" class="w-10 h-10 bg-green-800 text-white rounded-full flex items-center justify-center hover:bg-green-900" disabled>➤</button>
+</div>
+
+<!-- CONFIG PANEL -->
+<div id="configPanel"
+     class="fixed inset-0 bg-white flex flex-col p-6 transform translate-x-full transition-transform duration-300 overflow-y-auto z-50">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-semibold">⚙ Configurações</h2>
+    <button class="text-2xl font-bold" onclick="toggleConfig()">✕</button>
+  </div>
+  <p class="text-sm text-gray-600 mb-6">Whats Personas — TOKEN Synthetic Language Personas</p>
+
+  <div class="mb-4">
+    <label class="block text-xs font-medium uppercase text-gray-500 mb-1">Provedor de IA</label>
+    <select id="provider"
+            class="w-full bg-gray-200 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+            onchange="updateProviderUI()">
+      <option value="inception">Inception (Mercury 2) — Recomendado</option>
+      <option value="openrouter">OpenRouter</option>
+      <option value="google">Google AI Studio</option>
+      <option value="ollama">Ollama Local</option>
+    </select>
+  </div>
+
+  <div class="mb-4 relative">
+    <label class="block text-xs font-medium uppercase text-gray-500 mb-1">Chave de API</label>
+    <input type="password" id="apiKey"
+           class="w-full bg-gray-200 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+           placeholder="sk_…">
+    <button id="helpBtn" class="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-gray-500"
+            onclick="toggleHelp()">?</button>
+    <p id="apiHint" class="text-xs text-gray-500 mt-1">Inception: platform.inceptionlabs.ai — 10M tokens gratuitos no cadastro.</p>
+    <div id="helpPopup"
+         class="hidden absolute left-0 bottom-full mb-2 w-64 bg-white border border-gray-300 rounded p-3 shadow-lg text-xs text-gray-700">
+      Pegue sua chave de API na plataforma Inception. Cada nova conta recebe 10 milhões de tokens gratuitos.
+      <a href="https://platform.inceptionlabs.ai/auth/login?callbackUrl=/" target="_blank" rel="noopener"
+         class="block mt-2 text-green-600 hover:underline">🔑 Criar conta na Inception →</a>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <label class="block text-xs font-medium uppercase text-gray-500 mb-1">Modelo</label>
+    <input type="text" id="modelName"
+           class="w-full bg-gray-200 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+           value="mercury-2">
+    <p id="modelHint" class="text-xs text-gray-500 mt-1">Padrão: mercury-2 (Inception) — pode ser alterado conforme o provedor.</p>
+  </div>
+
+  <div id="ollamaUrlGroup" class="mb-4 hidden">
+    <label class="block text-xs font-medium uppercase text-gray-500 mb-1">URL do Ollama</label>
+    <input type="text" id="ollamaUrl"
+           class="w-full bg-gray-200 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
+           value="http://localhost:11434">
+    <p class="text-xs text-gray-500 mt-1">URL onde o Ollama está rodando na sua rede local.</p>
+  </div>
+
+  <button class="bg-green-800 text-white px-4 py-2 rounded hover:bg-green-900"
+          onclick="saveConfig()">Salvar Configurações</button>
+  <button class="mt-2 bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300"
+          onclick="clearChat()">Limpar Conversa</button>
+</div>
+
+<!-- TOAST -->
+<div id="toast"
+     class="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-full shadow-lg hidden"></div>
+
+<script>
+/* -------------------------------------------------
+   PERSONAS – apenas Maria Clara (primeira persona)
+   ------------------------------------------------- */
+const PERSONAS = {
+  "maria":{
+    "nome":"Maria Clara",
+    "avatar":"maria.jpg",
+    "badge":"",
+    "welcomeTitle":"Olá! Sou a Maria Clara",
+    "welcomeSubtitle":"31 anos - Rio de Janeiro - RJ",
+    "welcomeQuote":"Sua amiga aqui no chat. Vamos conversar?",
+    "apiUrl":"https://api.zap01.tokenslp.com.br"
+  }
+};
+
+/* -------------------------------------------------
+   UTILIDADES
+   ------------------------------------------------- */
+function getPersonaId(){
+  const params = new URLSearchParams(location.search);
+  return params.get('p') || 'maria';
+}
+function getPersonaGender(pid){
+  const femaleIds = ['maria','laura','fernanda'];
+  return femaleIds.includes(pid) ? 'female' : 'male';
+}
+
+/* -------------------------------------------------
+   CARREGAR DADOS DA PERSONA
+   ------------------------------------------------- */
+function loadPersona(){
+  const pid = getPersonaId();
+  const p = PERSONAS[pid] || PERSONAS['maria'];
+
+  document.getElementById('avatarHeader').src = p.avatar;
+  document.getElementById('headerName').textContent = p.nome;
+  document.getElementById('headerBadge').textContent = p.badge;
+
+  const welcomeAvatar = document.getElementById('welcomeAvatar');
+  welcomeAvatar.innerHTML = `<img src="${p.avatar}" alt="${p.nome}" class="w-full h-full object-cover rounded-full">`;
+  document.getElementById('welcomeBadge').textContent = p.badge;
+  document.getElementById('welcomeTitle').textContent = p.welcomeTitle;
+  document.getElementById('welcomeSubtitle').textContent = p.welcomeSubtitle;
+  document.getElementById('welcomeQuote').textContent = p.welcomeQuote;
+}
+
+/* -------------------------------------------------
+   ESTADO & CONFIGURAÇÕES
+   ------------------------------------------------- */
+let conversationHistory = [];
+let isLoading = false;
+let config = {
+  provider:'inception',
+  apiKey:'',
+  model:'mercury-2',
+  ollamaUrl:'http://localhost:11434'
+};
+
+/* -------------------------------------------------
+   INICIALIZAÇÃO
+   ------------------------------------------------- */
+function init(){
+  loadPersona();
+  const saved = localStorage.getItem('debora_config');
+  if(saved){
+    config = {...config, ...JSON.parse(saved)};
+    document.getElementById('apiKey').value = config.apiKey||'';
+    document.getElementById('modelName').value = config.model||'mercury-2';
+    document.getElementById('provider').value = config.provider||'inception';
+    document.getElementById('ollamaUrl').value = config.ollamaUrl||'';
+    updateProviderUI();
+  }
+  const savedHistory = localStorage.getItem('debora_history');
+  if(savedHistory){
+    conversationHistory = JSON.parse(savedHistory);
+    if(conversationHistory.length>0){
+      document.getElementById('welcome').style.display='none';
+      conversationHistory.forEach(msg=>{
+        if(msg.role!=='system') renderMessage(msg.role==='user'?'user':'debora',msg.content,false);
+      });
+    }
+  }
+}
+
+/* -------------------------------------------------
+   CONFIGURAÇÕES UI
+   ------------------------------------------------- */
+function toggleConfig(){
+  const panel=document.getElementById('configPanel');
+  panel.classList.toggle('translate-x-full');
+  panel.classList.toggle('translate-x-0');
+}
+function toggleHelp(){
+  const popup=document.getElementById('helpPopup');
+  popup.classList.toggle('hidden');
+}
+function updateProviderUI(){
+  const provider=document.getElementById('provider').value;
+  const hints={
+    inception:'Inception: platform.inceptionlabs.ai — 10M tokens gratuitos no cadastro.',
+    openrouter:'OpenRouter: openrouter.ai — pague apenas pelo uso.',
+    google:'Google AI Studio: aistudio.google.com — plano gratuito disponível.',
+    ollama:'Não necessário para Ollama local.'
+  };
+  const models={
+    inception:'mercury-2',
+    openrouter:'google/gemma-3-27b-it',
+    google:'gemma-2.0-flash',
+    ollama:'llama3.1'
+  };
+  document.getElementById('apiHint').textContent=hints[provider];
+  document.getElementById('modelName').value=models[provider];
+  document.getElementById('ollamaUrlGroup').classList.toggle('hidden',provider!=='ollama');
+}
+function saveConfig(){
+  config.provider=document.getElementById('provider').value;
+  config.apiKey=document.getElementById('apiKey').value.trim();
+  config.model=document.getElementById('modelName').value.trim();
+  config.ollamaUrl=document.getElementById('ollamaUrl').value.trim();
+  localStorage.setItem('debora_config',JSON.stringify(config));
+  toggleConfig();
+  showToast('Configurações salvas ✓','success');
+}
+function clearChat(){
+  conversationHistory=[];
+  localStorage.removeItem('debora_history');
+  location.reload();
+}
+function exitChat(){
+  window.location.href='index.html';
+}
+
+/* -------------------------------------------------
+   RENDERIZAÇÃO DE MENSAGENS
+   ------------------------------------------------- */
+function renderMessage(role,content,animate=true){
+  const chat=document.getElementById('chat');
+  const welcome=document.getElementById('welcome');
+  if(welcome) welcome.style.display='none';
+
+  const isDebora=role==='debora';
+  const p=PERSONAS[getPersonaId()];
+  const avatar=isDebora ? `<img src="${p.avatar}" alt="${p.nome}" class="w-full h-full object-cover rounded-full">` : `<span class="w-8 h-8 flex items-center justify-center bg-gray-300 rounded-full text-sm font-medium">👤</span>`;
+  const name=isDebora ? p.nome.toUpperCase() : 'VISITANTE';
+  const ttsBtn=isDebora ? `<button class="ml-2 text-xs text-green-600 hover:underline tts-btn" data-text="${encodeURIComponent(content)}" onclick="toggleSpeak(this)" title="Ler em voz alta">🔊</button>` : '';
+
+  const msgDiv=document.createElement('div');
+  msgDiv.className=`flex gap-3 mb-4 ${isDebora?'flex-row':'flex-row-reverse'}`;
+  msgDiv.innerHTML=`
+    <div class="w-8 h-8 flex-shrink-0 overflow-hidden rounded-full bg-gray-300 flex items-center justify-center">${avatar}</div>
+    <div class="max-w-[80%]">
+      <div class="text-xs font-medium uppercase text-gray-600 mb-1">${name}</div>
+      <div class="bg-white border border-gray-300 rounded-lg p-3 shadow-sm text-sm text-gray-800">${formatMessage(content)}</div>
+      ${ttsBtn}
+    </div>`;
+  chat.appendChild(msgDiv);
+  chat.scrollTop=chat.scrollHeight;
+}
+function formatMessage(text){
+  let html=text
+    .replace(/```(\w+)?\n?([\s\S]*?)```/g,(_,lang,code)=>`<pre class="bg-gray-200 p-2 rounded overflow-x-auto"><code>${escapeHtml(code.trim())}</code></pre>`)
+    .replace(/`([^`]+)`/g,(_,c)=>`<code class="bg-gray-200 px-1 rounded">${escapeHtml(c)}</code>`)
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g,'<em>$1</em>')
+    .replace(/\n\n/g,'</p><p>')
+    .replace(/\n/g,'<br>');
+  return `<p>${html}</p>`;
+}
+function escapeHtml(t){return t.replace(/[&<>]/g,ch=>({ '&':'&amp;','<':'&lt;','>':'&gt;' }[ch]));}
+
+/* -------------------------------------------------
+   TIPING INDICATOR
+   ------------------------------------------------- */
+function showTyping(){
+  const chat=document.getElementById('chat');
+  const div=document.createElement('div');
+  div.id='typing-indicator';
+  div.className='flex gap-3 mb-4';
+  div.innerHTML=`
+    <div class="w-8 h-8 flex-shrink-0 bg-gray-300 rounded-full flex items-center justify-center">Env.</div>
+    <div class="flex items-center space-x-1">
+      <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+      <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse delay-150"></span>
+      <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse delay-300"></span>
+    </div>`;
+  chat.appendChild(div);
+  chat.scrollTop=chat.scrollHeight;
+}
+function removeTyping(){
+  const el=document.getElementById('typing-indicator');
+  if(el) el.remove();
+}
+
+/* -------------------------------------------------
+   ENVIO DE MENSAGENS
+   ------------------------------------------------- */
+async function sendMessage(){
+  const input=document.getElementById('userInput');
+  const text=input.value.trim();
+  if(!text || isLoading) return;
+
+  if(!config.apiKey && config.provider!=='ollama'){
+    showToast('Configure sua chave de API ⚙','error');
+    toggleConfig();
+    return;
+  }
+
+  input.value='';
+  autoResize(input);
+  isLoading=true;
+  setStatus('loading','Pensando...');
+  document.getElementById('sendBtn').disabled=true;
+
+  renderMessage('user',text);
+  conversationHistory.push({role:'user',content:text});
+  showTyping();
+
+  try{
+    const reply=await callAPI();
+    removeTyping();
+    renderMessage('debora',reply);
+    conversationHistory.push({role:'assistant',content:reply});
+    localStorage.setItem('debora_history',JSON.stringify(conversationHistory));
+    setStatus('ready','Disponível');
+  }catch(e){
+    removeTyping();
+    setStatus('error','Erro');
+    showToast('Erro: '+(e.message||'Erro desconhecido'),'error');
+    console.error(e);
+  }
+
+  isLoading=false;
+  document.getElementById('sendBtn').disabled=false;
+}
+
+/* -------------------------------------------------
+   CHAMADA À API
+   ------------------------------------------------- */
+async function callAPI(){
+  const pid=getPersonaId();
+  const endpoint=PERSONAS[pid].apiUrl;
+  const res=await fetch(endpoint,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      message:conversationHistory[conversationHistory.length-1].content,
+      history:conversationHistory.slice(0,-1),
+      apiKey:config.apiKey,
+      model:config.model,
+      provider:config.provider,
+      ollamaUrl:config.ollamaUrl
+    })
+  });
+  const txt=await res.text();
+  let data;
+  try{data=JSON.parse(txt)}catch(e){throw new Error('Resposta inválida: '+txt)}
+  if(!res.ok||data.error)throw new Error(data.error||`HTTP ${res.status}`);
+  if(!data.reply)throw new Error('Resposta vazia do Worker');
+  return data.reply;
+}
+
+/* -------------------------------------------------
+   TTS
+   ------------------------------------------------- */
+function toggleSpeak(btn){
+  const text=decodeURIComponent(btn.dataset.text);
+  if(!text) return;
+
+  // Se já está falando, interrompe
+  if(btn.classList.contains('speaking')){
+    window.speechSynthesis.cancel();
+    btn.classList.remove('speaking');
+    btn.textContent='🔊';
+    return;
+  }
+
+  // Interrompe qualquer fala em andamento
+  window.speechSynthesis.cancel();
+  document.querySelectorAll('.tts-btn.speaking').forEach(b=>{b.classList.remove('speaking');b.textContent='🔊';});
+
+  const clean=text.replace(/\*\*/g,'').replace(/\*/g,'').replace(/^#+\s/gm,'').trim();
+  const utter=new SpeechSynthesisUtterance(clean);
+  utter.lang='pt-BR';
+
+  const gender=getPersonaGender(getPersonaId());
+  utter.rate=gender==='female'?0.88:0.85;
+  utter.pitch=gender==='female'?1.0:0.9;
+
+  const voices=window.speechSynthesis.getVoices();
+  const voice=voices.find(v=>v.lang==='pt-BR' && (gender==='female'?/(francisca|vitoria|luciana)/i.test(v.name):/(daniel|ricardo)/i.test(v.name)))||voices.find(v=>v.lang==='pt-BR')||voices[0];
+  utter.voice=voice;
+
+  btn.classList.add('speaking');
+  btn.textContent='⏹';
+  utter.onend=()=>{btn.classList.remove('speaking');btn.textContent='🔊';};
+  utter.onerror=()=>{btn.classList.remove('speaking');btn.textContent='🔊';};
+
+  // Caso as vozes ainda não estejam carregadas, aguarda o evento
+  if(voices.length===0){
+    window.speechSynthesis.onvoiceschanged=()=>{
+      window.speechSynthesis.onvoiceschanged=null;
+      const v=window.speechSynthesis.getVoices().find(v=>v.lang==='pt-BR')||window.speechSynthesis.getVoices()[0];
+      utter.voice=v;
+      window.speechSynthesis.speak(utter);
+    };
+  }else{
+    window.speechSynthesis.speak(utter);
+  }
+}
+
+/* -------------------------------------------------
+   SPEECH‑TO‑TEXT
+   ------------------------------------------------- */
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+let recognition;
+if(SpeechRecognition){
+  recognition=new SpeechRecognition();
+  recognition.lang='pt-BR';
+  recognition.interimResults=true;
+  recognition.maxAlternatives=1;
+}
+const micBtn=document.getElementById('micBtn');
+let listening=false;
+micBtn.addEventListener('click',()=>{
+  if(!recognition){showToast('Reconhecimento de fala não disponível.','error');return;}
+  if(listening){recognition.stop();return;}
+  recognition.start();
+  listening=true;
+  micBtn.classList.add('text-green-600');
+});
+recognition?.addEventListener('result',e=>{
+  const txt=Array.from(e.results).map(r=>r[0].transcript).join(' ');
+  const ta=document.getElementById('userInput');
+  ta.value=txt;
+  autoResize(ta);
+});
+recognition?.addEventListener('end',()=>{listening=false;micBtn.classList.remove('text-green-600');});
+recognition?.addEventListener('error',e=>{showToast('Erro ao gravar: '+e.error,'error');});
+
+/* -------------------------------------------------
+   UI HELPERS
+   ------------------------------------------------- */
+function setStatus(type,text){
+  const dot=document.getElementById('statusDot');
+  const label=document.getElementById('statusText');
+  dot.className='w-2 h-2 rounded-full '+(type==='loading'?'bg-red-500':type==='error'?'bg-red-500':'bg-green-400');
+  label.textContent=text;
+}
+function showToast(msg,type=''){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-full shadow-lg '+(type==='error'?'bg-red-600':'bg-green-600');
+  t.classList.remove('hidden');
+  setTimeout(()=>t.classList.add('hidden'),3500);
+}
+function handleKey(e){
+  if(e.key==='Enter' && !e.shiftKey){e.preventDefault();sendMessage();}
+}
+function autoResize(el){
+  el.style.height='auto';
+  el.style.height=Math.min(el.scrollHeight,120)+'px';
+}
+
+/* -------------------------------------------------
+   INICIALIZAÇÃO
+   ------------------------------------------------- */
+try{init();}catch(e){console.error(e);showToast('Erro ao iniciar.','error');}
+</script>
+</body>
+</html>
