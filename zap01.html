@@ -60,7 +60,7 @@
             class="flex-1 bg-gray-200 border border-gray-300 rounded-full px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-green-500"
             placeholder="Digite sua conversa..."
             onkeydown="handleKey(event)"
-            oninput="autoResize(this)"></textarea>
+            oninput="autoResize(this);updateSendButton()"></textarea>
   <button id="sendBtn" class="w-10 h-10 bg-green-800 text-white rounded-full flex items-center justify-center hover:bg-green-900" disabled>➤</button>
 </div>
 
@@ -261,6 +261,15 @@ function exitChat(){
 }
 
 /* -------------------------------------------------
+   BOTÃO DE ENVIO – habilita/desabilita dinamicamente
+   ------------------------------------------------- */
+function updateSendButton(){
+  const input=document.getElementById('userInput');
+  const btn=document.getElementById('sendBtn');
+  btn.disabled = input.value.trim().length===0 || isLoading;
+}
+
+/* -------------------------------------------------
    RENDERIZAÇÃO DE MENSAGENS
    ------------------------------------------------- */
 function renderMessage(role,content,animate=true){
@@ -337,6 +346,7 @@ async function sendMessage(){
 
   input.value='';
   autoResize(input);
+  updateSendButton(); // desabilita botão enquanto carrega
   isLoading=true;
   setStatus('loading','Pensando...');
   document.getElementById('sendBtn').disabled=true;
@@ -360,7 +370,7 @@ async function sendMessage(){
   }
 
   isLoading=false;
-  document.getElementById('sendBtn').disabled=false;
+  updateSendButton(); // re‑habilita botão se ainda houver texto
 }
 
 /* -------------------------------------------------
@@ -396,15 +406,13 @@ function toggleSpeak(btn){
   const text=decodeURIComponent(btn.dataset.text);
   if(!text) return;
 
-  // Se já está falando, interrompe
+  // Interrompe fala atual, se houver
   if(btn.classList.contains('speaking')){
     window.speechSynthesis.cancel();
     btn.classList.remove('speaking');
     btn.textContent='🔊';
     return;
   }
-
-  // Interrompe qualquer fala em andamento
   window.speechSynthesis.cancel();
   document.querySelectorAll('.tts-btn.speaking').forEach(b=>{b.classList.remove('speaking');b.textContent='🔊';});
 
@@ -425,7 +433,6 @@ function toggleSpeak(btn){
   utter.onend=()=>{btn.classList.remove('speaking');btn.textContent='🔊';};
   utter.onerror=()=>{btn.classList.remove('speaking');btn.textContent='🔊';};
 
-  // Caso as vozes ainda não estejam carregadas, aguarda o evento
   if(voices.length===0){
     window.speechSynthesis.onvoiceschanged=()=>{
       window.speechSynthesis.onvoiceschanged=null;
@@ -463,6 +470,7 @@ recognition?.addEventListener('result',e=>{
   const ta=document.getElementById('userInput');
   ta.value=txt;
   autoResize(ta);
+  updateSendButton();
 });
 recognition?.addEventListener('end',()=>{listening=false;micBtn.classList.remove('text-green-600');});
 recognition?.addEventListener('error',e=>{showToast('Erro ao gravar: '+e.error,'error');});
@@ -484,7 +492,10 @@ function showToast(msg,type=''){
   setTimeout(()=>t.classList.add('hidden'),3500);
 }
 function handleKey(e){
-  if(e.key==='Enter' && !e.shiftKey){e.preventDefault();sendMessage();}
+  if(e.key==='Enter' && !e.shiftKey){
+    e.preventDefault();
+    sendMessage();
+  }
 }
 function autoResize(el){
   el.style.height='auto';
