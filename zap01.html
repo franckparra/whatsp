@@ -135,7 +135,7 @@ const PERSONAS = {
   "maria":{
     "nome":"Maria Clara",
     "avatar":"maria.jpg",
-    "badge":"",
+    "badge":"Persona Sintética",
     "welcomeTitle":"Olá! Sou a Maria Clara",
     "welcomeSubtitle":"31 anos - Rio de Janeiro - RJ",
     "welcomeQuote":"Sua amiga aqui no chat. Vamos conversar?",
@@ -464,8 +464,9 @@ micBtn.addEventListener('click',()=>{
     recognition.stop();
     return;
   }
-  recognition.start();
-  listening=true;
+  if (listening) { recognition.stop(); return; }
+  recognition.start(); 
+  listening = true;
   micBtn.classList.add('text-green-600');
 });
 recognition?.addEventListener('result',e=>{
