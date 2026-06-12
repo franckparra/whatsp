@@ -61,7 +61,7 @@
             placeholder="Digite sua conversa..."
             onkeydown="handleKey(event)"
             oninput="autoResize(this);updateSendButton()"></textarea>
-  <button id="sendBtn" class="w-10 h-10 bg-green-800 text-white rounded-full flex items-center justify-center hover:bg-green-900" disabled>➤</button>
+  <button id="sendBtn" onclick="sendMessage()" class="w-10 h-10 bg-green-800 text-white rounded-full flex items-center justify-center hover:bg-green-900" disabled>➤</button>
 </div>
 
 <!-- CONFIG PANEL -->
@@ -460,7 +460,10 @@ const micBtn=document.getElementById('micBtn');
 let listening=false;
 micBtn.addEventListener('click',()=>{
   if(!recognition){showToast('Reconhecimento de fala não disponível.','error');return;}
-  if(listening){recognition.stop();return;}
+  if(listening){
+    recognition.stop();
+    return;
+  }
   recognition.start();
   listening=true;
   micBtn.classList.add('text-green-600');
@@ -470,9 +473,9 @@ recognition?.addEventListener('result',e=>{
   const ta=document.getElementById('userInput');
   ta.value=txt;
   autoResize(ta);
-  updateSendButton();
+  updateSendButton(); // garante que o botão de envio fique ativo
 });
-recognition?.addEventListener('end',()=>{listening=false;micBtn.classList.remove('text-green-600');});
+recognition?.addEventListener('end',()=>{listening=false;micBtn.classList.remove('text-green-600');updateSendButton();});
 recognition?.addEventListener('error',e=>{showToast('Erro ao gravar: '+e.error,'error');});
 
 /* -------------------------------------------------
