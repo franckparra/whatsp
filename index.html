@@ -3,93 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <title>Whats Personas – Seleção</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#25D366">
-<meta name="description" content="Selecione uma persona para conversar ">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#166534">
+<meta name="description" content="Selecione uma persona para conversar">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
-<body class="flex flex-col min-h-screen bg-gray-100 text-gray-800 font-sans">
+<!-- 
+  h-[100dvh]: Altura dinâmica (ajusta-se à barra do navegador no mobile)
+  overflow-hidden: Impede scroll na página inteira, forçando o scroll apenas no MAIN 
+-->
+<body class="flex flex-col h-[100dvh] overflow-hidden bg-gray-100 text-gray-800 font-sans">
 
-<!-- HEADER -->
-<header class="bg-green-800 text-white flex items-center justify-between p-4 border-b border-gray-300 shadow-md">
+<!-- HEADER FIXO (TOPO) -->
+<header class="shrink-0 bg-green-800 text-white flex items-center justify-between p-4 border-b border-green-900 shadow-md z-10">
   <div class="flex items-center gap-3">
-    <div class="w-10 h-10 bg-white text-green-800 rounded-full flex items-center justify-center font-bold text-lg">WP</div>
+    <div class="w-10 h-10 bg-white text-green-800 rounded-full flex items-center justify-center font-bold text-lg shadow-inner">WP</div>
     <div>
-      <h1 class="text-sm font-semibold">Whats Personas</h1>
-      <p class="text-xs text-gray-200">Selecione uma persona para conversar</p>
+      <h1 class="text-sm font-semibold tracking-wide">Whats Personas</h1>
+      <p class="text-xs text-green-100 opacity-90">Selecione uma persona</p>
     </div>
+  </div>
+  <div class="text-white opacity-70">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+    </svg>
   </div>
 </header>
 
-<!-- LISTA DE PERSONAS – alinhada à esquerda -->
-<main class="flex-1 overflow-y-auto p-4">
-  <div class="flex flex-col gap-4 max-w-full">
+<!-- LISTA DE PERSONAS (CENTRO SCROLLÁVEL) -->
+<main class="flex-1 overflow-y-auto overflow-x-hidden py-3 px-2 bg-gray-100 scroll-smooth">
+  
+  <div class="flex flex-col gap-3 max-w-2xl mx-auto w-full">
+    
     <!-- Card 1 – Maria Clara -->
-    <a href="zap01.html" class="flex items-center gap-4 p-4 border border-gray-300 rounded-lg hover:shadow-lg transition-shadow bg-white">
-      <img src="maria.jpg" alt="Maria Clara" class="w-16 h-16 rounded-full border-2 border-green-800 object-cover">
-      <div>
-        <p class="font-medium text-gray-800">Maria Clara</p>
-        <p class="text-xs text-gray-500">31 anos - Rio de Janeiro - RJ</p>
-        <p class="text-xs text-gray-500">Persona Sintética</p>
+    <a href="zap01.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
+      <img src="maria.jpg" alt="Maria Clara" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
+      <div class="flex-1 min-w-0">
+        <p class="font-semibold text-gray-800 truncate">Maria Clara</p>
+        <p class="text-xs text-gray-500 truncate">31 anos • Rio de Janeiro</p>
+        <span class="inline-block mt-1 text-[10px] uppercase tracking-wider font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">Persona Sintética</span>
       </div>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-300 group-hover:text-green-600 transition-colors">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+      </svg>
     </a>
 
     <!-- Card 2 – Laura Oliveira -->
-    <a href="zap02.html" class="flex items-center gap-4 p-4 border border-gray-300 rounded-lg hover:shadow-lg transition-shadow bg-white">
-      <img src="laura.jpg" alt="Laura Oliveira" class="w-16 h-16 rounded-full border-2 border-green-800 object-cover">
-      <div>
-        <p class="font-medium text-gray-800">Laura Oliveira</p>
-        <p class="text-xs text-gray-500">28 anos - Rio de Janeiro - RJ</p>
-        <p class="text-xs text-gray-500">Persona Sintética</p>
+    <a href="zap02.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
+      <img src="laura.jpg" alt="Laura Oliveira" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
+      <div class="flex-1 min-w-0">
+        <p class="font-semibold text-gray-800 truncate">Laura Oliveira</p>
+        <p class="text-xs text-gray-500 truncate">28 anos • Rio de Janeiro</p>
+        <span class="inline-block mt-1 text-[10px] uppercase tracking-wider font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">Persona Sintética</span>
       </div>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-300 group-hover:text-green-600 transition-colors">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+      </svg>
     </a>
 
     <!-- Card 3 – Fernanda Ribeiro -->
-    <a href="zap03.html" class="flex items-center gap-4 p-4 border border-gray-300 rounded-lg hover:shadow-lg transition-shadow bg-white">
-      <img src="fernanda.jpg" alt="Fernanda Ribeiro" class="w-16 h-16 rounded-full border-2 border-green-800 object-cover">
-      <div>
-        <p class="font-medium text-gray-800">Fernanda Ribeiro</p>
-        <p class="text-xs text-gray-500">38 anos - Belo Horizonte - MG</p>
-        <p class="text-xs text-gray-500">Persona Sintética</p>
+    <a href="zap03.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
+      <img src="fernanda.jpg" alt="Fernanda Ribeiro" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
+      <div class="flex-1 min-w-0">
+        <p class="font-semibold text-gray-800 truncate">Fernanda Ribeiro</p>
+        <p class="text-xs text-gray-500 truncate">38 anos • Belo Horizonte</p>
+        <span class="inline-block mt-1 text-[10px] uppercase tracking-wider font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">Persona Sintética</span>
       </div>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-300 group-hover:text-green-600 transition-colors">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+      </svg>
     </a>
 
     <!-- Card 4 – Flávio Carvalho -->
-    <a href="zap04.html" class="flex items-center gap-4 p-4 border border-gray-300 rounded-lg hover:shadow-lg transition-shadow bg-white">
-      <img src="flavio.jpg" alt="Flávio Carvalho" class="w-16 h-16 rounded-full border-2 border-green-800 object-cover">
-      <div>
-        <p class="font-medium text-gray-800">Flávio Carvalho</p>
-        <p class="text-xs text-gray-500">31 anos - Porto Alegre - RS</p>
-        <p class="text-xs text-gray-500">Persona Sintética</p>
+    <a href="zap04.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
+      <img src="flavio.jpg" alt="Flávio Carvalho" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
+      <div class="flex-1 min-w-0">
+        <p class="font-semibold text-gray-800 truncate">Flávio Carvalho</p>
+        <p class="text-xs text-gray-500 truncate">31 anos • Porto Alegre</p>
+        <span class="inline-block mt-1 text-[10px] uppercase tracking-wider font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">Persona Sintética</span>
       </div>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-300 group-hover:text-green-600 transition-colors">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+      </svg>
     </a>
 
     <!-- Card 5 – Ricardo Costa -->
-    <a href="zap05.html" class="flex items-center gap-4 p-4 border border-gray-300 rounded-lg hover:shadow-lg transition-shadow bg-white">
-      <img src="ricardo.jpg" alt="Ricardo Costa" class="w-16 h-16 rounded-full border-2 border-green-800 object-cover">
-      <div>
-        <p class="font-medium text-gray-800">Ricardo Costa</p>
-        <p class="text-xs text-gray-500">40 anos - Salvador - BA</p>
-        <p class="text-xs text-gray-500">Persona Sintética</p>
+    <a href="zap05.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
+      <img src="ricardo.jpg" alt="Ricardo Costa" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
+      <div class="flex-1 min-w-0">
+        <p class="font-semibold text-gray-800 truncate">Ricardo Costa</p>
+        <p class="text-xs text-gray-500 truncate">40 anos • Salvador</p>
+        <span class="inline-block mt-1 text-[10px] uppercase tracking-wider font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">Persona Sintética</span>
       </div>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-300 group-hover:text-green-600 transition-colors">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+      </svg>
     </a>
 
     <!-- Card 6 – Tiago Martins -->
-    <a href="zap06.html" class="flex items-center gap-4 p-4 border border-gray-300 rounded-lg hover:shadow-lg transition-shadow bg-white">
-      <img src="tiago.jpg" alt="Tiago Martins" class="w-16 h-16 rounded-full border-2 border-green-800 object-cover">
-      <div>
-        <p class="font-medium text-gray-800">Tiago Martins</p>
-        <p class="text-xs text-gray-500">47 anos - Curitiba - PR</p>
-        <p class="text-xs text-gray-500">Persona Sintética</p> 
+    <a href="zap06.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
+      <img src="tiago.jpg" alt="Tiago Martins" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
+      <div class="flex-1 min-w-0">
+        <p class="font-semibold text-gray-800 truncate">Tiago Martins</p>
+        <p class="text-xs text-gray-500 truncate">47 anos • Curitiba</p>
+        <span class="inline-block mt-1 text-[10px] uppercase tracking-wider font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">Persona Sintética</span>
       </div>
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-300 group-hover:text-green-600 transition-colors">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+      </svg>
     </a>
+    
+    <div class="h-2"></div>
   </div>
 </main>
 
-<!-- DISCLAIMER -->
-<footer class="text-center text-xs text-gray-500 bg-white p-2 border-t border-gray-300">
-  TOKEN – Synthetic Language Personas · <a href="https://tokenslp.com.br" target="_blank" rel="noopener" class="text-blue-600">tokenslp.com.br</a>
+<!-- FOOTER FIXO (RODAPÉ) -->
+<footer class="shrink-0 text-center text-[10px] text-gray-400 bg-white p-3 border-t border-gray-200 shadow-[0_-2px_5px_rgba(0,0,0,0.02)]">
+  <p>TOKEN – Synthetic Language Personas</p>
+  <a href="https://tokenslp.com.br" target="_blank" rel="noopener" class="text-green-700 font-medium hover:underline">tokenslp.com.br</a>
 </footer>
 
 </body>
