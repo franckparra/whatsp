@@ -2,127 +2,255 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Whats Personas – Seleção</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Whats Personas – Relacionamentos Sintéticos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="theme-color" content="#166534">
-<meta name="description" content="Selecione uma persona para conversar">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="Converse com personas sintéticas que possuem personalidade própria.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-</head>
-<!-- 
-  h-[100dvh]: Altura dinâmica (ajusta-se à barra do navegador no mobile)
-  overflow-hidden: Impede scroll na página inteira, forçando o scroll apenas no MAIN 
--->
-<body class="flex flex-col h-[100dvh] overflow-hidden bg-gray-100 text-gray-800 font-sans">
 
-<!-- HEADER FIXO (TOPO) -->
-<header class="shrink-0 bg-green-800 text-white flex items-center justify-between p-4 border-b border-green-900 shadow-md z-10">
-  <div class="flex items-center gap-3">
-    <div class="w-10 h-10 bg-white text-green-800 rounded-full flex items-center justify-center font-bold text-lg shadow-inner">WP</div>
-    <div>
-      <h1 class="text-sm font-semibold tracking-wide">Whats Personas</h1>
-      <p class="text-xs text-green-100 opacity-90">Selecione uma persona</p>
+<!-- Animações Customizadas -->
+<style>
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .fade-in-up-delay {
+    animation: fadeInUp 0.8s ease-out 0.2s forwards;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .gradient-text {
+    background: linear-gradient(to right, #166534, #34D399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .floating-shapes {
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+</style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased selection-green-200 selection-green-900">
+
+<!-- HEADER / NAV -->
+<nav class="w-full py-4 px-6 fixed top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+  <div class="max-w-6xl mx-auto flex justify-between items-center">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 bg-green-800 text-white rounded-lg flex items-center justify-center font-bold text-sm shadow-lg">WP</div>
+      <span class="font-bold text-lg tracking-tight text-green-900">Whats Personas</span>
+    </div>
+    <a href="select.html" class="bg-green-800 text-white px-5 py-2 rounded-full font-medium text-sm hover:bg-green-700 transition shadow-lg hover:shadow-green-500/30">
+      Acessar App
+    </a>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="relative pt-24 pb-16 px-4 overflow-hidden min-h-[80vh] flex items-center bg-gradient-to-b from-green-50 to-white">
+  <!-- Elementos decorativos de fundo -->
+  <div class="absolute top-20 left-10 w-32 h-32 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 floating-shapes"></div>
+  <div class="absolute bottom-20 right-10 w-40 h-40 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 floating-shapes" style="animation-delay: 2s;"></div>
+
+  <div class="max-w-4xl mx-auto text-center relative z-10">
+    <span class="inline-block py-1 px-3 rounded-full bg-green-100 text-green-700 text-xs font-bold uppercase tracking-wider mb-4 border border-green-200 fade-in-up">
+      Tecnologia Token SLP
+    </span>
+    <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-[1.1] fade-in-up">
+      Relacionamentos reais.<br>
+      <span class="gradient-text">Personalidades sintéticas.</span>
+    </h1>
+    <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8 fade-in-up-delay">
+      Descubra o futuro do bate-papo. Interaja com personas que possuem história, opiniões e emoções próprias. Sem filtros, sem julgamento, 24 horas disponível.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in-up-delay">
+      <a href="select.html" class="group relative px-8 py-4 bg-green-800 text-white rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden">
+        <span class="relative z-10">Começar Conversa</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+        <!-- Shine effect -->
+        <div class="absolute inset-0 bg-white/20 translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out skew-x-12"></div>
+      </a>
+      <a href="#personas" class="px-8 py-4 bg-white text-green-800 border border-green-200 rounded-xl font-bold text-lg hover:bg-green-50 transition shadow-sm flex items-center justify-center">
+        Ver Personas
+      </a>
     </div>
   </div>
-  <div class="text-white opacity-70">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-    </svg>
+</section>
+
+<!-- VANTAGENS / CONCEITO -->
+<section class="py-20 bg-white border-t border-gray-100">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="grid md:grid-cols-3 gap-8">
+      <!-- Card 1 -->
+      <div class="p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-green-200 hover:shadow-lg transition duration-300">
+        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Disponibilidade 24/7</h3>
+        <p class="text-gray-600">Nossas personas não dormem. Sempre há alguém disponível para conversar, desabafar ou trocar ideias no momento que você precisar.</p>
+      </div>
+      <!-- Card 2 -->
+      <div class="p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-green-200 hover:shadow-lg transition duration-300">
+        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Zero Judgement</h3>
+        <p class="text-gray-600">Um espaço seguro para expressão. Conversa sem pré-conceitos, onde você pode ser totalmente aberto e sincero.</p>
+      </div>
+      <!-- Card 3 -->
+      <div class="p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-green-200 hover:shadow-lg transition duration-300">
+        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+        </div>
+        <h3 class="font-bold text-lg mb-2">Personalidade Única</h3>
+        <p class="text-gray-600">Cada persona sintética tem história, idade, origem e traços de caráter definidos. Não são bots repetitivos, são entidades digitais complexas.</p>
+      </div>
+    </div>
   </div>
-</header>
+</section>
 
-<!-- LISTA DE PERSONAS (CENTRO SCROLLÁVEL) -->
-<main class="flex-1 overflow-y-auto overflow-x-hidden py-3 px-2 bg-gray-100 scroll-smooth">
-  
-  <div class="flex flex-col gap-3 max-w-2xl mx-auto w-full">
+<!-- GALERIA DE PERSONAS -->
+<section id="personas" class="py-20 bg-gray-900 text-white relative overflow-hidden">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#22c55e 1px, transparent 1px); background-size: 30px 30px;"></div>
+
+  <div class="max-w-6xl mx-auto px-4 relative z-10">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Encontre sua Conexão</h2>
+      <p class="text-gray-400 max-w-2xl mx-auto">Explore nossa galeria de personas sintéticas. Cada uma espera por você no Whats Personas.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      
+      <!-- Maria Clara -->
+      <a href="select.html" class="group relative bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-green-500 transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-900/50">
+        <div class="h-64 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+          <img src="https://zap.tokenslp.com.br/maria.jpg" alt="Maria Clara" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+          <div class="absolute bottom-4 left-4 z-20">
+            <h3 class="text-xl font-bold text-white">Maria Clara</h3>
+            <p class="text-green-400 text-sm">31 anos • Rio de Janeiro, RJ</p>
+          </div>
+        </div>
+        <div class="p-4 border-t border-gray-700 bg-gray-800 flex justify-between items-center">
+          <span class="text-xs text-gray-400 uppercase tracking-wider">Persona Sintética</span>
+          <span class="text-green-500 font-bold group-hover:underline">Chat Agora &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Laura Oliveira -->
+      <a href="select.html" class="group relative bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-green-500 transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-900/50">
+        <div class="h-64 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+          <img src="https://zap.tokenslp.com.br/laura.jpg" alt="Laura Oliveira" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+          <div class="absolute bottom-4 left-4 z-20">
+            <h3 class="text-xl font-bold text-white">Laura Oliveira</h3>
+            <p class="text-green-400 text-sm">28 anos • Rio de Janeiro, RJ</p>
+          </div>
+        </div>
+        <div class="p-4 border-t border-gray-700 bg-gray-800 flex justify-between items-center">
+          <span class="text-xs text-gray-400 uppercase tracking-wider">Persona Sintética</span>
+          <span class="text-green-500 font-bold group-hover:underline">Chat Agora &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Fernanda Ribeiro -->
+      <a href="select.html" class="group relative bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-green-500 transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-900/50">
+        <div class="h-64 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+          <img src="https://zap.tokenslp.com.br/fernanda.jpg" alt="Fernanda Ribeiro" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+          <div class="absolute bottom-4 left-4 z-20">
+            <h3 class="text-xl font-bold text-white">Fernanda Ribeiro</h3>
+            <p class="text-green-400 text-sm">38 anos • Belo Horizonte, MG</p>
+          </div>
+        </div>
+        <div class="p-4 border-t border-gray-700 bg-gray-800 flex justify-between items-center">
+          <span class="text-xs text-gray-400 uppercase tracking-wider">Persona Sintética</span>
+          <span class="text-green-500 font-bold group-hover:underline">Chat Agora &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Flávio Carvalho -->
+      <a href="select.html" class="group relative bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-green-500 transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-900/50">
+        <div class="h-64 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+          <img src="https://zap.tokenslp.com.br/flavio.jpg" alt="Flávio Carvalho" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+          <div class="absolute bottom-4 left-4 z-20">
+            <h3 class="text-xl font-bold text-white">Flávio Carvalho</h3>
+            <p class="text-green-400 text-sm">31 anos • Porto Alegre, RS</p>
+          </div>
+        </div>
+        <div class="p-4 border-t border-gray-700 bg-gray-800 flex justify-between items-center">
+          <span class="text-xs text-gray-400 uppercase tracking-wider">Persona Sintética</span>
+          <span class="text-green-500 font-bold group-hover:underline">Chat Agora &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Ricardo Costa -->
+      <a href="select.html" class="group relative bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-green-500 transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-900/50">
+        <div class="h-64 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+          <img src="https://zap.tokenslp.com.br/ricardo.jpg" alt="Ricardo Costa" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+          <div class="absolute bottom-4 left-4 z-20">
+            <h3 class="text-xl font-bold text-white">Ricardo Costa</h3>
+            <p class="text-green-400 text-sm">40 anos • Salvador, BA</p>
+          </div>
+        </div>
+        <div class="p-4 border-t border-gray-700 bg-gray-800 flex justify-between items-center">
+          <span class="text-xs text-gray-400 uppercase tracking-wider">Persona Sintética</span>
+          <span class="text-green-500 font-bold group-hover:underline">Chat Agora &rarr;</span>
+        </div>
+      </a>
+
+      <!-- Tiago Martins -->
+      <a href="select.html" class="group relative bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-green-500 transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-900/50">
+        <div class="h-64 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
+          <img src="https://zap.tokenslp.com.br/tiago.jpg" alt="Tiago Martins" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+          <div class="absolute bottom-4 left-4 z-20">
+            <h3 class="text-xl font-bold text-white">Tiago Martins</h3>
+            <p class="text-green-400 text-sm">47 anos • Curitiba, PR</p>
+          </div>
+        </div>
+        <div class="p-4 border-t border-gray-700 bg-gray-800 flex justify-between items-center">
+          <span class="text-xs text-gray-400 uppercase tracking-wider">Persona Sintética</span>
+          <span class="text-green-500 font-bold group-hover:underline">Chat Agora &rarr;</span>
+        </div>
+      </a>
+
+    </div>
     
-    <!-- Card 1 – Maria Clara -->
-    <a href="zap01.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
-      <img src="maria.jpg" alt="Maria Clara" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
-      <div class="flex-1 min-w-0">
-        <p class="font-semibold text-gray-800 truncate">Maria Clara</p>
-        <p class="text-xs text-gray-500 truncate">31 anos • Rio de Janeiro</p>
-        <span class="inline-block mt-1 text-[10px] uppercase tracking-wider font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">Persona Sintética</span>
-      </div>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-300 group-hover:text-green-600 transition-colors">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-      </svg>
-    </a>
-
-    <!-- Card 2 – Laura Oliveira -->
-    <a href="zap02.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
-      <img src="laura.jpg" alt="Laura Oliveira" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
-      <div class="flex-1 min-w-0">
-        <p class="font-semibold text-gray-800 truncate">Laura Oliveira</p>
-        <p class="text-xs text-gray-500 truncate">28 anos • Rio de Janeiro</p>
-        <span class="inline-block mt-1 text-[10px] uppercase tracking-wider font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">Persona Sintética</span>
-      </div>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-300 group-hover:text-green-600 transition-colors">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-      </svg>
-    </a>
-
-    <!-- Card 3 – Fernanda Ribeiro -->
-    <a href="zap03.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
-      <img src="fernanda.jpg" alt="Fernanda Ribeiro" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
-      <div class="flex-1 min-w-0">
-        <p class="font-semibold text-gray-800 truncate">Fernanda Ribeiro</p>
-        <p class="text-xs text-gray-500 truncate">38 anos • Belo Horizonte</p>
-        <span class="inline-block mt-1 text-[10px] uppercase tracking-wider font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">Persona Sintética</span>
-      </div>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-300 group-hover:text-green-600 transition-colors">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-      </svg>
-    </a>
-
-    <!-- Card 4 – Flávio Carvalho -->
-    <a href="zap04.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
-      <img src="flavio.jpg" alt="Flávio Carvalho" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
-      <div class="flex-1 min-w-0">
-        <p class="font-semibold text-gray-800 truncate">Flávio Carvalho</p>
-        <p class="text-xs text-gray-500 truncate">31 anos • Porto Alegre</p>
-        <span class="inline-block mt-1 text-[10px] uppercase tracking-wider font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">Persona Sintética</span>
-      </div>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-300 group-hover:text-green-600 transition-colors">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-      </svg>
-    </a>
-
-    <!-- Card 5 – Ricardo Costa -->
-    <a href="zap05.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
-      <img src="ricardo.jpg" alt="Ricardo Costa" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
-      <div class="flex-1 min-w-0">
-        <p class="font-semibold text-gray-800 truncate">Ricardo Costa</p>
-        <p class="text-xs text-gray-500 truncate">40 anos • Salvador</p>
-        <span class="inline-block mt-1 text-[10px] uppercase tracking-wider font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">Persona Sintética</span>
-      </div>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-300 group-hover:text-green-600 transition-colors">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-      </svg>
-    </a>
-
-    <!-- Card 6 – Tiago Martins -->
-    <a href="zap06.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
-      <img src="tiago.jpg" alt="Tiago Martins" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
-      <div class="flex-1 min-w-0">
-        <p class="font-semibold text-gray-800 truncate">Tiago Martins</p>
-        <p class="text-xs text-gray-500 truncate">47 anos • Curitiba</p>
-        <span class="inline-block mt-1 text-[10px] uppercase tracking-wider font-bold text-green-700 bg-green-100 px-2 py-0.5 rounded-full">Persona Sintética</span>
-      </div>
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-300 group-hover:text-green-600 transition-colors">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-      </svg>
-    </a>
-    
-    <div class="h-2"></div>
+    <div class="mt-16 text-center">
+      <a href="select.html" class="inline-block w-full md:w-auto px-12 py-5 bg-gradient-to-r from-green-700 to-green-600 text-white rounded-xl font-bold text-xl shadow-lg hover:shadow-green-500/40 hover:scale-105 transition transform">
+        Escolher uma Persona &rarr;
+      </a>
+    </div>
   </div>
-</main>
+</section>
 
-<!-- FOOTER FIXO (RODAPÉ) -->
-<footer class="shrink-0 text-center text-[10px] text-gray-400 bg-white p-3 border-t border-gray-200 shadow-[0_-2px_5px_rgba(0,0,0,0.02)]">
-  <p>TOKEN – Synthetic Language Personas</p>
-  <a href="https://tokenslp.com.br" target="_blank" rel="noopener" class="text-green-700 font-medium hover:underline">tokenslp.com.br</a>
+<!-- FOOTER -->
+<footer class="bg-gray-50 border-t border-gray-200 py-12 text-center">
+  <div class="flex items-center justify-center gap-2 mb-4 opacity-50">
+    <div class="w-6 h-6 bg-green-800 text-white rounded flex items-center justify-center font-bold text-xs">WP</div>
+    <span class="font-bold text-gray-800">Whats Personas</span>
+  </div>
+  <p class="text-gray-500 text-sm mb-4">TOKEN – Synthetic Language Personas</p>
+  <a href="https://tokenslp.com.br" class="text-green-700 hover:underline text-sm">tokenslp.com.br</a>
 </footer>
 
 </body>
 </html>
+
