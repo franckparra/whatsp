@@ -392,8 +392,8 @@ function renderMessage(role,content,animate=true){
   const bubbleContent = `
     <div class="max-w-[85%] sm:max-w-[75%]">
         <div class="flex items-baseline gap-2 ${isBot ? 'flex-row' : 'flex-row-reverse'}">
-            <span class="text-[10px] font-bold ${nameColor}">${nameText}</span>
-            <span class="text-[10px] text-gray-400">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+            <span class="text-[12px] font-bold ${nameColor}">${nameText}</span>
+            <span class="text-[12px] text-gray-400">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
         </div>
         <div class="px-3 py-2 shadow-sm text-sm leading-relaxed whitespace-pre-wrap ${msgBubbleClass}">${formatMessage(content)}</div>
         ${isBot ? `<div class="mt-1 flex gap-2">
