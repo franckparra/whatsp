@@ -530,45 +530,96 @@ async function callAPI(){
   if(!data.reply)throw new Error('Resposta vazia');
   return data.reply;
 }
-
 /* -------------------------------------------------
-   TTS
+   TTS - VERSÃO FINAL CORRIGIDA
    ------------------------------------------------- */
-function toggleSpeak(btn){
-  const text=decodeURIComponent(btn.dataset.text);
-  if(!text) return;
-  
-  if(window.speechSynthesis.speaking && btn.classList.contains('speaking')){
+let currentUtterance = null;
+
+function toggleSpeak(btn) {
+  // ✅ CORREÇÃO: Decodificar o texto do dataset
+  const txt = decodeURIComponent(btn.dataset.text);
+  if (!txt) return;
+
+  // Se já estiver falando, para
+  if (btn.classList.contains('speaking')) {
     window.speechSynthesis.cancel();
     btn.classList.remove('speaking');
-    btn.textContent='🔊';
+    btn.textContent = '🔊';
+    currentUtterance = null;
     return;
   }
-  
+
+  // Cancela outras falas ativas
   window.speechSynthesis.cancel();
-  document.querySelectorAll('button[data-text].speaking').forEach(b=>{b.classList.remove('speaking');b.textContent='🔊';});
-  
-  const clean=text.replace(/\*\*/g,'').replace(/\*/g,'').replace(/^#+\s/gm,'').trim();
-  const utter=new SpeechSynthesisUtterance(clean);
-  utter.lang='pt-BR';
-  utter.rate=0.95;
-    
-  const gender=getPersonaGender(getPersonaId());
-  utter.rate=gender==='female'?0.88:0.85;
-  utter.pitch=gender==='female'?1.0:0.9;  
+  document.querySelectorAll('button[data-text].speaking').forEach(b => {
+    b.classList.remove('speaking');
+    b.textContent = '🔊';
+  });
 
+  // Limpeza do texto (remove formatação Markdown)
+  const clean = txt.replace(/\*\*/g, '').replace(/\*/g, '').replace(/^#+\s/gm, '').trim();
+  const utter = new SpeechSynthesisUtterance(clean);
+  utter.lang = 'pt-BR';
+  utter.rate = 0.88;
+  utter.pitch = 1.0;
 
-  const voices=window.speechSynthesis.getVoices();
-  const voice=voices.find(v=>v.lang==='pt-BR' && (gender==='female'?/(francisca|vitoria|luciana)/i.test(v.name):/(daniel|ricardo)/i.test(v.name)))||voices.find(v=>v.lang==='pt-BR')||voices[0];
+  // Eventos de controle
+  utter.onstart = () => {
+    btn.classList.add('speaking');
+    btn.textContent = '⏹';
+  };
+  utter.onend = () => {
+    btn.classList.remove('speaking');
+    btn.textContent = '🔊';
+    currentUtterance = null;
+  };
+  utter.onerror = () => {
+    btn.classList.remove('speaking');
+    btn.textContent = '🔊';
+    currentUtterance = null;
+  };
 
-  if(voice) utter.voice=voice;
-  
-  btn.classList.add('speaking');
-  btn.textContent='⏹';
-  utter.onend=()=>{btn.classList.remove('speaking');btn.textContent='🔊';};
-  utter.onerror=()=>{btn.classList.remove('speaking');btn.textContent='🔊';};
-  
-  window.speechSynthesis.speak(utter);
+  currentUtterance = utter;
+
+  // Função interna para selecionar voz e falar
+  const speak = () => {
+    const voices = window.speechSynthesis.getVoices();
+    const gender = getPersonaGender(getPersonaId());
+
+    let selectedVoice = null;
+
+    if (gender === 'female') {
+      selectedVoice = voices.find(v =>
+        v.lang.includes('pt-BR') &&
+        /francisca|vitoria|luciana|female|google português do brasil/i.test(v.name)
+      );
+      utter.pitch = 1.1;
+    } else {
+      selectedVoice = voices.find(v =>
+        v.lang.includes('pt-BR') &&
+        /daniel|ricardo|bruno|fabio|male/i.test(v.name)
+      );
+      utter.pitch = 0.9;
+    }
+
+    // Fallback: qualquer voz em português
+    if (!selectedVoice) {
+      selectedVoice = voices.find(v => v.lang.includes('pt-BR')) || voices.find(v => v.lang.startsWith('pt'));
+    }
+
+    if (selectedVoice) utter.voice = selectedVoice;
+    window.speechSynthesis.speak(utter);
+  };
+
+  // Carregamento assíncrono das vozes
+  if (window.speechSynthesis.getVoices().length === 0) {
+    window.speechSynthesis.onvoiceschanged = () => {
+      window.speechSynthesis.onvoiceschanged = null;
+      speak();
+    };
+  } else {
+    speak();
+  }
 }
 
 /* -------------------------------------------------
