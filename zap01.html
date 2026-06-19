@@ -3,133 +3,211 @@
 <head>
 <meta charset="UTF-8">
 <title>Whats Personas – Maria Clara</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<!-- Viewport ajustado para mobile -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#25D366">
 <meta name="description" content="Chat com persona sintética – Maria Clara">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+<style>
+    /* Animação customizada para os pontinhos de digitação */
+    @keyframes typing-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-5px); }
+    }
+    .dot-anim {
+        animation: typing-bounce 1.4s infinite ease-in-out both;
+    }
+    .dot-1 { animation-delay: 0s; }
+    .dot-2 { animation-delay: 0.2s; }
+    .dot-3 { animation-delay: 0.4s; }
+
+    /* CORREÇÃO MOBILE: Usar dvh (dynamic viewport height) */
+    .app-container {
+        height: 100vh;
+        height: 100dvh; /* Dynamic viewport height para mobile */
+    }
+
+    /* Ajuste para iPhone com notch */
+    @supports (padding-top: env(safe-area-inset-top)) {
+        #chatHeader {
+            padding-top: calc(0.75rem + env(safe-area-inset-top));
+        }
+        .input-area {
+            padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+        }
+    }
+
+    /* Garantir que o textarea não seja zoomado no iOS */
+    textarea {
+        font-size: 16px !important;
+    }
+
+    /* Scroll suave */
+    #chat {
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Esconder scrollbar mas permitir scroll */
+    #chat::-webkit-scrollbar {
+        width: 4px;
+    }
+    #chat::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 4px;
+    }
+</style>
 </head>
-<body class="flex flex-col min-h-screen font-inter bg-gray-100 text-gray-800">
+<!-- CORREÇÃO: Remover overflow-hidden do body, usar no container -->
+<body class="flex flex-col font-inter bg-gray-100 text-gray-800 m-0 p-0">
 
-<!-- HEADER -->
-<header id="chatHeader" class="bg-green-800 text-white flex items-center justify-between p-3 border-b border-gray-300 shadow-md">
-  <div class="flex items-center gap-3">
-    <div class="w-14 h-14 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
-      <img id="avatarHeader" src="" alt="Avatar" class="w-full h-full object-cover">
+<!-- CONTAINER PRINCIPAL COM ALTURA DINÂMICA -->
+<div class="app-container flex flex-col overflow-hidden">
+
+    <!-- HEADER FIXO -->
+    <header id="chatHeader" class="flex-shrink-0 bg-green-800 text-white flex items-center justify-between px-3 py-2 sm:p-3 border-b border-gray-300 shadow-md z-10">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden border-2 border-green-700 flex-shrink-0">
+          <img id="avatarHeader" src="" alt="Avatar" class="w-full h-full object-cover">
+        </div>
+        <div class="min-w-0 flex-1">
+          <h1 id="headerName" class="text-sm sm:text-base font-semibold leading-tight truncate">Carregando…</h1>
+          <p id="headerBadge" class="text-xs text-gray-200 truncate"></p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 flex-shrink-0">
+        <div class="flex items-center gap-1 text-xs text-gray-200 bg-green-900/30 px-2 py-1 rounded-full">
+          <div id="statusDot" class="w-2 h-2 rounded-full bg-green-400 animate-pulse flex-shrink-0"></div>
+          <span id="statusText" class="hidden sm:inline">Online</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTROLES DA CONVERSA -->
+    <div class="flex-shrink-0 flex justify-center gap-3 p-2 bg-gray-200/50 border-b border-gray-300">
+      <button class="bg-green-800 text-white px-3 py-1.5 rounded text-xs hover:bg-green-900 transition active:scale-95" onclick="exitChat()">Sair</button>
+      <button class="bg-gray-600 text-white px-3 py-1.5 rounded text-xs hover:bg-gray-700 transition active:scale-95" onclick="clearChat()">Limpar</button>
     </div>
-    <div>
-      <h1 id="headerName" class="text-sm font-semibold">Carregando…</h1>
-      <p id="headerBadge" class="text-xs text-gray-200"></p>
+
+    <!-- CHAT AREA (ÚNICA ÁREA QUE ROLA) -->
+    <!-- flex-1 ocupa espaço restante, overflow-y-auto permite scroll -->
+    <div id="chat" class="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 flex flex-col gap-3 sm:gap-4 bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')] bg-repeat bg-fixed">
+      <!-- WELCOME -->
+      <div id="welcome" class="flex flex-col items-center text-center animate-fadeIn mt-4 mb-auto">
+        <div id="welcomeAvatar" class="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-green-800 flex items-center justify-center text-white text-3xl mb-3 shadow-lg border-4 border-white flex-shrink-0"></div>
+        <div id="welcomeBadge" class="inline-block bg-green-100 text-green-800 text-xs font-bold uppercase px-3 py-1 rounded-full mb-2 border border-green-200"></div>
+        <h2 id="welcomeTitle" class="text-lg sm:text-xl font-bold mb-1 text-gray-800 px-2"></h2>
+        <h3 id="welcomeSubtitle" class="text-sm text-gray-600 mb-3 font-medium px-2"></h3>
+        <blockquote id="welcomeQuote" class="bg-white border-l-4 border-green-800 p-3 sm:p-4 rounded-lg shadow-md max-w-sm sm:max-w-md text-left text-gray-700 italic text-sm mx-2"></blockquote>
+      </div>
     </div>
-  </div>
-  <div class="flex items-center gap-2">
-    <div class="flex items-center gap-1 text-xs text-gray-200">
-      <div id="statusDot" class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
-      <span id="statusText">Disponível</span>
+
+    <!-- INPUT AREA FIXO (RODAPÉ) -->
+    <!-- flex-shrink-0 impede que ele colapse -->
+    <div class="input-area flex-shrink-0 bg-white border-t border-gray-300 p-2 sm:p-3 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+      <div class="flex items-end gap-2 max-w-4xl mx-auto">
+        <button id="configBtn" class="w-9 h-9 sm:w-10 sm:h-10 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300 transition active:scale-95 flex-shrink-0"
+                title="Configurações" onclick="toggleConfig()">⚙</button>
+        
+        <button id="micBtn" class="w-9 h-9 sm:w-10 sm:h-10 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300 transition active:scale-95 flex-shrink-0"
+                title="Gravar voz">🎤</button>
+                
+        <textarea id="userInput" rows="1"
+                  class="flex-1 bg-gray-100 border border-gray-300 rounded-2xl px-3 sm:px-4 py-2 sm:py-3 resize-none focus:outline-none focus:ring-2 focus:ring-green-500 focus:bg-white transition-all max-h-32 text-sm sm:text-base min-h-[44px]"
+                  placeholder="Mensagem..."
+                  onkeydown="handleKey(event)"
+                  oninput="autoResize(this);updateSendButton()"></textarea>
+                  
+        <button id="sendBtn" onclick="sendMessage()" class="w-10 h-10 sm:w-11 sm:h-11 bg-green-800 text-white rounded-full flex items-center justify-center hover:bg-green-900 transition active:scale-95 shadow-md disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 transform rotate-45 sm:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+          </svg>
+        </button>
+      </div>
     </div>
-  </div>
-</header>
 
-<!-- CONTROLES DA CONVERSA -->
-<div class="flex justify-center gap-3 p-2 bg-gray-100 border-b border-gray-300">
-  <button class="bg-green-800 text-white px-4 py-1 rounded hover:bg-green-900" onclick="exitChat()">Sair da Conversa</button>
-  <button class="bg-green-800 text-white px-4 py-1 rounded hover:bg-green-900" onclick="clearChat()">Limpar Conversa</button>
-</div>
-
-<!-- CHAT AREA -->
-<div id="chat" class="flex-1 overflow-y-auto p-4 flex flex-col gap-4 bg-gray-100">
-
-  <!-- WELCOME -->
-  <div id="welcome" class="flex flex-col items-center text-center animate-fadeIn">
-    <div id="welcomeAvatar" class="w-36 h-36 rounded-full bg-green-800 flex items-center justify-center text-white text-3xl mb-4"></div>
-    <div id="welcomeBadge" class="inline-block bg-gray-300 text-gray-600 text-xs font-medium uppercase px-2 py-1 rounded-full mb-2"></div>
-    <h2 id="welcomeTitle" class="text-lg font-semibold mb-1"></h2>
-    <h3 id="welcomeSubtitle" class="text-sm text-gray-600 mb-3"></h3>
-    <blockquote id="welcomeQuote" class="bg-white border-l-4 border-green-800 p-3 rounded shadow-sm max-w-xl text-left text-gray-700 italic"></blockquote>
-  </div>
-
-</div>
-
-<!-- INPUT AREA -->
-<div class="flex items-end gap-2 p-3 bg-white border-t border-gray-300 shadow-inner">
-  <button id="configBtn" class="w-10 h-10 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300"
-          title="Configurações" onclick="toggleConfig()">⚙</button>
-  <button id="micBtn" class="w-10 h-10 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300"
-          title="Gravar voz">🎤</button>
-  <textarea id="userInput" rows="1"
-            class="flex-1 bg-gray-200 border border-gray-300 rounded-full px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-green-500"
-            placeholder="Digite sua conversa..."
-            onkeydown="handleKey(event)"
-            oninput="autoResize(this);updateSendButton()"></textarea>
-  <button id="sendBtn" onclick="sendMessage()" class="w-10 h-10 bg-green-800 text-white rounded-full flex items-center justify-center hover:bg-green-900" disabled>➤</button>
-</div>
+</div> <!-- FIM DO CONTAINER PRINCIPAL -->
 
 <!-- CONFIG PANEL -->
 <div id="configPanel"
-     class="fixed inset-0 bg-white flex flex-col p-6 transform translate-x-full transition-transform duration-300 overflow-y-auto z-50">
-  <div class="flex justify-between items-center mb-4">
-    <h2 class="text-xl font-semibold">⚙ Configurações</h2>
-    <button class="text-2xl font-bold" onclick="toggleConfig()">✕</button>
+     class="fixed inset-0 bg-white/95 backdrop-blur-sm flex flex-col p-4 sm:p-6 transform translate-x-full transition-transform duration-300 overflow-y-auto z-50">
+  <div class="flex justify-between items-center mb-4 sm:mb-6 border-b pb-4">
+    <h2 class="text-xl sm:text-2xl font-bold text-gray-800">⚙ Configurações</h2>
+    <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200" onclick="toggleConfig()">✕</button>
   </div>
-  <p class="text-sm text-gray-600 mb-6">Whats Personas — TOKEN Synthetic Language Personas</p>
+  
+  <div class="space-y-4 max-w-lg mx-auto w-full pb-20">
+    <div class="bg-blue-50 p-3 rounded-lg text-xs text-blue-800 border border-blue-100 mb-4">
+      <p><strong>Token Synthetic Language Personas</strong></p>
+      <p class="mt-1">Configure a conexão com a IA para esta persona.</p>
+    </div>
 
-  <div class="mb-4">
-    <label class="block text-xs font-medium uppercase text-gray-500 mb-1">Provedor de IA</label>
-    <select id="provider"
-            class="w-full bg-gray-200 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-            onchange="updateProviderUI()">
-      <option value="inception">Inception (Mercury 2) — Recomendado</option>
-      <option value="openrouter">OpenRouter</option>
-      <option value="google">Google AI Studio</option>
-      <option value="ollama">Ollama Local</option>
-    </select>
-  </div>
+    <div>
+      <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Provedor de IA</label>
+      <select id="provider"
+              class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm text-sm"
+              onchange="updateProviderUI()">
+        <option value="inception">Inception (Mercury 2)</option>
+        <option value="openrouter">OpenRouter</option>
+        <option value="google">Google AI Studio</option>
+        <option value="ollama">Ollama Local</option>
+      </select>
+    </div>
+    
+    <div class="relative">
+      <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Chave de API</label>
+      <input type="password" id="apiKey"
+             class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm font-mono text-sm"
+             placeholder="sk_...">
+      <button id="helpBtn" class="absolute right-3 top-9 text-xs font-bold text-green-700 hover:text-green-900"
+              onclick="toggleHelp()">?</button>
+      <p id="apiHint" class="text-xs text-gray-500 mt-1">Inception: platform.inceptionlabs.ai</p>
+      
+      <div id="helpPopup"
+           class="hidden absolute left-0 bottom-full mb-2 w-full bg-white border border-gray-200 rounded-lg p-4 shadow-xl text-xs text-gray-700 z-10">
+        <p class="mb-2">Pegue sua chave de API na plataforma selecionada.</p>
+        <a href="https://platform.inceptionlabs.ai/auth/login?callbackUrl=/" target="_blank" rel="noopener"
+           class="block w-full text-center bg-green-600 text-white py-2 rounded hover:bg-green-700 font-medium">🔑 Criar conta</a>
+      </div>
+    </div>
 
-  <div class="mb-4 relative">
-    <label class="block text-xs font-medium uppercase text-gray-500 mb-1">Chave de API</label>
-    <input type="password" id="apiKey"
-           class="w-full bg-gray-200 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-           placeholder="sk_…">
-    <button id="helpBtn" class="absolute right-2 top-1/2 -translate-y-1/2 text-sm text-gray-500"
-            onclick="toggleHelp()">?</button>
-    <p id="apiHint" class="text-xs text-gray-500 mt-1">Inception: platform.inceptionlabs.ai — 10M tokens gratuitos no cadastro.</p>
-    <div id="helpPopup"
-         class="hidden absolute left-0 bottom-full mb-2 w-64 bg-white border border-gray-300 rounded p-3 shadow-lg text-xs text-gray-700">
-      Pegue sua chave de API na plataforma Inception. Cada nova conta recebe 10 milhões de tokens gratuitos.
-      <a href="https://platform.inceptionlabs.ai/auth/login?callbackUrl=/" target="_blank" rel="noopener"
-         class="block mt-2 text-green-600 hover:underline">🔑 Criar conta na Inception →</a>
+    <div>
+      <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Modelo</label>
+      <input type="text" id="modelName"
+             class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm font-mono text-sm"
+             value="mercury-2">
+    </div>
+
+    <div id="ollamaUrlGroup" class="hidden">
+      <label class="block text-xs font-bold uppercase text-gray-500 mb-1">URL do Ollama</label>
+      <input type="text" id="ollamaUrl"
+             class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm font-mono text-sm"
+             value="http://localhost:11434">
+    </div>
+
+    <div class="pt-4 flex gap-3">
+      <button class="flex-1 bg-green-800 text-white px-4 py-3 rounded-lg hover:bg-green-900 font-medium shadow-lg shadow-green-800/20"
+              onclick="saveConfig()">Salvar</button>
+      <button class="bg-gray-200 text-gray-700 px-4 py-3 rounded-lg hover:bg-gray-300 font-medium"
+              onclick="toggleConfig()">Cancelar</button>
     </div>
   </div>
-
-  <div class="mb-4">
-    <label class="block text-xs font-medium uppercase text-gray-500 mb-1">Modelo</label>
-    <input type="text" id="modelName"
-           class="w-full bg-gray-200 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-           value="mercury-2">
-    <p id="modelHint" class="text-xs text-gray-500 mt-1">Padrão: mercury-2 (Inception) — pode ser alterado conforme o provedor.</p>
-  </div>
-
-  <div id="ollamaUrlGroup" class="mb-4 hidden">
-    <label class="block text-xs font-medium uppercase text-gray-500 mb-1">URL do Ollama</label>
-    <input type="text" id="ollamaUrl"
-           class="w-full bg-gray-200 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
-           value="http://localhost:11434">
-    <p class="text-xs text-gray-500 mt-1">URL onde o Ollama está rodando na sua rede local.</p>
-  </div>
-
-  <button class="bg-green-800 text-white px-4 py-2 rounded hover:bg-green-900"
-          onclick="saveConfig()">Salvar Configurações</button>
-  <button class="mt-2 bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300"
-          onclick="clearChat()">Limpar Conversa</button>
 </div>
 
 <!-- TOAST -->
 <div id="toast"
-     class="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-full shadow-lg hidden"></div>
+     class="fixed bottom-28 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full shadow-2xl hidden z-50 flex items-center gap-2 text-sm font-medium transition-opacity duration-300 max-w-[90%] text-center">
+  <span id="toastIcon">ℹ️</span>
+  <span id="toastMsg">Mensagem</span>
+</div>
 
 <script>
 /* -------------------------------------------------
-   PERSONAS – apenas Maria Clara (primeira persona)
+   PERSONAS – Maria Clara
    ------------------------------------------------- */
 const PERSONAS = {
   "maria":{
@@ -161,17 +239,19 @@ function getPersonaGender(pid){
 function loadPersona(){
   const pid = getPersonaId();
   const p = PERSONAS[pid] || PERSONAS['maria'];
-
+  
   document.getElementById('avatarHeader').src = p.avatar;
   document.getElementById('headerName').textContent = p.nome;
   document.getElementById('headerBadge').textContent = p.badge;
-
+  
   const welcomeAvatar = document.getElementById('welcomeAvatar');
-  welcomeAvatar.innerHTML = `<img src="${p.avatar}" alt="${p.nome}" class="w-full h-full object-cover rounded-full">`;
+  welcomeAvatar.innerHTML = `<img src="${p.avatar}" alt="${p.nome}" class="w-full h-full object-cover rounded-full border-2 border-white shadow-sm">`;
   document.getElementById('welcomeBadge').textContent = p.badge;
   document.getElementById('welcomeTitle').textContent = p.welcomeTitle;
   document.getElementById('welcomeSubtitle').textContent = p.welcomeSubtitle;
   document.getElementById('welcomeQuote').textContent = p.welcomeQuote;
+  
+  document.title = `Whats Personas – ${p.nome}`;
 }
 
 /* -------------------------------------------------
@@ -191,7 +271,7 @@ let config = {
    ------------------------------------------------- */
 function init(){
   loadPersona();
-  const saved = localStorage.getItem('debora_config');
+  const saved = localStorage.getItem('whats_personas_config');
   if(saved){
     config = {...config, ...JSON.parse(saved)};
     document.getElementById('apiKey').value = config.apiKey||'';
@@ -200,7 +280,8 @@ function init(){
     document.getElementById('ollamaUrl').value = config.ollamaUrl||'';
     updateProviderUI();
   }
-  const savedHistory = localStorage.getItem('debora_history');
+  
+  const savedHistory = localStorage.getItem('whats_personas_history');
   if(savedHistory){
     conversationHistory = JSON.parse(savedHistory);
     if(conversationHistory.length>0){
@@ -210,6 +291,8 @@ function init(){
       });
     }
   }
+  // Scroll para o final após inicialização
+  setTimeout(() => scrollToBottom(), 100);
 }
 
 /* -------------------------------------------------
@@ -217,8 +300,11 @@ function init(){
    ------------------------------------------------- */
 function toggleConfig(){
   const panel=document.getElementById('configPanel');
-  panel.classList.toggle('translate-x-full');
-  panel.classList.toggle('translate-x-0');
+  if(panel.classList.contains('translate-x-full')){
+    panel.classList.remove('translate-x-full');
+  } else {
+    panel.classList.add('translate-x-full');
+  }
 }
 function toggleHelp(){
   const popup=document.getElementById('helpPopup');
@@ -227,15 +313,15 @@ function toggleHelp(){
 function updateProviderUI(){
   const provider=document.getElementById('provider').value;
   const hints={
-    inception:'Inception: platform.inceptionlabs.ai — 10M tokens gratuitos no cadastro.',
-    openrouter:'OpenRouter: openrouter.ai — pague apenas pelo uso.',
-    google:'Google AI Studio: aistudio.google.com — plano gratuito disponível.',
+    inception:'Inception: platform.inceptionlabs.ai — 10M tokens gratuitos.',
+    openrouter:'OpenRouter: openrouter.ai — pague pelo uso.',
+    google:'Google AI Studio: aistudio.google.com — gratuito disponível.',
     ollama:'Não necessário para Ollama local.'
   };
   const models={
     inception:'mercury-2',
     openrouter:'google/gemma-4-26b-a4b-it',
-    google:'gemma-2.0-flash',
+    google:'gemma-4-26b-a4b-it',
     ollama:'llama3.1'
   };
   document.getElementById('apiHint').textContent=hints[provider];
@@ -247,13 +333,14 @@ function saveConfig(){
   config.apiKey=document.getElementById('apiKey').value.trim();
   config.model=document.getElementById('modelName').value.trim();
   config.ollamaUrl=document.getElementById('ollamaUrl').value.trim();
-  localStorage.setItem('debora_config',JSON.stringify(config));
+  localStorage.setItem('whats_personas_config',JSON.stringify(config));
   toggleConfig();
-  showToast('Configurações salvas ✓','success');
+  showToast('Configurações salvas!','success');
 }
 function clearChat(){
+  if(!confirm("Deseja realmente limpar toda a conversa?")) return;
   conversationHistory=[];
-  localStorage.removeItem('debora_history');
+  localStorage.removeItem('whats_personas_history');
   location.reload();
 }
 function exitChat(){
@@ -261,12 +348,18 @@ function exitChat(){
 }
 
 /* -------------------------------------------------
-   BOTÃO DE ENVIO – habilita/desabilita dinamicamente
+   BOTÃO DE ENVIO
    ------------------------------------------------- */
 function updateSendButton(){
   const input=document.getElementById('userInput');
   const btn=document.getElementById('sendBtn');
   btn.disabled = input.value.trim().length===0 || isLoading;
+  
+  if(!btn.disabled){
+     btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" /></svg>`;
+  } else {
+     btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform rotate-45 sm:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>`;
+  }
 }
 
 /* -------------------------------------------------
@@ -275,55 +368,94 @@ function updateSendButton(){
 function renderMessage(role,content,animate=true){
   const chat=document.getElementById('chat');
   const welcome=document.getElementById('welcome');
-  if(welcome) welcome.style.display='none';
-
-  const isDebora=role==='debora';
+  if(welcome && welcome.style.display !== 'none') welcome.style.display='none';
+  
+  const isBot=role==='debora';
   const p=PERSONAS[getPersonaId()];
-  const avatar=isDebora ? `<img src="${p.avatar}" alt="${p.nome}" class="w-full h-full object-cover rounded-full">` : `<span class="w-8 h-8 flex items-center justify-center bg-gray-300 rounded-full text-sm font-medium">👤</span>`;
-  const name=isDebora ? p.nome.toUpperCase() : 'VISITANTE';
-  const ttsBtn=isDebora ? `<button class="ml-2 text-xs text-green-600 hover:underline tts-btn" data-text="${encodeURIComponent(content)}" onclick="toggleSpeak(this)" title="Ler em voz alta">🔊</button>` : '';
-
+  
+  const avatarSrc = isBot ? p.avatar : ''; 
+  const avatarHTML = isBot 
+    ? `<div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden flex-shrink-0 mt-1"><img src="${avatarSrc}" class="w-full h-full object-cover"></div>`
+    : `<div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-green-100 text-green-700 flex items-center justify-center flex-shrink-0 mt-1 text-xs font-bold">EU</div>`;
+    
+  const alignClass = isBot ? 'justify-start' : 'justify-end';
+  const msgBubbleClass = isBot 
+    ? 'bg-white text-gray-800 rounded-tr-2xl border border-gray-200' 
+    : 'bg-green-100 text-gray-800 rounded-tl-2xl border border-green-200';
+    
+  const nameText = isBot ? p.nome : 'Você';
+  const nameColor = isBot ? 'text-green-700' : 'text-green-800';
+  
   const msgDiv=document.createElement('div');
-  msgDiv.className=`flex gap-3 mb-4 ${isDebora?'flex-row':'flex-row-reverse'}`;
-  msgDiv.innerHTML=`
-    <div class="w-8 h-8 flex-shrink-0 overflow-hidden rounded-full bg-gray-300 flex items-center justify-center">${avatar}</div>
-    <div class="max-w-[80%]">
-      <div class="text-xs font-medium uppercase text-gray-600 mb-1">${name}</div>
-      <div class="bg-white border border-gray-300 rounded-lg p-3 shadow-sm text-sm text-gray-800">${formatMessage(content)}</div>
-      ${ttsBtn}
-    </div>`;
-  chat.appendChild(msgDiv);
-  chat.scrollTop=chat.scrollHeight;
+  msgDiv.className=`flex gap-2 mb-2 w-full ${alignClass}`;
+  
+  const bubbleContent = `
+    <div class="max-w-[85%] sm:max-w-[75%]">
+        <div class="flex items-baseline gap-2 ${isBot ? 'flex-row' : 'flex-row-reverse'}">
+            <span class="text-[14px] font-bold ${nameColor}">${nameText}</span>
+            <span class="text-[14px] text-gray-400">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+        </div>
+        <div class="px-3 py-2 shadow-sm text-sm leading-relaxed whitespace-pre-wrap ${msgBubbleClass}">${formatMessage(content)}</div>
+        ${isBot ? `<div class="mt-1 flex gap-2">
+             <button class="text-[10px] text-gray-400 hover:text-green-600 transition" onclick="toggleSpeak(this)" data-text="${encodeURIComponent(content)}">🔊</button>
+        </div>` : ''}
+    </div>
+    ${avatarHTML}
+  `;
+  
+  msgDiv.innerHTML = bubbleContent;
+  
+  if(animate) {
+    msgDiv.classList.add('opacity-0', 'translate-y-4');
+    chat.appendChild(msgDiv);
+    setTimeout(() => {
+        msgDiv.classList.remove('opacity-0', 'translate-y-4');
+        msgDiv.classList.add('transition-all', 'duration-300');
+        scrollToBottom();
+    }, 10);
+  } else {
+    chat.appendChild(msgDiv);
+    scrollToBottom();
+  }
 }
+
+function scrollToBottom() {
+    const chat = document.getElementById('chat');
+    chat.scrollTop = chat.scrollHeight;
+}
+
 function formatMessage(text){
   let html=text
-    .replace(/```(\w+)?\n?([\s\S]*?)```/g,(_,lang,code)=>`<pre class="bg-gray-200 p-2 rounded overflow-x-auto"><code>${escapeHtml(code.trim())}</code></pre>`)
-    .replace(/`([^`]+)`/g,(_,c)=>`<code class="bg-gray-200 px-1 rounded">${escapeHtml(c)}</code>`)
+    .replace(/```(\w+)?\n?([\s\S]*?)```/g,(_,lang,code)=>`<pre class="bg-gray-800 text-green-100 p-2 rounded text-xs overflow-x-auto my-2"><code>${escapeHtml(code.trim())}</code></pre>`)
+    .replace(/`([^`]+)`/g,(_,c)=>`<code class="bg-gray-200 px-1 rounded text-xs font-mono">${escapeHtml(c)}</code>`)
     .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
     .replace(/\*(.*?)\*/g,'<em>$1</em>')
-    .replace(/\n\n/g,'</p><p>')
+    .replace(/\n\n/g,'</p><p class="mt-2">')
     .replace(/\n/g,'<br>');
-  return `<p>${html}</p>`;
+  return html;
 }
-function escapeHtml(t){return t.replace(/[&<>]/g,ch=>({ '&':'&amp;','<':'&lt;','>':'&gt;' }[ch]));}
+function escapeHtml(t){return t.replace(/[&<>]/g,ch=>({ '&':'&amp;','<':'<','>':'>' }[ch]));}
 
 /* -------------------------------------------------
-   TIPING INDICATOR
+   INDICADOR DE DIGITAÇÃO
    ------------------------------------------------- */
 function showTyping(){
   const chat=document.getElementById('chat');
   const div=document.createElement('div');
   div.id='typing-indicator';
-  div.className='flex gap-3 mb-4';
+  div.className='flex gap-2 mb-4 w-full justify-start animate-fadeIn';
   div.innerHTML=`
-    <div class="w-8 h-8 flex-shrink-0 bg-gray-300 rounded-full flex items-center justify-center">Env.</div>
-    <div class="flex items-center space-x-1">
-      <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-      <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse delay-150"></span>
-      <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse delay-300"></span>
-    </div>`;
+    <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden flex-shrink-0 mt-1">
+        <img src="${PERSONAS[getPersonaId()].avatar}" class="w-full h-full object-cover">
+    </div>
+    <div class="bg-white border border-gray-200 px-4 py-3 rounded-2xl rounded-tl-none shadow-sm w-16 flex items-center justify-center gap-1">
+      <div class="w-2 h-2 bg-gray-400 rounded-full dot-anim dot-1"></div>
+      <div class="w-2 h-2 bg-gray-400 rounded-full dot-anim dot-2"></div>
+      <div class="w-2 h-2 bg-gray-400 rounded-full dot-anim dot-3"></div>
+    </div>
+  `;
   chat.appendChild(div);
-  chat.scrollTop=chat.scrollHeight;
+  scrollToBottom();
 }
 function removeTyping(){
   const el=document.getElementById('typing-indicator');
@@ -337,40 +469,39 @@ async function sendMessage(){
   const input=document.getElementById('userInput');
   const text=input.value.trim();
   if(!text || isLoading) return;
-
+  
   if(!config.apiKey && config.provider!=='ollama'){
     showToast('Configure sua chave de API ⚙','error');
     toggleConfig();
     return;
   }
-
+  
   input.value='';
-  autoResize(input);
-  updateSendButton(); // desabilita botão enquanto carrega
+  input.style.height = 'auto';
+  updateSendButton();
+  
   isLoading=true;
-  setStatus('loading','Pensando...');
-  document.getElementById('sendBtn').disabled=true;
-
+  setStatus('loading','Digitando...');
   renderMessage('user',text);
   conversationHistory.push({role:'user',content:text});
   showTyping();
-
+  
   try{
     const reply=await callAPI();
     removeTyping();
     renderMessage('debora',reply);
     conversationHistory.push({role:'assistant',content:reply});
-    localStorage.setItem('debora_history',JSON.stringify(conversationHistory));
-    setStatus('ready','Disponível');
+    localStorage.setItem('whats_personas_history',JSON.stringify(conversationHistory));
+    setStatus('ready','Online');
   }catch(e){
     removeTyping();
     setStatus('error','Erro');
-    showToast('Erro: '+(e.message||'Erro desconhecido'),'error');
+    showToast('Erro: '+e.message,'error');
     console.error(e);
   }
-
   isLoading=false;
-  updateSendButton(); // re‑habilita botão se ainda houver texto
+  updateSendButton();
+  input.focus();
 }
 
 /* -------------------------------------------------
@@ -393,9 +524,9 @@ async function callAPI(){
   });
   const txt=await res.text();
   let data;
-  try{data=JSON.parse(txt)}catch(e){throw new Error('Resposta inválida: '+txt)}
+  try{data=JSON.parse(txt)}catch(e){throw new Error('Resposta inválida')}
   if(!res.ok||data.error)throw new Error(data.error||`HTTP ${res.status}`);
-  if(!data.reply)throw new Error('Resposta vazia do Worker');
+  if(!data.reply)throw new Error('Resposta vazia');
   return data.reply;
 }
 
@@ -405,48 +536,42 @@ async function callAPI(){
 function toggleSpeak(btn){
   const text=decodeURIComponent(btn.dataset.text);
   if(!text) return;
-
-  // Interrompe fala atual, se houver
-  if(btn.classList.contains('speaking')){
+  
+  if(window.speechSynthesis.speaking && btn.classList.contains('speaking')){
     window.speechSynthesis.cancel();
     btn.classList.remove('speaking');
     btn.textContent='🔊';
     return;
   }
+  
   window.speechSynthesis.cancel();
-  document.querySelectorAll('.tts-btn.speaking').forEach(b=>{b.classList.remove('speaking');b.textContent='🔊';});
-
+  document.querySelectorAll('button[data-text].speaking').forEach(b=>{b.classList.remove('speaking');b.textContent='🔊';});
+  
   const clean=text.replace(/\*\*/g,'').replace(/\*/g,'').replace(/^#+\s/gm,'').trim();
   const utter=new SpeechSynthesisUtterance(clean);
   utter.lang='pt-BR';
-
+  utter.rate=0.95;
+    
   const gender=getPersonaGender(getPersonaId());
   utter.rate=gender==='female'?0.88:0.85;
-  utter.pitch=gender==='female'?1.0:0.9;
+  utter.pitch=gender==='female'?1.0:0.9;  
+
 
   const voices=window.speechSynthesis.getVoices();
   const voice=voices.find(v=>v.lang==='pt-BR' && (gender==='female'?/(francisca|vitoria|luciana)/i.test(v.name):/(daniel|ricardo)/i.test(v.name)))||voices.find(v=>v.lang==='pt-BR')||voices[0];
-  utter.voice=voice;
 
+  if(voice) utter.voice=voice;
+  
   btn.classList.add('speaking');
   btn.textContent='⏹';
   utter.onend=()=>{btn.classList.remove('speaking');btn.textContent='🔊';};
   utter.onerror=()=>{btn.classList.remove('speaking');btn.textContent='🔊';};
-
-  if(voices.length===0){
-    window.speechSynthesis.onvoiceschanged=()=>{
-      window.speechSynthesis.onvoiceschanged=null;
-      const v=window.speechSynthesis.getVoices().find(v=>v.lang==='pt-BR')||window.speechSynthesis.getVoices()[0];
-      utter.voice=v;
-      window.speechSynthesis.speak(utter);
-    };
-  }else{
-    window.speechSynthesis.speak(utter);
-  }
+  
+  window.speechSynthesis.speak(utter);
 }
 
 /* -------------------------------------------------
-   SPEECH‑TO‑TEXT
+   SPEECH-TO-TEXT
    ------------------------------------------------- */
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 let recognition;
@@ -454,30 +579,27 @@ if(SpeechRecognition){
   recognition=new SpeechRecognition();
   recognition.lang='pt-BR';
   recognition.interimResults=true;
-  recognition.maxAlternatives=1;
 }
 const micBtn=document.getElementById('micBtn');
 let listening=false;
 micBtn.addEventListener('click',()=>{
-  if(!recognition){showToast('Reconhecimento de fala não disponível.','error');return;}
+  if(!recognition){showToast('Navegador não suporta voz.','error');return;}
   if(listening){
     recognition.stop();
     return;
   }
-  if (listening) { recognition.stop(); return; }
-  recognition.start(); 
-  listening = true;
-  micBtn.classList.add('text-green-600');
+  recognition.start();
+  listening=true;
+  micBtn.classList.add('bg-red-100', 'text-red-600', 'animate-pulse');
 });
 recognition?.addEventListener('result',e=>{
   const txt=Array.from(e.results).map(r=>r[0].transcript).join(' ');
   const ta=document.getElementById('userInput');
   ta.value=txt;
   autoResize(ta);
-  updateSendButton(); // garante que o botão de envio fique ativo
+  updateSendButton();
 });
-recognition?.addEventListener('end',()=>{listening=false;micBtn.classList.remove('text-green-600');updateSendButton();});
-recognition?.addEventListener('error',e=>{showToast('Erro ao gravar: '+e.error,'error');});
+recognition?.addEventListener('end',()=>{listening=false;micBtn.classList.remove('bg-red-100', 'text-red-600', 'animate-pulse');});
 
 /* -------------------------------------------------
    UI HELPERS
@@ -485,16 +607,42 @@ recognition?.addEventListener('error',e=>{showToast('Erro ao gravar: '+e.error,'
 function setStatus(type,text){
   const dot=document.getElementById('statusDot');
   const label=document.getElementById('statusText');
-  dot.className='w-2 h-2 rounded-full '+(type==='loading'?'bg-red-500':type==='error'?'bg-red-500':'bg-green-400');
-  label.textContent=text;
+  
+  if(type==='loading'){
+    dot.className='w-2 h-2 rounded-full bg-yellow-400 animate-spin flex-shrink-0';
+    label.textContent=text;
+  } else if (type==='error'){
+    dot.className='w-2 h-2 rounded-full bg-red-500 flex-shrink-0';
+    label.textContent='Offline';
+  } else {
+    dot.className='w-2 h-2 rounded-full bg-green-400 flex-shrink-0';
+    label.textContent='Online';
+  }
 }
-function showToast(msg,type=''){
+
+function showToast(msg,type='info'){
   const t=document.getElementById('toast');
-  t.textContent=msg;
-  t.className='fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-full shadow-lg '+(type==='error'?'bg-red-600':'bg-green-600');
+  const icon = document.getElementById('toastIcon');
+  const txt = document.getElementById('toastMsg');
+  
+  txt.textContent=msg;
+  t.className='fixed bottom-28 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-2xl z-50 flex items-center gap-2 text-sm font-medium transition-all duration-300 translate-y-0 opacity-100 max-w-[90%] text-center';
+  
+  if(type==='error'){
+    t.classList.add('bg-red-600', 'text-white');
+    icon.textContent='⚠️';
+  } else {
+    t.classList.add('bg-gray-800', 'text-white');
+    icon.textContent='✅';
+  }
+  
   t.classList.remove('hidden');
-  setTimeout(()=>t.classList.add('hidden'),3500);
+  setTimeout(()=>{
+    t.classList.add('opacity-0', 'translate-y-4');
+    setTimeout(()=>t.classList.add('hidden'),300);
+  },3000);
 }
+
 function handleKey(e){
   if(e.key==='Enter' && !e.shiftKey){
     e.preventDefault();
@@ -507,9 +655,25 @@ function autoResize(el){
 }
 
 /* -------------------------------------------------
+   AJUSTE MOBILE: Recalcular altura quando teclado aparecer
+   ------------------------------------------------- */
+window.addEventListener('resize', () => {
+  scrollToBottom();
+});
+
+// Forçar altura correta em mobile
+function fixMobileHeight() {
+  const dvh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--dvh', `${dvh}px`);
+  scrollToBottom();
+}
+window.addEventListener('load', fixMobileHeight);
+window.addEventListener('orientationchange', fixMobileHeight);
+
+/* -------------------------------------------------
    INICIALIZAÇÃO
    ------------------------------------------------- */
-try{init();}catch(e){console.error(e);showToast('Erro ao iniciar.','error');}
+try{init();}catch(e){console.error(e);}
 </script>
 </body>
 </html>
