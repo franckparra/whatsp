@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Whats Personas – Flávio Carvalho</title>
+<title>Whats Personas – Fernanda Ribeiro</title>
 <!-- Viewport ajustado para mobile -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#25D366">
-<meta name="description" content="Chat com persona sintética – Flávio Carvalho">
+<meta name="description" content="Chat com persona sintética – Fernanda Ribeiro">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -207,17 +208,17 @@
 
 <script>
 /* -------------------------------------------------
-   PERSONAS – Flávio Carvalho
+   PERSONAS – Fernanda Ribeiro
    ------------------------------------------------- */
 const PERSONAS = {
   "maria":{
-    "nome":"Flávio Carvalho",
-    "avatar":"flavio.jpg",
+    "nome":"Fernanda Ribeiro",
+    "avatar":"fernanda.jpg",
     "badge":"Persona Sintética",
-    "welcomeTitle":"E aí! Sou o Flávio",
-    "welcomeSubtitle":"31 anos - Porto Alegre - RS",
-    "welcomeQuote":"Seu amigo aqui no chat. Vamos conversar?",
-    "apiUrl":"https://api.zap04.tokenslp.com.br"
+    "welcomeTitle":"Saudações! Sou a Fernanda",
+    "welcomeSubtitle":"38 anos - Belo Horizonte - MG",
+    "welcomeQuote":"Sua amiga aqui no chat. Vamos conversar?",
+    "apiUrl":"https://api.zap03.tokenslp.com.br"
   }
 };
 
@@ -551,10 +552,15 @@ function toggleSpeak(btn){
   const utter=new SpeechSynthesisUtterance(clean);
   utter.lang='pt-BR';
   utter.rate=0.95;
-  utter.pitch=getPersonaGender(getPersonaId())==='female'?1.1:0.9;
-  
+    
+  const gender=getPersonaGender(getPersonaId());
+  utter.rate=gender==='female'?0.88:0.85;
+  utter.pitch=gender==='female'?1.0:0.9;  
+
+
   const voices=window.speechSynthesis.getVoices();
-  const voice=voices.find(v=>v.lang==='pt-BR');
+  const voice=voices.find(v=>v.lang==='pt-BR' && (gender==='female'?/(francisca|vitoria|luciana)/i.test(v.name):/(daniel|ricardo)/i.test(v.name)))||voices.find(v=>v.lang==='pt-BR')||voices[0];
+
   if(voice) utter.voice=voice;
   
   btn.classList.add('speaking');
