@@ -6,348 +6,690 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="theme-color" content="#166534">
 <meta name="description" content="Converse com personas sintéticas que possuem personalidade própria.">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
-<!-- Animações Customizadas -->
 <style>
-  .fade-in-up {
-    animation: fadeInUp 0.8s ease-out forwards;
+  * { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; }
+
+  .reveal {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1);
   }
-  .fade-in-up-delay {
-    animation: fadeInUp 0.8s ease-out 0.2s forwards;
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  .hero-fade {
+    animation: heroFade 1s ease-out forwards;
     opacity: 0;
-    transform: translateY(20px);
   }
-  .fade-in-up-delay-2 {
-    animation: fadeInUp 0.8s ease-out 0.4s forwards;
-    opacity: 0;
-    transform: translateY(20px);
+  .hero-fade-d1 { animation: heroFade 1s ease-out 0.15s forwards; opacity: 0; }
+  .hero-fade-d2 { animation: heroFade 1s ease-out 0.3s forwards; opacity: 0; }
+  .hero-fade-d3 { animation: heroFade 1s ease-out 0.45s forwards; opacity: 0; }
+  @keyframes heroFade {
+    to { opacity: 1; transform: translateY(0); }
+    from { transform: translateY(24px); }
   }
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+
   .gradient-text {
-    background: linear-gradient(to right, #166534, #34D399);
+    background: linear-gradient(135deg, #166534 0%, #22c55e 50%, #166534 100%);
+    background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: gradientShift 4s ease infinite;
   }
-  .floating-shapes {
-    animation: float 6s ease-in-out infinite;
+  @keyframes gradientShift {
+    0%,100% { background-position: 0% center; }
+    50% { background-position: 100% center; }
   }
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
+
+  .typing-cursor::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+    color: #22c55e;
+    font-weight: 300;
   }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    animation: blobFloat 8s ease-in-out infinite;
+  }
+  .blob-2 { animation-delay: -3s; animation-duration: 10s; }
+  .blob-3 { animation-delay: -6s; animation-duration: 12s; }
+  @keyframes blobFloat {
+    0%,100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(30px,-20px) scale(1.05); }
+    66% { transform: translate(-20px,15px) scale(0.95); }
+  }
+
   .pulse-glow {
-    animation: pulseGlow 2s ease-in-out infinite;
+    animation: pulseGlow 2.5s ease-in-out infinite;
   }
   @keyframes pulseGlow {
-    0%, 100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.3); }
-    50% { box-shadow: 0 0 40px rgba(34, 197, 94, 0.6); }
+    0%,100% { box-shadow: 0 0 20px rgba(34,197,94,0.25), 0 8px 32px rgba(0,0,0,0.2); }
+    50% { box-shadow: 0 0 40px rgba(34,197,94,0.5), 0 8px 32px rgba(0,0,0,0.2); }
   }
+
+  .shimmer-hover { position: relative; overflow: hidden; }
+  .shimmer-hover::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.6s ease;
+  }
+  .shimmer-hover:hover::before { left: 100%; }
+
+  .online-dot {
+    width: 10px; height: 10px;
+    background: #22c55e;
+    border-radius: 50%;
+    border: 2px solid #1f2937;
+    position: relative;
+  }
+  .online-dot::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    border: 2px solid #22c55e;
+    animation: onlinePing 2s ease-out infinite;
+  }
+  @keyframes onlinePing {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.8); opacity: 0; }
+  }
+
+  .tilt-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transform-style: preserve-3d;
+  }
+
+  .stat-number {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .nav-scrolled {
+    box-shadow: 0 4px 30px rgba(0,0,0,0.06);
+    border-color: #e5e7eb;
+  }
+
+  .marquee-track {
+    display: flex;
+    animation: marquee 30s linear infinite;
+    width: max-content;
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .noise::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .step-line {
+    position: absolute;
+    top: 28px;
+    left: calc(50% + 28px);
+    width: calc(100% - 56px);
+    height: 2px;
+    background: linear-gradient(90deg, #22c55e, #166534);
+    opacity: 0.3;
+  }
+
+  ::selection { background: #bbf7d0; color: #14532d; }
 </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased selection-green-200 selection-green-900">
+<body class="bg-white text-gray-800 antialiased">
 
-<!-- HEADER / NAV -->
-<nav class="w-full py-4 px-6 fixed top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
+<nav id="mainNav" class="w-full py-4 px-6 fixed top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-transparent transition-all duration-300">
   <div class="max-w-6xl mx-auto flex justify-between items-center">
-    <div class="flex items-center gap-2">
-      <div class="w-8 h-8 bg-green-800 text-white rounded-lg flex items-center justify-center font-bold text-sm shadow-lg">WP</div>
-      <span class="font-bold text-lg tracking-tight text-green-900">Whats Personas</span>
+    <a href="#" class="flex items-center gap-2.5 group">
+      <div class="w-9 h-9 bg-gradient-to-br from-green-700 to-green-500 text-white rounded-xl flex items-center justify-center font-bold text-xs shadow-lg shadow-green-500/20 group-hover:shadow-green-500/40 transition">WP</div>
+      <span class="font-bold text-lg tracking-tight text-gray-900">Whats <span class="text-green-700">Personas</span></span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500">
+      <a href="#como-funciona" class="hover:text-green-700 transition">Como Funciona</a>
+      <a href="#personas" class="hover:text-green-700 transition">Personas</a>
+      <a href="#api" class="hover:text-green-700 transition">API</a>
     </div>
-    <a href="select.html" class="bg-green-800 text-white px-5 py-2 rounded-full font-medium text-sm hover:bg-green-700 transition shadow-lg hover:shadow-green-500/30">
+    <a href="select.html" class="bg-green-800 text-white px-5 py-2.5 rounded-full font-semibold text-sm hover:bg-green-700 transition-all shadow-lg shadow-green-500/20 hover:shadow-green-500/40 hover:-translate-y-0.5 active:translate-y-0">
       Acessar App
     </a>
   </div>
 </nav>
 
-<!-- HERO SECTION -->
-<section class="relative pt-24 pb-16 px-4 overflow-hidden min-h-[80vh] flex items-center bg-gradient-to-b from-green-50 to-white">
-  <!-- Elementos decorativos de fundo -->
-  <div class="absolute top-20 left-10 w-32 h-32 bg-green-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 floating-shapes"></div>
-  <div class="absolute bottom-20 right-10 w-40 h-40 bg-blue-100 rounded-full mix-blend-multiply filter blur-xl opacity-70 floating-shapes" style="animation-delay: 2s;"></div>
+<section class="relative pt-28 pb-20 px-4 overflow-hidden min-h-[90vh] flex items-center bg-gradient-to-b from-green-50/80 via-white to-white noise">
+  <div class="blob w-72 h-72 bg-green-300 top-10 -left-20"></div>
+  <div class="blob blob-2 w-96 h-96 bg-emerald-200 bottom-0 right-[-100px]"></div>
+  <div class="blob blob-3 w-48 h-48 bg-teal-200 top-1/2 left-1/3"></div>
 
   <div class="max-w-4xl mx-auto text-center relative z-10">
-    <span class="inline-block py-1 px-3 rounded-full bg-green-100 text-green-700 text-xs font-bold uppercase tracking-wider mb-4 border border-green-200 fade-in-up">
+    <div class="hero-fade inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-green-100/80 text-green-700 text-xs font-bold uppercase tracking-widest mb-6 border border-green-200/60 backdrop-blur-sm">
+      <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
       Tecnologia Token SLP
-    </span>
-    <h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-[1.1] fade-in-up">
-      Relacionamentos reais.<br>
-      <span class="gradient-text">Personalidades sintéticas.</span>
+    </div>
+
+    <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.05] tracking-tight hero-fade-d1">
+      Relacionamentos<br>
+      <span class="gradient-text" id="heroTyped"></span><span class="typing-cursor" id="heroCursor"></span>
     </h1>
-    <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8 fade-in-up-delay">
-      Descubra o futuro do bate-papo. Interaja com personas que possuem história, opiniões e emoções próprias. Sem filtros, sem julgamento, 24 horas disponível.
+
+    <p class="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed hero-fade-d2">
+      Interaja com personas que possuem história, opiniões e emoções próprias. Sem filtros, sem julgamento, <strong class="text-gray-700">24 horas disponível</strong>.
     </p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center fade-in-up-delay-2">
-      <a href="select.html" class="group relative px-8 py-4 bg-green-800 text-white rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 overflow-hidden pulse-glow">
-        <span class="relative z-10">Começar Conversa</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-        </svg>
-        <div class="absolute inset-0 bg-white/20 translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out skew-x-12"></div>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center hero-fade-d3">
+      <a href="select.html" class="group shimmer-hover px-8 py-4 bg-green-800 text-white rounded-2xl font-bold text-lg shadow-2xl shadow-green-500/25 hover:shadow-green-500/40 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 pulse-glow">
+        <span>Começar Conversa</span>
+        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
       </a>
-      <a href="#personas" class="px-8 py-4 bg-white text-green-800 border border-green-200 rounded-xl font-bold text-lg hover:bg-green-50 transition shadow-sm flex items-center justify-center">
-        Ver Personas
+      <a href="#como-funciona" class="px-8 py-4 bg-white text-gray-700 border border-gray-200 rounded-2xl font-bold text-lg hover:border-green-300 hover:text-green-800 hover:bg-green-50/50 transition-all shadow-sm flex items-center justify-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Como Funciona
       </a>
+    </div>
+
+    <div class="mt-14 hero-fade-d3 flex items-center justify-center gap-3">
+      <div class="flex -space-x-2">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-green-600 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center">M</div>
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center">L</div>
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center">F</div>
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center">R</div>
+      </div>
+      <p class="text-sm text-gray-400"><span class="text-gray-600 font-semibold">6 personas</span> disponíveis agora</p>
     </div>
   </div>
 </section>
 
-<!-- VANTAGENS / CONCEITO -->
-<section class="py-20 bg-white border-t border-gray-100">
+<div class="py-5 bg-gray-900 overflow-hidden border-y border-gray-800">
+  <div class="marquee-track">
+    <span class="text-gray-500 text-sm font-medium tracking-widest uppercase whitespace-nowrap px-8">Sintético &nbsp;✦&nbsp; Personalidade &nbsp;✦&nbsp; 24/7 &nbsp;✦&nbsp; Zero Julgamento &nbsp;✦&nbsp; Token SLP &nbsp;✦&nbsp; Inteligência Artificial &nbsp;✦&nbsp; Conversação Real &nbsp;✦&nbsp; Privacidade &nbsp;✦&nbsp;</span>
+    <span class="text-gray-500 text-sm font-medium tracking-widest uppercase whitespace-nowrap px-8">Sintético &nbsp;✦&nbsp; Personalidade &nbsp;✦&nbsp; 24/7 &nbsp;✦&nbsp; Zero Julgamento &nbsp;✦&nbsp; Token SLP &nbsp;✦&nbsp; Inteligência Artificial &nbsp;✦&nbsp; Conversação Real &nbsp;✦&nbsp; Privacidade &nbsp;✦&nbsp;</span>
+  </div>
+</div>
+
+<section id="como-funciona" class="py-24 bg-white relative">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block text-green-600 text-xs font-bold uppercase tracking-widest mb-3">Passo a passo</span>
+      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-gray-900">Como funciona</h2>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 relative">
+      <div class="hidden md:block step-line" style="left: calc(16.66% + 28px); width: calc(33.33% - 56px);"></div>
+      <div class="hidden md:block step-line" style="left: calc(50% + 28px); width: calc(33.33% - 56px);"></div>
+
+      <div class="reveal reveal-delay-1 text-center relative">
+        <div class="w-14 h-14 bg-green-100 text-green-700 rounded-2xl flex items-center justify-center mx-auto mb-5 text-xl font-black shadow-lg shadow-green-500/10">1</div>
+        <h3 class="font-bold text-lg mb-2 text-gray-900">Escolha sua Persona</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Navegue pela galeria e escolha alguém com quem você se identifica ou quer conhecer.</p>
+      </div>
+      <div class="reveal reveal-delay-2 text-center relative">
+        <div class="w-14 h-14 bg-green-100 text-green-700 rounded-2xl flex items-center justify-center mx-auto mb-5 text-xl font-black shadow-lg shadow-green-500/10">2</div>
+        <h3 class="font-bold text-lg mb-2 text-gray-900">Configure sua API Key</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Insira sua chave de um provedor compatível. Armazenada apenas no seu dispositivo.</p>
+      </div>
+      <div class="reveal reveal-delay-3 text-center relative">
+        <div class="w-14 h-14 bg-green-100 text-green-700 rounded-2xl flex items-center justify-center mx-auto mb-5 text-xl font-black shadow-lg shadow-green-500/10">3</div>
+        <h3 class="font-bold text-lg mb-2 text-gray-900">Comece a Conversar</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">A persona responde com base em sua história, traços e emoções. Uma experiência única.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-24 bg-gray-50 border-t border-gray-100">
   <div class="max-w-6xl mx-auto px-4">
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- Card 1 -->
-      <div class="p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-green-200 hover:shadow-lg transition duration-300">
-        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-4">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        </div>
-        <h3 class="font-bold text-lg mb-2">Disponibilidade 24/7</h3>
-        <p class="text-gray-600">Nossas personas não dormem. Sempre há alguém disponível para conversar, desabafar ou trocar ideias no momento que você precisar.</p>
-      </div>
-      <!-- Card 2 -->
-      <div class="p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-green-200 hover:shadow-lg transition duration-300">
-        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center mb-4">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        </div>
-        <h3 class="font-bold text-lg mb-2">Zero Judgement</h3>
-        <p class="text-gray-600">Um espaço seguro para expressão. Conversa sem pré-conceitos, onde você pode ser totalmente aberto e sincero.</p>
-      </div>
-      <!-- Card 3 -->
-      <div class="p-6 rounded-2xl bg-gray-50 border border-gray-100 hover:border-green-200 hover:shadow-lg transition duration-300">
-        <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-xl flex items-center justify-center mb-4">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-        </div>
-        <h3 class="font-bold text-lg mb-2">Personalidade Única</h3>
-        <p class="text-gray-600">Cada persona sintética tem história, idade, origem e traços de caráter definidos. Não são bots repetitivos, são entidades digitais complexas.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SEÇÃO DE API - NOVA SEÇÃO IMPORTANTE -->
-<section class="py-20 bg-gradient-to-br from-green-900 to-green-800 text-white relative overflow-hidden">
-  <!-- Background Pattern -->
-  <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 30px 30px;"></div>
-  
-  <div class="max-w-5xl mx-auto px-4 relative z-10">
-    <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-2 bg-yellow-500/20 text-yellow-300 px-4 py-2 rounded-full text-sm font-bold mb-4 border border-yellow-500/30">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path></svg>
-        Informação Importante
-      </div>
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Configure sua Chave API</h2>
-      <p class="text-green-100 max-w-2xl mx-auto text-lg">
-        Para conversar com as personas sintéticas, você precisará de uma chave API de um provedor de Inteligência Artificial compatível.
-      </p>
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block text-green-600 text-xs font-bold uppercase tracking-widest mb-3">Por que escolher</span>
+      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-gray-900">Diferenciais</h2>
     </div>
 
     <div class="grid md:grid-cols-3 gap-6">
-      <!-- Open Router -->
-      <a href="https://openrouter.ai" target="_blank" rel="noopener" class="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-green-400 hover:bg-white/20 transition duration-300 hover:-translate-y-2">
+      <div class="reveal reveal-delay-1 tilt-card group p-7 rounded-3xl bg-white border border-gray-100 hover:border-green-200 hover:shadow-xl hover:shadow-green-500/5 transition-all duration-500">
+        <div class="w-14 h-14 bg-gradient-to-br from-green-100 to-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3 class="font-bold text-xl mb-3 text-gray-900">Disponibilidade 24/7</h3>
+        <p class="text-gray-500 leading-relaxed">Nossas personas não dormem. Sempre há alguém disponível para conversar, desabafar ou trocar ideias — a qualquer hora.</p>
+      </div>
+      <div class="reveal reveal-delay-2 tilt-card group p-7 rounded-3xl bg-white border border-gray-100 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-500">
+        <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h3 class="font-bold text-xl mb-3 text-gray-900">Zero Julgamento</h3>
+        <p class="text-gray-500 leading-relaxed">Um espaço seguro para expressão. Conversa sem pré-conceitos, onde você pode ser totalmente aberto e sincero.</p>
+      </div>
+      <div class="reveal reveal-delay-3 tilt-card group p-7 rounded-3xl bg-white border border-gray-100 hover:border-purple-200 hover:shadow-xl hover:shadow-purple-500/5 transition-all duration-500">
+        <div class="w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        </div>
+        <h3 class="font-bold text-xl mb-3 text-gray-900">Personalidade Única</h3>
+        <p class="text-gray-500 leading-relaxed">Cada persona tem história, idade, origem e traços definidos. Não são bots repetitivos — são entidades digitais complexas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-16 bg-white border-t border-gray-100">
+  <div class="max-w-5xl mx-auto px-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div class="reveal">
+        <div class="stat-number text-4xl md:text-5xl font-black text-green-700" data-target="6">0</div>
+        <p class="text-gray-400 text-sm mt-1 font-medium">Personas Únicas</p>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="stat-number text-4xl md:text-5xl font-black text-gray-900" data-target="24">0</div>
+        <p class="text-gray-400 text-sm mt-1 font-medium">Horas por Dia</p>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div class="stat-number text-4xl md:text-5xl font-black text-gray-900" data-target="3">0</div>
+        <p class="text-gray-400 text-sm mt-1 font-medium">Provedores API</p>
+      </div>
+      <div class="reveal reveal-delay-3">
+        <div class="text-4xl md:text-5xl font-black text-green-700">∞</div>
+        <p class="text-gray-400 text-sm mt-1 font-medium">Conversas Possíveis</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="api" class="py-24 bg-gradient-to-br from-green-900 via-green-800 to-emerald-900 text-white relative overflow-hidden noise">
+  <div class="absolute inset-0 opacity-[0.07]" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 32px 32px;"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-green-400/10 rounded-full blur-[120px]"></div>
+
+  <div class="max-w-5xl mx-auto px-4 relative z-10">
+    <div class="text-center mb-14 reveal">
+      <div class="inline-flex items-center gap-2 bg-yellow-500/15 text-yellow-300 px-4 py-2 rounded-full text-xs font-bold mb-5 border border-yellow-500/20 backdrop-blur-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+        Informação Importante
+      </div>
+      <h2 class="text-3xl md:text-5xl font-black mb-4 tracking-tight">Configure sua Chave API</h2>
+      <p class="text-green-200/70 max-w-2xl mx-auto text-lg leading-relaxed">
+        Para conversar com as personas, você precisa de uma chave API de um provedor de IA compatível.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-5">
+      <a href="https://openrouter.ai" target="_blank" rel="noopener" class="reveal reveal-delay-1 group bg-white/[0.07] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.12] hover:border-blue-400/40 hover:bg-white/[0.12] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/10">
         <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
           </div>
           <h3 class="font-bold text-lg">Open Router</h3>
         </div>
-        <p class="text-green-100 text-sm mb-4">Acesso a múltiplos modelos de IA em uma única plataforma. Flexibilidade e variedade de opções.</p>
-        <span class="text-green-300 text-sm font-medium group-hover:underline flex items-center gap-1">
+        <p class="text-green-100/60 text-sm mb-5 leading-relaxed">Acesso a múltiplos modelos de IA em uma única plataforma. Flexibilidade e variedade.</p>
+        <span class="text-green-300/80 text-sm font-medium group-hover:text-green-200 flex items-center gap-1.5 transition">
           openrouter.ai
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+          <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
         </span>
       </a>
 
-      <!-- Inception (DESTAQUE) -->
-      <a href="https://platform.inceptionlabs.ai/" target="_blank" rel="noopener" class="group bg-gradient-to-br from-green-400/20 to-green-600/20 backdrop-blur-sm rounded-2xl p-6 border-2 border-green-400 hover:border-green-300 transition duration-300 hover:-translate-y-2 relative overflow-hidden pulse-glow">
-        <div class="absolute top-0 right-0 bg-green-400 text-green-900 text-xs font-bold px-3 py-1 rounded-bl-lg">RECOMENDADO</div>
+      <a href="https://platform.inceptionlabs.ai/" target="_blank" rel="noopener" class="reveal reveal-delay-2 group bg-gradient-to-br from-green-400/15 to-green-600/15 backdrop-blur-sm rounded-2xl p-6 border-2 border-green-400/40 hover:border-green-300/60 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/20 relative overflow-hidden">
+        <div class="absolute top-0 right-0 bg-green-400 text-green-900 text-[10px] font-black px-3 py-1 rounded-bl-xl uppercase tracking-wider">Recomendado</div>
         <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center shadow-lg">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+          <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
           </div>
           <h3 class="font-bold text-lg">Inception AI</h3>
         </div>
-        <p class="text-green-100 text-sm mb-4">Plataforma especializada com modelos otimizados para conversação.</p>
-        <div class="bg-green-400/30 rounded-lg p-3 mb-4 border border-green-400/50">
-          <p class="text-green-200 font-bold text-center">🎁 10 Milhões de Tokens Grátis para Teste!</p>
+        <p class="text-green-100/60 text-sm mb-4 leading-relaxed">Plataforma especializada com modelos otimizados para conversação natural.</p>
+        <div class="bg-green-400/20 rounded-xl p-3 mb-5 border border-green-400/30 backdrop-blur-sm">
+          <p class="text-green-200 font-bold text-center text-sm">🎁 10 Milhões de Tokens Grátis</p>
         </div>
-        <span class="text-green-300 text-sm font-medium group-hover:underline flex items-center gap-1">
+        <span class="text-green-300/80 text-sm font-medium group-hover:text-green-200 flex items-center gap-1.5 transition">
           platform.inceptionlabs.ai
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+          <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
         </span>
       </a>
 
-      <!-- Google AI -->
-      <a href="https://cloud.google.com/ai/apis?hl=pt-BR" target="_blank" rel="noopener" class="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover:border-green-400 hover:bg-white/20 transition duration-300 hover:-translate-y-2">
+      <a href="https://cloud.google.com/ai/apis?hl=pt-BR" target="_blank" rel="noopener" class="reveal reveal-delay-3 group bg-white/[0.07] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.12] hover:border-red-400/40 hover:bg-white/[0.12] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-500/10">
         <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 bg-gradient-to-br from-red-500 via-yellow-500 to-blue-500 rounded-xl flex items-center justify-center">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+          <div class="w-12 h-12 bg-gradient-to-br from-red-500 via-yellow-500 to-blue-500 rounded-xl flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
           </div>
           <h3 class="font-bold text-lg">Google AI</h3>
         </div>
-        <p class="text-green-100 text-sm mb-4">Tecnologia Gemini do Google. Modelos avançados com alta qualidade de resposta.</p>
-        <span class="text-green-300 text-sm font-medium group-hover:underline flex items-center gap-1">
+        <p class="text-green-100/60 text-sm mb-5 leading-relaxed">Tecnologia Gemini do Google. Modelos avançados com alta qualidade de resposta.</p>
+        <span class="text-green-300/80 text-sm font-medium group-hover:text-green-200 flex items-center gap-1.5 transition">
           cloud.google.com/ai
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+          <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
         </span>
       </a>
     </div>
 
-    <div class="mt-12 text-center">
-      <p class="text-green-200 text-sm">
-        🔒 Sua chave API é armazenada localmente e não é compartilhada com nossos servidores.
-      </p>
+    <div class="mt-10 reveal text-center">
+      <div class="inline-flex items-center gap-2 text-green-200/50 text-sm">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        Sua chave API é armazenada <strong class="text-green-200/70">apenas no seu dispositivo</strong> e nunca é enviada aos nossos servidores.
+      </div>
     </div>
   </div>
 </section>
 
-<!-- GALERIA DE PERSONAS -->
-<section id="personas" class="py-20 bg-gray-900 text-white relative overflow-hidden">
-  <!-- Background Pattern -->
-  <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#22c55e 1px, transparent 1px); background-size: 30px 30px;"></div>
+<section id="personas" class="py-24 bg-gray-950 text-white relative overflow-hidden noise">
+  <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(#22c55e 1px, transparent 1px); background-size: 32px 32px;"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-green-500/5 rounded-full blur-[120px]"></div>
 
   <div class="max-w-6xl mx-auto px-4 relative z-10">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">Encontre sua Conexão</h2>
-      <p class="text-gray-400 max-w-2xl mx-auto">Explore nossa galeria de personas sintéticas. Cada uma espera por você no Whats Personas.</p>
+    <div class="text-center mb-14 reveal">
+      <span class="inline-block text-green-400 text-xs font-bold uppercase tracking-widest mb-3">Galeria</span>
+      <h2 class="text-3xl md:text-5xl font-black mb-4 tracking-tight">Encontre sua Conexão</h2>
+      <p class="text-gray-500 max-w-xl mx-auto">Cada persona é única. Explore e encontre alguém especial.</p>
     </div>
 
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-      
-      <!-- Maria Clara -->
-      <a href="select.html" class="group relative bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-green-500 transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-900/50">
-        <div class="h-64 overflow-hidden relative">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-          <img src="https://zap.tokenslp.com.br/maria.jpg" alt="Maria Clara" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+      <a href="zap01.html" class="reveal reveal-delay-1 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10">
+        <div class="h-72 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10"></div>
+          <img src="https://zap.tokenslp.com.br/maria.jpg" alt="Maria Clara" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
+          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50">
+            <div class="online-dot" style="border-color: #1a1a1a;"></div>
+            <span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span>
+          </div>
           <div class="absolute bottom-4 left-4 z-20">
-            <h3 class="text-xl font-bold text-white">Maria Clara</h3>
-            <p class="text-green-400 text-sm">31 anos • Rio de Janeiro, RJ</p>
+            <h3 class="text-xl font-bold text-white mb-0.5">Maria Clara</h3>
+            <p class="text-green-400/80 text-sm font-medium">31 anos • Rio de Janeiro</p>
           </div>
         </div>
-        <div class="p-4 border-t border-gray-700 bg-gray-800 flex justify-between items-center">
-          <span class="text-xs text-gray-400 uppercase tracking-wider">Persona Sintética</span>
-          <span class="text-green-500 font-bold group-hover:underline">Chat Agora &rarr;</span>
+        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900">
+          <div class="flex gap-1.5">
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Empática</span>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">Criativa</span>
+          </div>
+          <span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">
+            Chat
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </span>
         </div>
       </a>
 
-      <!-- Laura Oliveira -->
-      <a href="select.html" class="group relative bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-green-500 transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-900/50">
-        <div class="h-64 overflow-hidden relative">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-          <img src="https://zap.tokenslp.com.br/laura.jpg" alt="Laura Oliveira" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+      <a href="zap02.html" class="reveal reveal-delay-2 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10">
+        <div class="h-72 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10"></div>
+          <img src="https://zap.tokenslp.com.br/laura.jpg" alt="Laura Oliveira" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
+          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50">
+            <div class="online-dot" style="border-color: #1a1a1a;"></div>
+            <span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span>
+          </div>
           <div class="absolute bottom-4 left-4 z-20">
-            <h3 class="text-xl font-bold text-white">Laura Oliveira</h3>
-            <p class="text-green-400 text-sm">28 anos • Rio de Janeiro, RJ</p>
+            <h3 class="text-xl font-bold text-white mb-0.5">Laura Oliveira</h3>
+            <p class="text-green-400/80 text-sm font-medium">28 anos • Rio de Janeiro</p>
           </div>
         </div>
-        <div class="p-4 border-t border-gray-700 bg-gray-800 flex justify-between items-center">
-          <span class="text-xs text-gray-400 uppercase tracking-wider">Persona Sintética</span>
-          <span class="text-green-500 font-bold group-hover:underline">Chat Agora &rarr;</span>
+        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900">
+          <div class="flex gap-1.5">
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Resiliente</span>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Sincera</span>
+          </div>
+          <span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">
+            Chat
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </span>
         </div>
       </a>
 
-      <!-- Fernanda Ribeiro -->
-      <a href="select.html" class="group relative bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-green-500 transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-900/50">
-        <div class="h-64 overflow-hidden relative">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-          <img src="https://zap.tokenslp.com.br/fernanda.jpg" alt="Fernanda Ribeiro" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+      <a href="zap03.html" class="reveal reveal-delay-3 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10">
+        <div class="h-72 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10"></div>
+          <img src="https://zap.tokenslp.com.br/fernanda.jpg" alt="Fernanda Ribeiro" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
+          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50">
+            <div class="online-dot" style="border-color: #1a1a1a;"></div>
+            <span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span>
+          </div>
           <div class="absolute bottom-4 left-4 z-20">
-            <h3 class="text-xl font-bold text-white">Fernanda Ribeiro</h3>
-            <p class="text-green-400 text-sm">38 anos • Belo Horizonte, MG</p>
+            <h3 class="text-xl font-bold text-white mb-0.5">Fernanda Ribeiro</h3>
+            <p class="text-green-400/80 text-sm font-medium">38 anos • Belo Horizonte</p>
           </div>
         </div>
-        <div class="p-4 border-t border-gray-700 bg-gray-800 flex justify-between items-center">
-          <span class="text-xs text-gray-400 uppercase tracking-wider">Persona Sintética</span>
-          <span class="text-green-500 font-bold group-hover:underline">Chat Agora &rarr;</span>
+        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900">
+          <div class="flex gap-1.5">
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20">Intensa</span>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/20">Ousada</span>
+          </div>
+          <span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">
+            Chat
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </span>
         </div>
       </a>
 
-      <!-- Flávio Carvalho -->
-      <a href="select.html" class="group relative bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-green-500 transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-900/50">
-        <div class="h-64 overflow-hidden relative">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-          <img src="https://zap.tokenslp.com.br/flavio.jpg" alt="Flávio Carvalho" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+      <a href="zap04.html" class="reveal reveal-delay-1 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10">
+        <div class="h-72 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10"></div>
+          <img src="https://zap.tokenslp.com.br/flavio.jpg" alt="Flávio Carvalho" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
+          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50">
+            <div class="online-dot" style="border-color: #1a1a1a;"></div>
+            <span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span>
+          </div>
           <div class="absolute bottom-4 left-4 z-20">
-            <h3 class="text-xl font-bold text-white">Flávio Carvalho</h3>
-            <p class="text-green-400 text-sm">31 anos • Porto Alegre, RS</p>
+            <h3 class="text-xl font-bold text-white mb-0.5">Flávio Carvalho</h3>
+            <p class="text-green-400/80 text-sm font-medium">31 anos • Porto Alegre</p>
           </div>
         </div>
-        <div class="p-4 border-t border-gray-700 bg-gray-800 flex justify-between items-center">
-          <span class="text-xs text-gray-400 uppercase tracking-wider">Persona Sintética</span>
-          <span class="text-green-500 font-bold group-hover:underline">Chat Agora &rarr;</span>
+        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900">
+          <div class="flex gap-1.5">
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Extrovertido</span>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Bem-humorado</span>
+          </div>
+          <span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">
+            Chat
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </span>
         </div>
       </a>
 
-      <!-- Ricardo Costa -->
-      <a href="select.html" class="group relative bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-green-500 transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-900/50">
-        <div class="h-64 overflow-hidden relative">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-          <img src="https://zap.tokenslp.com.br/ricardo.jpg" alt="Ricardo Costa" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+      <a href="zap05.html" class="reveal reveal-delay-2 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10">
+        <div class="h-72 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10"></div>
+          <img src="https://zap.tokenslp.com.br/ricardo.jpg" alt="Ricardo Costa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
+          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50">
+            <div class="online-dot" style="border-color: #1a1a1a;"></div>
+            <span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span>
+          </div>
           <div class="absolute bottom-4 left-4 z-20">
-            <h3 class="text-xl font-bold text-white">Ricardo Costa</h3>
-            <p class="text-green-400 text-sm">40 anos • Salvador, BA</p>
+            <h3 class="text-xl font-bold text-white mb-0.5">Ricardo Costa</h3>
+            <p class="text-green-400/80 text-sm font-medium">40 anos • Salvador</p>
           </div>
         </div>
-        <div class="p-4 border-t border-gray-700 bg-gray-800 flex justify-between items-center">
-          <span class="text-xs text-gray-400 uppercase tracking-wider">Persona Sintética</span>
-          <span class="text-green-500 font-bold group-hover:underline">Chat Agora &rarr;</span>
+        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900">
+          <div class="flex gap-1.5">
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20">Reflexivo</span>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Empático</span>
+          </div>
+          <span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">
+            Chat
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </span>
         </div>
       </a>
 
-      <!-- Tiago Martins -->
-      <a href="select.html" class="group relative bg-gray-800 rounded-2xl overflow-hidden border border-gray-700 hover:border-green-500 transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-900/50">
-        <div class="h-64 overflow-hidden relative">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-          <img src="https://zap.tokenslp.com.br/tiago.jpg" alt="Tiago Martins" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+      <a href="zap06.html" class="reveal reveal-delay-3 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10">
+        <div class="h-72 overflow-hidden relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10"></div>
+          <img src="https://zap.tokenslp.com.br/tiago.jpg" alt="Tiago Martins" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
+          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50">
+            <div class="online-dot" style="border-color: #1a1a1a;"></div>
+            <span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span>
+          </div>
           <div class="absolute bottom-4 left-4 z-20">
-            <h3 class="text-xl font-bold text-white">Tiago Martins</h3>
-            <p class="text-green-400 text-sm">47 anos • Curitiba, PR</p>
+            <h3 class="text-xl font-bold text-white mb-0.5">Tiago Martins</h3>
+            <p class="text-green-400/80 text-sm font-medium">47 anos • Curitiba</p>
           </div>
         </div>
-        <div class="p-4 border-t border-gray-700 bg-gray-800 flex justify-between items-center">
-          <span class="text-xs text-gray-400 uppercase tracking-wider">Persona Sintética</span>
-          <span class="text-green-500 font-bold group-hover:underline">Chat Agora &rarr;</span>
+        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900">
+          <div class="flex gap-1.5">
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Calmo</span>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-400 border border-violet-500/20">Experiente</span>
+          </div>
+          <span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">
+            Chat
+            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </span>
         </div>
       </a>
 
     </div>
-    
-    <div class="mt-16 text-center">
-      <a href="select.html" class="inline-block w-full md:w-auto px-12 py-5 bg-gradient-to-r from-green-700 to-green-600 text-white rounded-xl font-bold text-xl shadow-lg hover:shadow-green-500/40 hover:scale-105 transition transform">
-        Escolher uma Persona &rarr;
+
+    <div class="mt-14 text-center reveal">
+      <a href="select.html" class="group inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-green-700 to-green-600 text-white rounded-2xl font-bold text-lg shadow-2xl shadow-green-500/20 hover:shadow-green-500/40 hover:scale-[1.03] active:scale-[0.98] transition-transform duration-200">
+        Escolher uma Persona
+        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
       </a>
     </div>
   </div>
 </section>
 
-<!-- CTA FINAL -->
-<section class="py-20 bg-white">
-  <div class="max-w-4xl mx-auto px-4 text-center">
-    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Pronto para começar?</h2>
-    <p class="text-gray-600 mb-8 text-lg">Configure sua chave API e inicie conversas incríveis com nossas personas sintéticas.</p>
-    <a href="select.html" class="inline-block px-10 py-4 bg-green-800 text-white rounded-xl font-bold text-lg shadow-xl hover:bg-green-700 hover:shadow-2xl transition transform hover:-translate-y-1">
-      Acessar Whats Personas
-    </a>
+<section class="py-24 bg-white relative overflow-hidden noise">
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-green-100 rounded-full blur-[120px] opacity-50"></div>
+  <div class="max-w-3xl mx-auto px-4 text-center relative z-10">
+    <div class="reveal">
+      <div class="w-16 h-16 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+      </div>
+      <h2 class="text-3xl md:text-5xl font-black text-gray-900 mb-5 tracking-tight">Pronto para começar?</h2>
+      <p class="text-gray-500 mb-10 text-lg leading-relaxed">Configure sua chave API e inicie conversas incríveis com nossas personas sintéticas. Sem complicação, direto ao ponto.</p>
+      <a href="select.html" class="group shimmer-hover inline-flex items-center gap-2 px-10 py-5 bg-green-800 text-white rounded-2xl font-bold text-lg shadow-2xl shadow-green-500/20 hover:shadow-green-500/40 hover:-translate-y-1 active:translate-y-0 transition-all duration-300">
+        Acessar Whats Personas
+        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="bg-gray-50 border-t border-gray-200 py-12 text-center">
-  <div class="flex items-center justify-center gap-2 mb-4 opacity-50">
-    <div class="w-6 h-6 bg-green-800 text-white rounded flex items-center justify-center font-bold text-xs">WP</div>
-    <span class="font-bold text-gray-800">Whats Personas</span>
+<footer class="bg-gray-950 border-t border-gray-800 py-14 text-center">
+  <div class="flex items-center justify-center gap-2.5 mb-4">
+    <div class="w-8 h-8 bg-gradient-to-br from-green-600 to-green-500 text-white rounded-xl flex items-center justify-center font-bold text-xs shadow-lg shadow-green-500/20">WP</div>
+    <span class="font-bold text-lg text-gray-300">Whats <span class="text-green-400">Personas</span></span>
   </div>
-  <p class="text-gray-500 text-sm mb-4">TOKEN – Synthetic Language Personas</p>
-  <a href="https://tokenslp.com.br" class="text-green-700 hover:underline text-sm">tokenslp.com.br</a>
+  <p class="text-gray-600 text-sm mb-5">TOKEN – Synthetic Language Personas</p>
+  <div class="flex items-center justify-center gap-6 mb-6">
+    <a href="#como-funciona" class="text-gray-500 hover:text-green-400 text-sm transition">Como Funciona</a>
+    <a href="#personas" class="text-gray-500 hover:text-green-400 text-sm transition">Personas</a>
+    <a href="#api" class="text-gray-500 hover:text-green-400 text-sm transition">API</a>
+  </div>
+  <a href="https://tokenslp.com.br" target="_blank" rel="noopener" class="text-green-500/60 hover:text-green-400 text-sm transition">tokenslp.com.br</a>
+  <div class="mt-6 pt-6 border-t border-gray-800/50">
+    <p class="text-gray-700 text-xs">&copy; 2026 Whats Personas. Todos os direitos reservados.</p>
+  </div>
 </footer>
+
+<script>
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 20) {
+    nav.classList.add('nav-scrolled');
+  } else {
+    nav.classList.remove('nav-scrolled');
+  }
+}, { passive: true });
+
+const words = ['sintéticos', 'reais', 'únicos', 'seus'];
+let wordIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+const typedEl = document.getElementById('heroTyped');
+const cursorEl = document.getElementById('heroCursor');
+
+function typeEffect() {
+  const currentWord = words[wordIndex];
+
+  if (!isDeleting) {
+    typedEl.textContent = currentWord.substring(0, charIndex + 1);
+    charIndex++;
+    if (charIndex === currentWord.length) {
+      isDeleting = true;
+      setTimeout(typeEffect, 2000);
+      return;
+    }
+    setTimeout(typeEffect, 100);
+  } else {
+    typedEl.textContent = currentWord.substring(0, charIndex - 1);
+    charIndex--;
+    if (charIndex === 0) {
+      isDeleting = false;
+      wordIndex = (wordIndex + 1) % words.length;
+      setTimeout(typeEffect, 400);
+      return;
+    }
+    setTimeout(typeEffect, 60);
+  }
+}
+setTimeout(typeEffect, 1000);
+
+const statObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.target);
+      if (!target) return;
+      let current = 0;
+      const increment = target / 40;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.textContent = Math.round(current);
+      }, 30);
+      statObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.stat-number[data-target]').forEach(el => statObserver.observe(el));
+
+document.querySelectorAll('.tilt-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = (y - centerY) / 20;
+    const rotateY = (centerX - x) / 20;
+    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateY(0)';
+  });
+});
+</script>
 
 </body>
 </html>
