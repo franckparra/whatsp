@@ -856,43 +856,32 @@ function initInstallButton() {
       });
   }
 
-  /* ----- PWA: Detecção de plataforma ----- */
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
-                       window.navigator.standalone === true;
-
-  // Se já está instalado como app standalone, esconde o botão
-  if (isStandalone) {
-    console.log('[PWA] App já instalado como standalone');
-    installBtn.classList.add('hidden');
-    return;
-  }
-
   /* ----- PWA: Android – Captura do beforeinstallprompt ----- */
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    console.log('[PWA] beforeinstallprompt capturado');
-    // Botão já está visível por padrão, mas garante se estiver escondido
+    console.log('[PWA] beforeinstallprompt capturado – instalação disponível');
     installBtn.classList.remove('hidden');
+    // Atualiza o texto para indicar que o prompt nativo está disponível
+    installBtn.textContent = '📱 Instalar';
+    installBtn.dataset.hasPrompt = 'true';
   });
 
-  // Quando o app for instalado com sucesso, esconde o botão
+  // Quando ESTA persona for instalada com sucesso, atualiza o botão
   window.addEventListener('appinstalled', () => {
     console.log('[PWA] App instalado com sucesso!');
-    installBtn.classList.add('hidden');
     deferredPrompt = null;
+    delete installBtn.dataset.hasPrompt;
+    // Não esconde o botão – permite instalar outras personas
+    installBtn.textContent = '✅ Instalado';
     showToast('App instalado na tela inicial!', 'success');
   });
 
-  /* ----- PWA: Log da plataforma detectada ----- */
+  /* ----- PWA: Detecção de plataforma para log ----- */
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   if (isIOS) {
     console.log('[PWA] iOS detectado – botão abrirá modal de instruções');
-  } else if (deferredPrompt) {
-    console.log('[PWA] Android – prompt de instalação disponível');
-  } else {
-    console.log('[PWA] Plataforma desktop/outros – botão visível para teste');
   }
 }
 
