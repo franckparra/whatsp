@@ -1,0 +1,24 @@
+{
+  "name": "Maria Clara",
+  "short_name": "Maria Clara",
+  "description": "Chat com Maria Clara – Persona Sintética",
+  "start_url": "./maria.html?p=maria",
+  "display": "standalone",
+  "background_color": "#25D366",
+  "theme_color": "#25D366",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "maria.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "maria.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
