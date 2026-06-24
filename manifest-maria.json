@@ -2,7 +2,7 @@
   "name": "Maria Clara",
   "short_name": "Maria Clara",
   "description": "Chat com Maria Clara – Persona Sintética",
-  "start_url": "zap.tokenslp.com.br/maria.html?p=maria",
+  "start_url": "./maria.html?p=maria",
   "display": "standalone",
   "background_color": "#25D366",
   "theme_color": "#25D366",
