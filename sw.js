@@ -9,8 +9,11 @@ const CACHE_NAME = 'whats-personas-v1';
 const ASSETS_TO_CACHE = [
   './',
   './maria.html',
+  './laura.html',
   './maria.jpg',
-  './manifest-maria.json'
+  './laura.jpg',
+  './manifest-maria.json',
+  './manifest-laura.json'
 ];
 
 // Instalação: pré-cacheia recursos essenciais
