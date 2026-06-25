@@ -314,7 +314,7 @@
    PERSONAS – Fernanda Ribeiro
    ------------------------------------------------- */
 const PERSONAS = {
-  "maria":{
+  "fernanda":{
     "nome":"Fernanda Ribeiro",
     "avatar":"fernanda.jpg",
     "badge":"Persona Sintética",
@@ -330,7 +330,7 @@ const PERSONAS = {
    ------------------------------------------------- */
 function getPersonaId(){
   const params = new URLSearchParams(location.search);
-  return params.get('p') || 'maria';
+  return params.get('p') || 'fernanda';
 }
 function getPersonaGender(pid){
   const femaleIds = ['maria','laura','fernanda'];
