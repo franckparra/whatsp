@@ -1,0 +1,24 @@
+{
+  "name": "Fernanda Ribeiro",
+  "short_name": "Fernanda Ribeiro",
+  "description": "Chat com Fernanda Ribeiro – Persona Sintética",
+  "start_url": "./fernanda.html?p=fernanda",
+  "display": "standalone",
+  "background_color": "#25D366",
+  "theme_color": "#25D366",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "fernanda.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "fernanda.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
