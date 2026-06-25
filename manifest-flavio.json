@@ -1,0 +1,24 @@
+{
+  "name": "Flavio Carvalho",
+  "short_name": "Flavio Carvalho",
+  "description": "Chat com Flavio Carvalho – Persona Sintética",
+  "start_url": "./flavio.html?p=flavio",
+  "display": "standalone",
+  "background_color": "#25D366",
+  "theme_color": "#25D366",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "flavio.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "flavio.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
