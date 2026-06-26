@@ -2,25 +2,21 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Whats Personas – Seleção</title>
+<title>AI Personas – Seleção</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#166534">
 <meta name="description" content="Selecione uma persona para conversar">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
-<!-- 
-  h-[100dvh]: Altura dinâmica (ajusta-se à barra do navegador no mobile)
-  overflow-hidden: Impede scroll na página inteira, forçando o scroll apenas no MAIN 
--->
 <body class="flex flex-col h-[100dvh] overflow-hidden bg-gray-100 text-gray-800 font-sans">
 
 <!-- HEADER FIXO (TOPO) -->
 <header class="shrink-0 bg-green-800 text-white flex items-center justify-between p-4 border-b border-green-900 shadow-md z-10">
   <div class="flex items-center gap-3">
-    <div class="w-10 h-10 bg-white text-green-800 rounded-full flex items-center justify-center font-bold text-lg shadow-inner">WP</div>
+    <div class="w-9 h-9 bg-gradient-to-br from-green-700 to-green-500 text-white rounded-xl flex items-center justify-center font-bold text-xs shadow-lg shadow-green-500/20 transition">AI P</div>
     <div>
-      <h1 class="text-sm font-semibold tracking-wide">Whats Personas</h1>
+      <span class="font-bold text-lg tracking-tight text-white">AI <span class="text-green-200">Personas</span></span>
       <p class="text-xs text-green-100 opacity-90">Selecione uma persona</p>
     </div>
   </div>
@@ -33,9 +29,8 @@
 
 <!-- LISTA DE PERSONAS (CENTRO SCROLLÁVEL) -->
 <main class="flex-1 overflow-y-auto overflow-x-hidden py-3 px-2 bg-gray-100 scroll-smooth">
-  
   <div class="flex flex-col gap-3 max-w-2xl mx-auto w-full">
-    
+
     <!-- Card 1 – Maria Clara -->
     <a href="zap01.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
       <img src="maria.jpg" alt="Maria Clara" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
@@ -113,7 +108,7 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
       </svg>
     </a>
-    
+
     <div class="h-2"></div>
   </div>
 </main>
