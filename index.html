@@ -1,156 +1,173 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>AI Personas – Relacionamentos Sintéticos</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#166534">
-<meta name="description" content="Converse com personas sintéticas que possuem personalidade própria.">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-<style>
-  * { scroll-behavior: smooth; }
-  body { font-family: 'Inter', sans-serif; }
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1);
+  <meta charset="UTF-8">
+  <!-- SEO Básico -->
+  <title>AI Personas – Relacionamentos Sintéticos com Personalidade Própria | Chat IA 24/7</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#166534">
+  <meta name="description" content="Converse com 6 personas de IA únicas (Maria, Laura, Flávio...). História, emoções e zero julgamento 24h. Privacidade total: sua API Key fica no seu dispositivo. Acesse grátis.">
+  <link rel="canonical" href="https://aipersonas.com.br/" />
+  
+  <!-- Performance Hints (Core Web Vitals) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link rel="preconnect" href="https://aipersonas.com.br" crossorigin>
+  <link rel="dns-prefetch" href="https://openrouter.ai">
+  <link rel="dns-prefetch" href="https://platform.inceptionlabs.ai">
+  <link rel="dns-prefetch" href="https://cloud.google.com">
+  <!-- Preload da imagem LCP (Primeira persona visível no viewport mobile/desktop) -->
+  <link rel="preload" as="image" href="https://aipersonas.com.br/maria.jpg" fetchpriority="high">
+  <!-- Preload da fonte principal (Inter wght 600/700 para títulos) - URL pode variar, verifique no Network Tab -->
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/inter/v19/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2">
+
+  <!-- Open Graph (Facebook, LinkedIn, WhatsApp, Telegram, Discord) -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aipersonas.com.br/">
+  <meta property="og:title" content="AI Personas – Relacionamentos Sintéticos com Personalidade Própria">
+  <meta property="og:description" content="Converse com personas que têm história, opiniões e emoções. 24/7, zero julgamento, privacidade total. Configure sua API Key e comece agora.">
+  <meta property="og:image" content="https://aipersonas.com.br/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Captura de tela do AI Personas mostrando cards de personagens como Maria Clara e Flávio Carvalho">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="AI Personas - TOKEN SLP">
+
+  <!-- Twitter Card (X) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@tokenslp">
+  <meta name="twitter:creator" content="@tokenslp">
+  <meta name="twitter:title" content="AI Personas – Relacionamentos Sintéticos com Personalidade Própria">
+  <meta name="twitter:description" content="6 personas únicas. História, emoções, 24/7. Sua chave API fica no seu dispositivo. Experimente grátis.">
+  <meta name="twitter:image" content="https://aipersonas.com.br/og-image.jpg">
+  <meta name="twitter:image:alt" content="Interface do AI Personas com avatares das personas sintéticas">
+
+  <!-- Fonte & Estilos -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  
+  <!-- CSS Interno (Mantido original + pequenos ajustes) -->
+  <style>
+    * { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; } .reveal-delay-3 { transition-delay: 0.3s; } .reveal-delay-4 { transition-delay: 0.4s; } .reveal-delay-5 { transition-delay: 0.5s; }
+    .hero-fade { animation: heroFade 1s ease-out forwards; opacity: 0; }
+    .hero-fade-d1 { animation: heroFade 1s ease-out 0.15s forwards; opacity: 0; }
+    .hero-fade-d2 { animation: heroFade 1s ease-out 0.3s forwards; opacity: 0; }
+    .hero-fade-d3 { animation: heroFade 1s ease-out 0.45s forwards; opacity: 0; }
+    @keyframes heroFade { to { opacity: 1; transform: translateY(0); } from { transform: translateY(24px); } }
+    .gradient-text { background: linear-gradient(135deg, #166534 0%, #22c55e 50%, #166534 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 4s ease infinite; }
+    @keyframes gradientShift { 0%,100% { background-position: 0% center; } 50% { background-position: 100% center; } }
+    .typing-cursor::after { content: '|'; animation: blink 1s step-end infinite; color: #22c55e; font-weight: 300; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.5; animation: blobFloat 8s ease-in-out infinite; }
+    .blob-2 { animation-delay: -3s; animation-duration: 10s; } .blob-3 { animation-delay: -6s; animation-duration: 12s; }
+    @keyframes blobFloat { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(30px,-20px) scale(1.05); } 66% { transform: translate(-20px,15px) scale(0.95); } }
+    .pulse-glow { animation: pulseGlow 2.5s ease-in-out infinite; }
+    @keyframes pulseGlow { 0%,100% { box-shadow: 0 0 20px rgba(34,197,94,0.25), 0 8px 32px rgba(0,0,0,0.2); } 50% { box-shadow: 0 0 40px rgba(34,197,94,0.5), 0 8px 32px rgba(0,0,0,0.2); } }
+    .shimmer-hover { position: relative; overflow: hidden; } .shimmer-hover::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent); transition: left 0.6s ease; } .shimmer-hover:hover::before { left: 100%; }
+    .online-dot { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; border: 2px solid #1f2937; position: relative; }
+    .online-dot::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 2px solid #22c55e; animation: onlinePing 2s ease-out infinite; }
+    @keyframes onlinePing { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.8); opacity: 0; } }
+    .tilt-card { transition: transform 0.3s ease, box-shadow 0.3s ease; transform-style: preserve-3d; }
+    .stat-number { font-variant-numeric: tabular-nums; }
+    .nav-scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.06); border-color: #e5e7eb; }
+    .marquee-track { display: flex; animation: marquee 30s linear infinite; width: max-content; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .noise::before { content: ''; position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; }
+    .step-line { position: absolute; top: 28px; left: calc(50% + 28px); width: calc(100% - 56px); height: 2px; background: linear-gradient(90deg, #22c55e, #166534); opacity: 0.3; }
+    ::selection { background: #bbf7d0; color: #14532d; }
+    
+    /* FAQ Styles */
+    .faq-item summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; padding: 1rem 0; border-bottom: 1px solid #e5e7eb; }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary svg { flex-shrink: 0; margin-left: 1rem; transition: transform 0.3s ease; }
+    .faq-item[open] summary svg { transform: rotate(180deg); }
+    .faq-item .faq-answer { padding-top: 0.5rem; padding-bottom: 1rem; color: #4b5563; line-height: 1.7; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    .dark .faq-item summary { border-color: #374151; } .dark .faq-item .faq-answer { color: #d1d5db; }
+  </style>
+
+  <!-- JSON-LD Structured Data (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://aipersonas.com.br/#website",
+        "url": "https://aipersonas.com.br/",
+        "name": "AI Personas",
+        "description": "Plataforma de relacionamentos sintéticos com personas de IA que possuem personalidade, história e emoções próprias.",
+        "publisher": { "@id": "https://aipersonas.com.br/#organization" },
+        "potentialAction": { "@type": "SearchAction", "target": { "@type": "EntryPoint", "urlTemplate": "https://aipersonas.com.br/select.html?q={search_term_string}" }, "query-input": "required name=search_term_string" },
+        "inLanguage": "pt-BR"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://aipersonas.com.br/#organization",
+        "name": "TOKEN - Synthetic Language Personas",
+        "url": "https://tokenslp.com.br",
+        "logo": { "@type": "ImageObject", "url": "https://aipersonas.com.br/logo.png", "width": 512, "height": 512 },
+        "sameAs": [ "https://tokenslp.com.br" ]
+      },
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://aipersonas.com.br/#app",
+        "name": "AI Personas",
+        "applicationCategory": "SocialNetworkingApplication",
+        "operatingSystem": "Cloud / Web Browser",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL", "availability": "https://schema.org/InStock", "description": "Acesso gratuito à interface. Requer chave API de provedor (OpenRouter, Inception, Google AI)." },
+        "description": "Interaja com 6 personas sintéticas únicas (Maria Clara, Laura Oliveira, Fernanda Ribeiro, Flávio Carvalho, Ricardo Costa, Tiago Martins). Cada persona possui idade, origem, traços de personalidade (Big Five) e histórico de vida definidos. Conversas sem filtros, sem julgamento, disponíveis 24h. Privacidade total: a chave API do usuário é armazenada localmente no navegador (localStorage) e nunca enviada a servidores terceiros.",
+        "featureList": [ "6 Personas com perfis psicológicos distintos (Big Five)", "Suporte a múltiplos provedores LLM (OpenRouter, Inception Labs, Google Gemini)", "Armazenamento local da API Key (Privacidade by Design)", "Token SLP (Synthetic Language Personas) para gerenciamento de contexto", "Interface responsiva, modo escuro/claro automático", "Disponibilidade 24/7 sem filas" ],
+        "author": { "@id": "https://aipersonas.com.br/#organization" },
+        "publisher": { "@id": "https://aipersonas.com.br/#organization" },
+        "url": "https://aipersonas.com.br/",
+        "image": "https://aipersonas.com.br/og-image.jpg",
+        "softwareVersion": "1.0",
+        "datePublished": "2024-01-01",
+        "dateModified": "2025-05-15",
+        "inLanguage": "pt-BR",
+        "screenshot": "https://aipersonas.com.br/og-image.jpg"
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://aipersonas.com.br/#personas-list",
+        "name": "Galeria de Personas AI Personas",
+        "description": "Lista de personas sintéticas disponíveis para conversação imediata.",
+        "numberOfItems": 6,
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "item": { "@type": "Person", "name": "Maria Clara", "age": "31", "homeLocation": "Rio de Janeiro, Brasil", "description": "Persona empática e criativa. Ideal para conversas acolhedoras e brainstorming.", "url": "https://aipersonas.com.br/zap01.html", "image": "https://aipersonas.com.br/maria.jpg", "keywords": "Empática, Criativa, Acolhedora" }},
+          { "@type": "ListItem", "position": 2, "item": { "@type": "Person", "name": "Laura Oliveira", "age": "28", "homeLocation": "Rio de Janeiro, Brasil", "description": "Persona resiliente e sincera. Foco em superação e verdades duras.", "url": "https://aipersonas.com.br/zap02.html", "image": "https://aipersonas.com.br/laura.jpg", "keywords": "Resiliente, Sincera, Forte" }},
+          { "@type": "ListItem", "position": 3, "item": { "@type": "Person", "name": "Fernanda Ribeiro", "age": "38", "homeLocation": "Vitória, Brasil", "description": "Persona intensa e ousada. Conversas profundas e apaixonadas.", "url": "https://aipersonas.com.br/zap03.html", "image": "https://aipersonas.com.br/fernanda.jpg", "keywords": "Intensa, Ousada, Passional" }},
+          { "@type": "ListItem", "position": 4, "item": { "@type": "Person", "name": "Flávio Carvalho", "age": "31", "homeLocation": "Porto Alegre, Brasil", "description": "Persona extrovertida e bem-humorada. Leveza e descontração.", "url": "https://aipersonas.com.br/zap04.html", "image": "https://aipersonas.com.br/flavio.jpg", "keywords": "Extrovertido, Bem-humorado, Leve" }},
+          { "@type": "ListItem", "position": 5, "item": { "@type": "Person", "name": "Ricardo Costa", "age": "40", "homeLocation": "Salvador, Brasil", "description": "Persona reflexiva e empática. Conselhos maduros e escuta ativa.", "url": "https://aipersonas.com.br/zap0/zap05.html", "image": "https://aipersonas.com.br/ricardo.jpg", "keywords": "Reflexivo, Empático, Sábio" }},
+          { "@type": "ListItem", "position": 6, "item": { "@type": "Person", "name": "Tiago Martins", "age": "47", "homeLocation": "Curitiba, Brasil", "description": "Persona calma e experiente. Perspectiva de vida e tranquilidade.", "url": "https://aipersonas.com.br/zap06.html", "image": "https://aipersonas.com.br/tiago.jpg", "keywords": "Calmo, Experiente, Mentor" }}
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://aipersonas.com.br/#faq",
+        "mainEntity": [
+          { "@type": "Question", "name": "O AI Personas é gratuito?", "acceptedAnswer": { "@type": "Answer", "text": "Sim, a interface e o acesso às personas são gratuitos. Você precisa apenas de uma chave API (API Key) de um provedor compatível (OpenRouter, Inception Labs ou Google AI) para que a IA processe as conversas. Alguns provedores oferecem créditos gratuitos iniciais (ex: Inception Labs oferece 10 milhões de tokens grátis)." }},
+          { "@type": "Question", "name": "Minha chave API é segura? Vocês armazenam ela?", "acceptedAnswer": { "@type": "Answer", "text": "Sim, é totalmente segura. Sua chave API é armazenada exclusivamente no localStorage do seu navegador (dispositivo local). Ela nunca é enviada para nossos servidores nem para terceiros, sendo usada apenas para fazer requisições diretas do seu navegador para a API do provedor escolhido (OpenRouter, Inception, Google)." }},
+          { "@type": "Question", "name": "Quais provedores de IA são suportados?", "acceptedAnswer": { "@type": "Answer", "text": "Atualmente suportamos três provedores principais: 1) Open Router (acesso a centenas de modelos como GPT-4, Claude 3, Llama 3, Mistral); 2) Inception Labs (modelos otimizados para conversação natural, com 10M tokens grátis); 3) Google AI (modelos Gemini Pro). Você escolhe qual usar nas configurações." }},
+          { "@type": "Question", "name": "O que são 'Personas Sintéticas' e como diferem de chatbots comuns?", "acceptedAnswer": { "@type": "Answer", "text": "Nossas personas não são prompts genéricos. Cada uma possui um 'Perfil Sintético' estruturado: nome, idade, cidade, história de vida, traços de personalidade baseados no modelo Big Five (Abertura, Conscienciosidade, Extroversão, Amabilidade, Neuroticismo), valores, medos, estilo de fala e memórias simuladas. Isso gera consistência comportamental de longo prazo, diferentemente de chatbots que 'esquecem' o contexto ou personalidade após poucas mensagens." }},
+          { "@type": "Question", "name": "Preciso instalar algo? Funciona no celular?", "acceptedAnswer": { "@type": "Answer", "text": "Não requer instalação. É uma Progressive Web App (PWA) que roda direto no navegador (Chrome, Safari, Firefox, Edge) em desktop, tablet ou celular. Você pode 'Instalar' o app pela opção do navegador para ter ícone na tela inicial e experiência fullscreen." }}
+        ]
+      }
+    ]
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
-  .reveal-delay-4 { transition-delay: 0.4s; }
-  .reveal-delay-5 { transition-delay: 0.5s; }
-  .hero-fade {
-    animation: heroFade 1s ease-out forwards;
-    opacity: 0;
-  }
-  .hero-fade-d1 { animation: heroFade 1s ease-out 0.15s forwards; opacity: 0; }
-  .hero-fade-d2 { animation: heroFade 1s ease-out 0.3s forwards; opacity: 0; }
-  .hero-fade-d3 { animation: heroFade 1s ease-out 0.45s forwards; opacity: 0; }
-  @keyframes heroFade {
-    to { opacity: 1; transform: translateY(0); }
-    from { transform: translateY(24px); }
-  }
-  .gradient-text {
-    background: linear-gradient(135deg, #166534 0%, #22c55e 50%, #166534 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradientShift 4s ease infinite;
-  }
-  @keyframes gradientShift {
-    0%,100% { background-position: 0% center; }
-    50% { background-position: 100% center; }
-  }
-  .typing-cursor::after {
-    content: '|';
-    animation: blink 1s step-end infinite;
-    color: #22c55e;
-    font-weight: 300;
-  }
-  @keyframes blink {
-    50% { opacity: 0; }
-  }
-  .blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.5;
-    animation: blobFloat 8s ease-in-out infinite;
-  }
-  .blob-2 { animation-delay: -3s; animation-duration: 10s; }
-  .blob-3 { animation-delay: -6s; animation-duration: 12s; }
-  @keyframes blobFloat {
-    0%,100% { transform: translate(0,0) scale(1); }
-    33% { transform: translate(30px,-20px) scale(1.05); }
-    66% { transform: translate(-20px,15px) scale(0.95); }
-  }
-  .pulse-glow {
-    animation: pulseGlow 2.5s ease-in-out infinite;
-  }
-  @keyframes pulseGlow {
-    0%,100% { box-shadow: 0 0 20px rgba(34,197,94,0.25), 0 8px 32px rgba(0,0,0,0.2); }
-    50% { box-shadow: 0 0 40px rgba(34,197,94,0.5), 0 8px 32px rgba(0,0,0,0.2); }
-  }
-  .shimmer-hover { position: relative; overflow: hidden; }
-  .shimmer-hover::before {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%; width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
-    transition: left 0.6s ease;
-  }
-  .shimmer-hover:hover::before { left: 100%; }
-  .online-dot {
-    width: 10px; height: 10px;
-    background: #22c55e;
-    border-radius: 50%;
-    border: 2px solid #1f2937;
-    position: relative;
-  }
-  .online-dot::after {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 50%;
-    border: 2px solid #22c55e;
-    animation: onlinePing 2s ease-out infinite;
-  }
-  @keyframes onlinePing {
-    0% { transform: scale(1); opacity: 0.6; }
-    100% { transform: scale(1.8); opacity: 0; }
-  }
-  .tilt-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    transform-style: preserve-3d;
-  }
-  .stat-number {
-    font-variant-numeric: tabular-nums;
-  }
-  .nav-scrolled {
-    box-shadow: 0 4px 30px rgba(0,0,0,0.06);
-    border-color: #e5e7eb;
-  }
-  .marquee-track {
-    display: flex;
-    animation: marquee 30s linear infinite;
-    width: max-content;
-  }
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-  .noise::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-  }
-  .step-line {
-    position: absolute;
-    top: 28px;
-    left: calc(50% + 28px);
-    width: calc(100% - 56px);
-    height: 2px;
-    background: linear-gradient(90deg, #22c55e, #166534);
-    opacity: 0.3;
-  }
-  ::selection { background: #bbf7d0; color: #14532d; }
-</style>
+  </script>
 </head>
 <body class="bg-white text-gray-800 antialiased">
 <nav id="mainNav" class="w-full py-4 px-6 fixed top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-transparent transition-all duration-300">
   <div class="max-w-6xl mx-auto flex justify-between items-center">
-    <a href="#" class="flex items-center gap-2.5 group">
-      <div class="w-9 h-9 bg-gradient-to-br from-green-700 to-green-500 text-white rounded-xl flex items-center justify-center font-bold text-xs shadow-lg shadow-green-500/20 group-hover:shadow-green-500/40 transition">AI P</div>
+    <a href="#" class="flex items-center gap-2.5 group" aria-label="AI Personas - Página Inicial">
+      <div class="w-9 h-9 bg-gradient-to-br from-green-700 to-green-500 text-white rounded-xl flex items-center justify-center font-bold text-xs shadow-lg shadow-green-500/20 group-hover:shadow-green-500/40 transition" aria-hidden="true">AI P</div>
       <span class="font-bold text-lg tracking-tight text-gray-900">AI <span class="text-green-700">Personas</span></span>
     </a>
     <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-500">
@@ -158,114 +175,119 @@
       <a href="#personas" class="hover:text-green-700 transition">Personas</a>
       <a href="#api" class="hover:text-green-700 transition">API</a>
     </div>
-    <a href="select.html" class="bg-green-800 text-white px-5 py-2.5 rounded-full font-semibold text-sm hover:bg-green-700 transition-all shadow-lg shadow-green-500/20 hover:shadow-green-500/40 hover:-translate-y-0.5 active:translate-y-0">
-      Acessar App
-    </a>
+    <a href="select.html" class="bg-green-800 text-white px-5 py-2.5 rounded-full font-semibold text-sm hover:bg-green-700 transition-all shadow-lg shadow-green-500/20 hover:shadow-green-500/40 hover:-translate-y-0.5 active:translate-y-0">Acessar App</a>
   </div>
 </nav>
-<section class="relative pt-28 pb-20 px-4 overflow-hidden min-h-[90vh] flex items-center bg-gradient-to-b from-green-50/80 via-white to-white noise">
-  <div class="blob w-72 h-72 bg-green-300 top-10 -left-20"></div>
-  <div class="blob blob-2 w-96 h-96 bg-emerald-200 bottom-0 right-[-100px]"></div>
-  <div class="blob blob-3 w-48 h-48 bg-teal-200 top-1/2 left-1/3"></div>
+
+<section class="relative pt-28 pb-20 px-4 overflow-hidden min-h-[90vh] flex items-center bg-gradient-to-b from-green-50/80 via-white to-white noise" aria-labelledby="hero-title">
+  <div class="blob w-72 h-72 bg-green-300 top-10 -left-20" aria-hidden="true"></div>
+  <div class="blob blob-2 w-96 h-96 bg-emerald-200 bottom-0 right-[-100px]" aria-hidden="true"></div>
+  <div class="blob blob-3 w-48 h-48 bg-teal-200 top-1/2 left-1/3" aria-hidden="true"></div>
   <div class="max-w-4xl mx-auto text-center relative z-10">
-    <div class="hero-fade inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-green-100/80 text-green-700 text-xs font-bold uppercase tracking-widest mb-6 border border-green-200/60 backdrop-blur-sm">
-      <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+    <div class="hero-fade inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-green-100/80 text-green-700 text-xs font-bold uppercase tracking-widest mb-6 border border-green-200/60 backdrop-blur-sm" aria-label="Tecnologia Token SLP">
+      <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse" aria-hidden="true"></span>
       Tecnologia Token SLP
     </div>
-    <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.05] tracking-tight hero-fade-d1">
+    <!-- H1 OTIMIZADO: Texto base "Sintéticos" no HTML para SEO. JS anima sobre ele. -->
+    <h1 id="hero-title" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 leading-[1.05] tracking-tight hero-fade-d1">
       Relacionamentos<br>
-      <span class="gradient-text" id="heroTyped"></span><span class="typing-cursor" id="heroCursor"></span>
+      <span class="gradient-text" id="heroTyped">Sintéticos</span><span class="typing-cursor" id="heroCursor" aria-hidden="true"></span>
     </h1>
     <p class="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto mb-10 leading-relaxed hero-fade-d2">
       Interaja com personas que possuem história, opiniões e emoções próprias. Sem filtros, sem julgamento, <strong class="text-gray-700">24 horas disponível</strong>.
     </p>
     <div class="flex flex-col sm:flex-row gap-4 justify-center hero-fade-d3">
-      <a href="select.html" class="group shimmer-hover px-8 py-4 bg-green-800 text-white rounded-2xl font-bold text-lg shadow-2xl shadow-green-500/25 hover:shadow-green-500/40 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 pulse-glow">
+      <a href="select.html" class="group shimmer-hover px-8 py-4 bg-green-800 text-white rounded-2xl font-bold text-lg shadow-2xl shadow-green-500/25 hover:shadow-green-500/40 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center gap-2 pulse-glow" aria-label="Começar conversa com uma persona">
         <span>Começar Conversa</span>
-        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
       </a>
-      <a href="#como-funciona" class="px-8 py-4 bg-white text-gray-700 border border-gray-200 rounded-2xl font-bold text-lg hover:border-green-300 hover:text-green-800 hover:bg-green-50/50 transition-all shadow-sm flex items-center justify-center gap-2">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      <a href="#como-funciona" class="px-8 py-4 bg-white text-gray-700 border border-gray-200 rounded-2xl font-bold text-lg hover:border-green-300 hover:text-green-800 hover:bg-green-50/50 transition-all shadow-sm flex items-center justify-center gap-2" aria-label="Entender como funciona o AI Personas">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         Como Funciona
       </a>
     </div>
     <div class="mt-14 hero-fade-d3 flex items-center justify-center gap-3">
-      <div class="flex -space-x-2">
-        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-green-600 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center">M</div>
-        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center">L</div>
-        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center">F</div>
-        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center">R</div>
+      <div class="flex -space-x-2" aria-label="Avatares das 4 primeiras personas">
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-green-600 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center" aria-hidden="true">M</div>
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center" aria-hidden="true">L</div>
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center" aria-hidden="true">F</div>
+        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 border-2 border-white text-white text-[10px] font-bold flex items-center justify-center" aria-hidden="true">R</div>
       </div>
       <p class="text-sm text-gray-400"><span class="text-gray-600 font-semibold">6 personas</span> disponíveis agora</p>
     </div>
   </div>
 </section>
-<div class="py-5 bg-gray-900 overflow-hidden border-y border-gray-800">
+
+<div class="py-5 bg-gray-900 overflow-hidden border-y border-gray-800" aria-hidden="true">
   <div class="marquee-track">
     <span class="text-gray-500 text-sm font-medium tracking-widest uppercase whitespace-nowrap px-8">Sintético &nbsp;✦&nbsp; Personalidade &nbsp;✦&nbsp; 24/7 &nbsp;✦&nbsp; Zero Julgamento &nbsp;✦&nbsp; Token SLP &nbsp;✦&nbsp; Inteligência Artificial &nbsp;✦&nbsp; Conversação Real &nbsp;✦&nbsp; Privacidade &nbsp;✦&nbsp;</span>
     <span class="text-gray-500 text-sm font-medium tracking-widest uppercase whitespace-nowrap px-8">Sintético &nbsp;✦&nbsp; Personalidade &nbsp;✦&nbsp; 24/7 &nbsp;✦&nbsp; Zero Julgamento &nbsp;✦&nbsp; Token SLP &nbsp;✦&nbsp; Inteligência Artificial &nbsp;✦&nbsp; Conversação Real &nbsp;✦&nbsp; Privacidade &nbsp;✦&nbsp;</span>
   </div>
 </div>
-<section id="como-funciona" class="py-24 bg-white relative">
+
+<section id="como-funciona" class="py-24 bg-white relative" aria-labelledby="como-funciona-title">
   <div class="max-w-5xl mx-auto px-4">
     <div class="text-center mb-16 reveal">
       <span class="inline-block text-green-600 text-xs font-bold uppercase tracking-widest mb-3">Passo a passo</span>
-      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-gray-900">Como funciona</h2>
+      <h2 id="como-funciona-title" class="text-3xl md:text-5xl font-black tracking-tight text-gray-900">Como funciona</h2>
     </div>
     <div class="grid md:grid-cols-3 gap-8 relative">
-      <div class="hidden md:block step-line" style="left: calc(16.66% + 28px); width: calc(33.33% - 56px);"></div>
-      <div class="hidden md:block step-line" style="left: calc(50% + 28px); width: calc(33.33% - 56px);"></div>
+      <div class="hidden md:block step-line" style="left: calc(16.66% + 28px); width: calc(33.33% - 56px);" aria-hidden="true"></div>
+      <div class="hidden md:block step-line" style="left: calc(50% + 28px); width: calc(33.33% - 56px);" aria-hidden="true"></div>
       <div class="reveal reveal-delay-1 text-center relative">
-        <div class="w-14 h-14 bg-green-100 text-green-700 rounded-2xl flex items-center justify-center mx-auto mb-5 text-xl font-black shadow-lg shadow-green-500/10">1</div>
+        <div class="w-14 h-14 bg-green-100 text-green-700 rounded-2xl flex items-center justify-center mx-auto mb-5 text-xl font-black shadow-lg shadow-green-500/10" aria-hidden="true">1</div>
         <h3 class="font-bold text-lg mb-2 text-gray-900">Escolha sua Persona</h3>
-        <p class="text-gray-500 text-sm leading-relaxed">Navegue pela galeria e escolha alguém com quem você se identifica ou quer conhecer.</p>
+        <p class="text-gray-500 text-sm leading-relaxed">Navegue pela galeria e escolha alguém com quem você se identifica ou quer conhecer. Cada perfil tem idade, cidade e personalidade única.</p>
       </div>
       <div class="reveal reveal-delay-2 text-center relative">
-        <div class="w-14 h-14 bg-green-100 text-green-700 rounded-2xl flex items-center justify-center mx-auto mb-5 text-xl font-black shadow-lg shadow-green-500/10">2</div>
+        <div class="w-14 h-14 bg-green-100 text-green-700 rounded-2xl flex items-center justify-center mx-auto mb-5 text-xl font-black shadow-lg shadow-green-500/10" aria-hidden="true">2</div>
         <h3 class="font-bold text-lg mb-2 text-gray-900">Configure sua API Key</h3>
-        <p class="text-gray-500 text-sm leading-relaxed">Insira sua chave de um provedor compatível. Ela fica armazenada apenas no seu dispositivo.</p>
+        <p class="text-gray-500 text-sm leading-relaxed">Insira sua chave de um provedor compatível (OpenRouter, Inception, Google). Ela fica armazenada apenas no seu dispositivo (localStorage).</p>
       </div>
       <div class="reveal reveal-delay-3 text-center relative">
-        <div class="w-14 h-14 bg-green-100 text-green-700 rounded-2xl flex items-center justify-center mx-auto mb-5 text-xl font-black shadow-lg shadow-green-500/10">3</div>
+        <div class="w-14 h-14 bg-green-100 text-green-700 rounded-2xl flex items-center justify-center mx-auto mb-5 text-xl font-black shadow-lg shadow-green-500/10" aria-hidden="true">3</div>
         <h3 class="font-bold text-lg mb-2 text-gray-900">Comece a Conversar</h3>
-        <p class="text-gray-500 text-sm leading-relaxed">A persona responde com base em sua história, traços e emoções. Uma experiência única.</p>
+        <p class="text-gray-500 text-sm leading-relaxed">A persona responde com base em sua história, traços e emoções. Uma experiência única, contínua e sem filas de espera.</p>
       </div>
     </div>
   </div>
 </section>
-<section class="py-24 bg-gray-50 border-t border-gray-100">
+
+<section class="py-24 bg-gray-50 border-t border-gray-100" aria-labelledby="diferenciais-title">
   <div class="max-w-6xl mx-auto px-4">
     <div class="text-center mb-16 reveal">
       <span class="inline-block text-green-600 text-xs font-bold uppercase tracking-widest mb-3">Por que escolher</span>
-      <h2 class="text-3xl md:text-5xl font-black tracking-tight text-gray-900">Diferenciais</h2>
+      <h2 id="diferenciais-title" class="text-3xl md:text-5xl font-black tracking-tight text-gray-900">Diferenciais</h2>
     </div>
     <div class="grid md:grid-cols-3 gap-6">
       <div class="reveal reveal-delay-1 tilt-card group p-7 rounded-3xl bg-white border border-gray-100 hover:border-green-200 hover:shadow-xl hover:shadow-green-500/5 transition-all duration-500">
-        <div class="w-14 h-14 bg-gradient-to-br from-green-100 to-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <div class="w-14 h-14 bg-gradient-to-br from-green-100 to-green-50 text-green-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300" aria-hidden="true">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         </div>
         <h3 class="font-bold text-xl mb-3 text-gray-900">Disponibilidade 24/7</h3>
         <p class="text-gray-500 leading-relaxed">Nossas personas não dormem. Sempre há alguém disponível para conversar, desabafar ou trocar ideias — a qualquer hora.</p>
       </div>
       <div class="reveal reveal-delay-2 tilt-card group p-7 rounded-3xl bg-white border border-gray-100 hover:border-blue-200 hover:shadow-xl hover:shadow-blue-500/5 transition-all duration-500">
-        <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <div class="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300" aria-hidden="true">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         </div>
         <h3 class="font-bold text-xl mb-3 text-gray-900">Zero Julgamento</h3>
         <p class="text-gray-500 leading-relaxed">Um espaço seguro para expressão. Conversa sem pré-conceitos, onde você pode ser totalmente aberto e sincero.</p>
       </div>
       <div class="reveal reveal-delay-3 tilt-card group p-7 rounded-3xl bg-white border border-gray-100 hover:border-purple-200 hover:shadow-xl hover:shadow-purple-500/5 transition-all duration-500">
-        <div class="w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+        <div class="w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300" aria-hidden="true">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
         </div>
         <h3 class="font-bold text-xl mb-3 text-gray-900">Personalidade Única</h3>
-        <p class="text-gray-500 leading-relaxed">Cada persona tem história, idade, origem e traços definidos. Não são bots repetitivos — são entidades digitais complexas.</p>
+        <p class="text-gray-500 leading-relaxed">Cada persona tem história, idade, origem e traços definidos (Big Five). Não são bots repetitivos — são entidades digitais complexas.</p>
       </div>
     </div>
   </div>
 </section>
-<section class="py-16 bg-white border-t border-gray-100">
+
+<section class="py-16 bg-white border-t border-gray-100" aria-labelledby="estatisticas-title">
   <div class="max-w-5xl mx-auto px-4">
+    <h2 id="estatisticas-title" class="sr-only">Estatísticas da Plataforma</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
       <div class="reveal">
         <div class="stat-number text-4xl md:text-5xl font-black text-green-700" data-target="6">0</div>
@@ -286,89 +308,66 @@
     </div>
   </div>
 </section>
-<section id="api" class="py-24 bg-gradient-to-br from-green-900 via-green-800 to-emerald-900 text-white relative overflow-hidden noise">
-  <div class="absolute inset-0 opacity-[0.07]" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 32px 32px;"></div>
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-green-400/10 rounded-full blur-[120px]"></div>
+
+<section id="api" class="py-24 bg-gradient-to-br from-green-900 via-green-800 to-emerald-900 text-white relative overflow-hidden noise" aria-labelledby="api-title">
+  <div class="absolute inset-0 opacity-[0.07]" style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 32px 32px;" aria-hidden="true"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-green-400/10 rounded-full blur-[120px]" aria-hidden="true"></div>
   <div class="max-w-5xl mx-auto px-4 relative z-10">
     <div class="text-center mb-14 reveal">
-      <div class="inline-flex items-center gap-2 bg-yellow-500/15 text-yellow-300 px-4 py-2 rounded-full text-xs font-bold mb-5 border border-yellow-500/20 backdrop-blur-sm">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+      <div class="inline-flex items-center gap-2 bg-yellow-500/15 text-yellow-300 px-4 py-2 rounded-full text-xs font-bold mb-5 border border-yellow-500/20 backdrop-blur-sm" role="status" aria-live="polite">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
         Informação Importante
       </div>
-      <h2 class="text-3xl md:text-5xl font-black mb-4 tracking-tight">Configure sua Chave API</h2>
-      <p class="text-green-200/70 max-w-2xl mx-auto text-lg leading-relaxed">
-        Para conversar com as personas, você precisa de uma chave API de um provedor de IA compatível.
-      </p>
+      <h2 id="api-title" class="text-3xl md:text-5xl font-black mb-4 tracking-tight">Configure sua Chave API</h2>
+      <p class="text-green-200/70 max-w-2xl mx-auto text-lg leading-relaxed">Para conversar com as personas, você precisa de uma chave API de um provedor de IA compatível. Sua chave nunca sai do seu navegador.</p>
     </div>
     <div class="grid md:grid-cols-3 gap-5">
-      <a href="https://openrouter.ai" target="_blank" rel="noopener" class="reveal reveal-delay-1 group bg-white/[0.07] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.12] hover:border-blue-400/40 hover:bg-white/[0.12] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/10">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          </div>
-          <h3 class="font-bold text-lg">Open Router</h3>
-        </div>
-        <p class="text-green-100/60 text-sm mb-5 leading-relaxed">Acesso a múltiplos modelos de IA em uma única plataforma. Flexibilidade e variedade.</p>
-        <span class="text-green-300/80 text-sm font-medium group-hover:text-green-200 flex items-center gap-1.5 transition">
-          openrouter.ai
-          <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-        </span>
+      <a href="https://openrouter.ai" target="_blank" rel="noopener noreferrer" class="reveal reveal-delay-1 group bg-white/[0.07] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.12] hover:border-blue-400/40 hover:bg-white/[0.12] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-blue-500/10" aria-label="Abrir OpenRouter em nova aba">
+        <div class="flex items-center gap-3 mb-4"><div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg" aria-hidden="true"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></div><h3 class="font-bold text-lg">Open Router</h3></div>
+        <p class="text-green-100/60 text-sm mb-5 leading-relaxed">Acesso a múltiplos modelos de IA em uma única plataforma. Flexibilidade e variedade (GPT-4, Claude, Llama, Mistral).</p>
+        <span class="text-green-300/80 text-sm font-medium group-hover:text-green-200 flex items-center gap-1.5 transition">openrouter.ai <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></span>
       </a>
-      <a href="https://platform.inceptionlabs.ai/" target="_blank" rel="noopener" class="reveal reveal-delay-2 group bg-gradient-to-br from-green-400/15 to-green-600/15 backdrop-blur-sm rounded-2xl p-6 border-2 border-green-400/40 hover:border-green-300/60 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/20 relative overflow-hidden">
+      <a href="https://platform.inceptionlabs.ai/" target="_blank" rel="noopener noreferrer" class="reveal reveal-delay-2 group bg-gradient-to-br from-green-400/15 to-green-600/15 backdrop-blur-sm rounded-2xl p-6 border-2 border-green-400/40 hover:border-green-300/60 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/20 relative overflow-hidden" aria-label="Abrir Inception Labs em nova aba - Recomendado">
         <div class="absolute top-0 right-0 bg-green-400 text-green-900 text-[10px] font-black px-3 py-1 rounded-bl-xl uppercase tracking-wider">Recomendado</div>
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-          </div>
-          <h3 class="font-bold text-lg">Inception AI</h3>
-        </div>
-        <p class="text-green-100/60 text-sm mb-4 leading-relaxed">Plataforma especializada com modelos otimizados para conversação natural.</p>
-        <div class="bg-green-400/20 rounded-xl p-3 mb-5 border border-green-400/30 backdrop-blur-sm">
-          <p class="text-green-200 font-bold text-center text-sm">🎁 10 Milhões de Tokens Grátis</p>
-        </div>
-        <span class="text-green-300/80 text-sm font-medium group-hover:text-green-200 flex items-center gap-1.5 transition">
-          platform.inceptionlabs.ai
-          <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-        </span>
+        <div class="flex items-center gap-3 mb-4"><div class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/30" aria-hidden="true"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg></div><h3 class="font-bold text-lg">Inception AI</h3></div>
+        <p class="text-green-100/60 text-sm mb-4 leading-relaxed">Plataforma especializada com modelos otimizados para conversação natural e roleplay.</p>
+        <div class="bg-green-400/20 rounded-xl p-3 mb-5 border border-green-400/30 backdrop-blur-sm"><p class="text-green-200 font-bold text-center text-sm">🎁 10 Milhões de Tokens Grátis</p></div>
+        <span class="text-green-300/80 text-sm font-medium group-hover:text-green-200 flex items-center gap-1.5 transition">platform.inceptionlabs.ai <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></span>
       </a>
-      <a href="https://cloud.google.com/ai/apis?hl=pt-BR" target="_blank" rel="noopener" class="reveal reveal-delay-3 group bg-white/[0.07] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.12] hover:border-red-400/40 hover:bg-white/[0.12] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-500/10">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-12 h-12 bg-gradient-to-br from-red-500 via-yellow-500 to-blue-500 rounded-xl flex items-center justify-center shadow-lg">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-          </div>
-          <h3 class="font-bold text-lg">Google AI</h3>
-        </div>
-        <p class="text-green-100/60 text-sm mb-5 leading-relaxed">Tecnologia Gemini do Google. Modelos avançados com alta qualidade de resposta.</p>
-        <span class="text-green-300/80 text-sm font-medium group-hover:text-green-200 flex items-center gap-1.5 transition">
-          cloud.google.com/ai
-          <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-        </span>
+      <a href="https://cloud.google.com/ai/apis?hl=pt-BR" target="_blank" rel="noopener noreferrer" class="reveal reveal-delay-3 group bg-white/[0.07] backdrop-blur-sm rounded-2xl p-6 border border-white/[0.12] hover:border-red-400/40 hover:bg-white/[0.12] transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-red-500/10" aria-label="Abrir Google AI em nova aba">
+        <div class="flex items-center gap-3 mb-4"><div class="w-12 h-12 bg-gradient-to-br from-red-500 via-yellow-500 to-blue-500 rounded-xl flex items-center justify-center shadow-lg" aria-hidden="true"><svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.384-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg></div><h3 class="font-bold text-lg">Google AI</h3></div>
+        <p class="text-green-100/60 text-sm mb-5 leading-relaxed">Tecnologia Gemini do Google. Modelos avançados com alta qualidade de resposta e contexto longo.</p>
+        <span class="text-green-300/80 text-sm font-medium group-hover:text-green-200 flex items-center gap-1.5 transition">cloud.google.com/ai <svg class="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></span>
       </a>
     </div>
     <div class="mt-10 reveal text-center">
       <div class="inline-flex items-center gap-2 text-green-200/50 text-sm">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
         Sua chave API é armazenada <strong class="text-green-200/70">apenas no seu dispositivo</strong> e nunca é enviada aos nossos servidores.
       </div>
     </div>
   </div>
 </section>
-<section id="personas" class="py-24 bg-gray-950 text-white relative overflow-hidden noise">
-  <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(#22c55e 1px, transparent 1px); background-size: 32px 32px;"></div>
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-green-500/5 rounded-full blur-[120px]"></div>
+
+<section id="personas" class="py-24 bg-gray-950 text-white relative overflow-hidden noise" aria-labelledby="personas-title">
+  <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(#22c55e 1px, transparent 1px); background-size: 32px 32px;" aria-hidden="true"></div>
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-green-500/5 rounded-full blur-[120px]" aria-hidden="true"></div>
   <div class="max-w-6xl mx-auto px-4 relative z-10">
     <div class="text-center mb-14 reveal">
       <span class="inline-block text-green-400 text-xs font-bold uppercase tracking-widest mb-3">Galeria</span>
-      <h2 class="text-3xl md:text-5xl font-black mb-4 tracking-tight">Encontre sua Conexão</h2>
-      <p class="text-gray-500 max-w-xl mx-auto">Cada persona é única. Explore e encontre alguém especial.</p>
+      <h2 id="personas-title" class="text-3xl md:text-5xl font-black mb-4 tracking-tight">Encontre sua Conexão</h2>
+      <p class="text-gray-500 max-w-xl mx-auto">Cada persona é única. Explore perfis detalhados e encontre alguém especial para conversar agora.</p>
     </div>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-      <a href="zap01.html" class="reveal reveal-delay-1 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5" role="list" aria-label="Lista de personas disponíveis">
+      
+      <!-- 1. Maria Clara - LCP Candidate -->
+      <a href="zap01.html" class="reveal reveal-delay-1 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10" role="listitem" aria-label="Ver perfil de Maria Clara, 31 anos, Empática e Criativa">
         <div class="h-72 overflow-hidden relative">
-          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10"></div>
-          <img src="https://zap.tokenslp.com.br/maria.jpg" alt="Maria Clara" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
-          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50">
-            <div class="online-dot" style="border-color: #1a1a1a;"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10" aria-hidden="true"></div>
+          <!-- FETCHPRIORITY HIGH AQUI PARA LCP -->
+          <img src="https://aipersonas.com.br/maria.jpg" alt="Maria Clara, persona empática e criativa de 31 anos do AI Personas, sorrindo ao ar livre no Rio de Janeiro" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="eager" fetchpriority="high" width="400" height="500">
+          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50" aria-label="Status online">
+            <div class="online-dot" style="border-color: #1a1a1a;" aria-hidden="true"></div>
             <span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span>
           </div>
           <div class="absolute bottom-4 left-4 z-20">
@@ -377,260 +376,231 @@
           </div>
         </div>
         <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900">
-          <div class="flex gap-1.5">
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Empática</span>
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20">Criativa</span>
+          <div class="flex gap-1.5" role="list" aria-label="Traços de personalidade">
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20" role="listitem">Empática</span>
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/20" role="listitem">Criativa</span>
           </div>
-          <span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">
-            Chat
-            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-          </span>
+          <span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">Chat <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span>
         </div>
       </a>
-      <a href="zap02.html" class="reveal reveal-delay-2 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10">
+
+      <!-- 2. Laura Oliveira -->
+      <a href="zap02.html" class="reveal reveal-delay-2 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10" role="listitem" aria-label="Ver perfil de Laura Oliveira, 28 anos, Resiliente e Sincera">
         <div class="h-72 overflow-hidden relative">
-          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10"></div>
-          <img src="https://zap.tokenslp.com.br/laura.jpg" alt="Laura Oliveira" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
-          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50">
-            <div class="online-dot" style="border-color: #1a1a1a;"></div>
-            <span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span>
-          </div>
-          <div class="absolute bottom-4 left-4 z-20">
-            <h3 class="text-xl font-bold text-white mb-0.5">Laura Oliveira</h3>
-            <p class="text-green-400/80 text-sm font-medium">28 anos • Rio de Janeiro</p>
-          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10" aria-hidden="true"></div>
+          <img src="https://aipersonas.com.br/laura.jpg" alt="Laura Oliveira, persona resiliente e sincera de 28 anos do AI Personas, retrato no Rio de Janeiro" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" width="400" height="500">
+          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50" aria-label="Status online"><div class="online-dot" style="border-color: #1a1a1a;" aria-hidden="true"></div><span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span></div>
+          <div class="absolute bottom-4 left-4 z-20"><h3 class="text-xl font-bold text-white mb-0.5">Laura Oliveira</h3><p class="text-green-400/80 text-sm font-medium">28 anos • Rio de Janeiro</p></div>
         </div>
-        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900">
-          <div class="flex gap-1.5">
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">Resiliente</span>
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">Sincera</span>
-          </div>
-          <span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">
-            Chat
-            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-          </span>
-        </div>
+        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900"><div class="flex gap-1.5" role="list" aria-label="Traços de personalidade"><span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20" role="listitem">Resiliente</span><span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20" role="listitem">Sincera</span></div><span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">Chat <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span></div>
       </a>
-      <a href="zap03.html" class="reveal reveal-delay-3 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10">
+
+      <!-- 3. Fernanda Ribeiro -->
+      <a href="zap03.html" class="reveal reveal-delay-3 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10" role="listitem" aria-label="Ver perfil de Fernanda Ribeiro, 38 anos, Intensa e Ousada">
         <div class="h-72 overflow-hidden relative">
-          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10"></div>
-          <img src="https://zap.tokenslp.com.br/fernanda.jpg" alt="Fernanda Ribeiro" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
-          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50">
-            <div class="online-dot" style="border-color: #1a1a1a;"></div>
-            <span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span>
-          </div>
-          <div class="absolute bottom-4 left-4 z-20">
-            <h3 class="text-xl font-bold text-white mb-0.5">Fernanda Ribeiro</h3>
-            <p class="text-green-400/80 text-sm font-medium">38 anos • Belo Horizonte</p>
-          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10" aria-hidden="true"></div>
+          <img src="https://aipersonas.com.br/fernanda.jpg" alt="Fernanda Ribeiro, persona intensa e ousada de 38 anos do AI Personas, retrato em Vitória" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" width="400" height="500">
+          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50" aria-label="Status online"><div class="online-dot" style="border-color: #1a1a1a;" aria-hidden="true"></div><span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span></div>
+          <div class="absolute bottom-4 left-4 z-20"><h3 class="text-xl font-bold text-white mb-0.5">Fernanda Ribeiro</h3><p class="text-green-400/80 text-sm font-medium">38 anos • Vitória</p></div>
         </div>
-        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900">
-          <div class="flex gap-1.5">
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20">Intensa</span>
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/20">Ousada</span>
-          </div>
-          <span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">
-            Chat
-            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-          </span>
-        </div>
+        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900"><div class="flex gap-1.5" role="list" aria-label="Traços de personalidade"><span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-rose-500/10 text-rose-400 border border-rose-500/20" role="listitem">Intensa</span><span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-teal-500/10 text-teal-400 border border-teal-500/20" role="listitem">Ousada</span></div><span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">Chat <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span></div>
       </a>
-      <a href="zap04.html" class="reveal reveal-delay-1 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10">
+
+      <!-- 4. Flávio Carvalho -->
+      <a href="zap04.html" class="reveal reveal-delay-1 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10" role="listitem" aria-label="Ver perfil de Flávio Carvalho, 31 anos, Extrovertido e Bem-humorado">
         <div class="h-72 overflow-hidden relative">
-          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10"></div>
-          <img src="https://zap.tokenslp.com.br/flavio.jpg" alt="Flávio Carvalho" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
-          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50">
-            <div class="online-dot" style="border-color: #1a1a1a;"></div>
-            <span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span>
-          </div>
-          <div class="absolute bottom-4 left-4 z-20">
-            <h3 class="text-xl font-bold text-white mb-0.5">Flávio Carvalho</h3>
-            <p class="text-green-400/80 text-sm font-medium">31 anos • Porto Alegre</p>
-          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10" aria-hidden="true"></div>
+          <img src="https://aipersonas.com.br/flavio.jpg" alt="Flávio Carvalho, persona extrovertido e bem-humorado de 31 anos do AI Personas, sorrindo em Porto Alegre" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" width="400" height="500">
+          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50" aria-label="Status online"><div class="online-dot" style="border-color: #1a1a1a;" aria-hidden="true"></div><span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span></div>
+          <div class="absolute bottom-4 left-4 z-20"><h3 class="text-xl font-bold text-white mb-0.5">Flávio Carvalho</h3><p class="text-green-400/80 text-sm font-medium">31 anos • Porto Alegre</p></div>
         </div>
-        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900">
-          <div class="flex gap-1.5">
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Extrovertido</span>
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">Bem-humorado</span>
-          </div>
-          <span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">
-            Chat
-            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-          </span>
-        </div>
+        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900"><div class="flex gap-1.5" role="list" aria-label="Traços de personalidade"><span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20" role="listitem">Extrovertido</span><span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20" role="listitem">Bem-humorado</span></div><span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">Chat <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span></div>
       </a>
-      <a href="zap05.html" class="reveal reveal-delay-2 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10">
+
+      <!-- 5. Ricardo Costa -->
+      <a href="zap05.html" class="reveal reveal-delay-2 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10" role="listitem" aria-label="Ver perfil de Ricardo Costa, 40 anos, Reflexivo e Empático">
         <div class="h-72 overflow-hidden relative">
-          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10"></div>
-          <img src="https://zap.tokenslp.com.br/ricardo.jpg" alt="Ricardo Costa" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
-          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50">
-            <div class="online-dot" style="border-color: #1a1a1a;"></div>
-            <span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span>
-          </div>
-          <div class="absolute bottom-4 left-4 z-20">
-            <h3 class="text-xl font-bold text-white mb-0.5">Ricardo Costa</h3>
-            <p class="text-green-400/80 text-sm font-medium">40 anos • Salvador</p>
-          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10" aria-hidden="true"></div>
+          <img src="https://aipersonas.com.br/ricardo.jpg" alt="Ricardo Costa, persona reflexivo e empático de 40 anos do AI Personas, retrato em Salvador" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" width="400" height="500">
+          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50" aria-label="Status online"><div class="online-dot" style="border-color: #1a1a1a;" aria-hidden="true"></div><span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span></div>
+          <div class="absolute bottom-4 left-4 z-20"><h3 class="text-xl font-bold text-white mb-0.5">Ricardo Costa</h3><p class="text-green-400/80 text-sm font-medium">40 anos • Salvador</p></div>
         </div>
-        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900">
-          <div class="flex gap-1.5">
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20">Reflexivo</span>
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Empático</span>
-          </div>
-          <span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">
-            Chat
-            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-          </span>
-        </div>
+        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900"><div class="flex gap-1.5" role="list" aria-label="Traços de personalidade"><span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-400 border border-orange-500/20" role="listitem">Reflexivo</span><span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20" role="listitem">Empático</span></div><span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">Chat <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span></div>
       </a>
-      <a href="zap06.html" class="reveal reveal-delay-3 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10">
+
+      <!-- 6. Tiago Martins -->
+      <a href="zap06.html" class="reveal reveal-delay-3 group relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-green-500/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-green-500/10" role="listitem" aria-label="Ver perfil de Tiago Martins, 47 anos, Calmo e Experiente">
         <div class="h-72 overflow-hidden relative">
-          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10"></div>
-          <img src="https://zap.tokenslp.com.br/tiago.jpg" alt="Tiago Martins" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy">
-          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50">
-            <div class="online-dot" style="border-color: #1a1a1a;"></div>
-            <span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span>
-          </div>
-          <div class="absolute bottom-4 left-4 z-20">
-            <h3 class="text-xl font-bold text-white mb-0.5">Tiago Martins</h3>
-            <p class="text-green-400/80 text-sm font-medium">47 anos • Curitiba</p>
-          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent z-10" aria-hidden="true"></div>
+          <img src="https://aipersonas.com.br/tiago.jpg" alt="Tiago Martins, persona calmo e experiente de 47 anos do AI Personas, retrato em Curitiba" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" loading="lazy" width="400" height="500">
+          <div class="absolute top-4 right-4 z-20 flex items-center gap-1.5 bg-gray-900/80 backdrop-blur-sm rounded-full px-2.5 py-1 border border-gray-700/50" aria-label="Status online"><div class="online-dot" style="border-color: #1a1a1a;" aria-hidden="true"></div><span class="text-[10px] font-semibold text-green-400 uppercase tracking-wider">Online</span></div>
+          <div class="absolute bottom-4 left-4 z-20"><h3 class="text-xl font-bold text-white mb-0.5">Tiago Martins</h3><p class="text-green-400/80 text-sm font-medium">47 anos • Curitiba</p></div>
         </div>
-        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900">
-          <div class="flex gap-1.5">
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Calmo</span>
-            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-400 border border-violet-500/20">Experiente</span>
-          </div>
-          <span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">
-            Chat
-            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-          </span>
-        </div>
+        <div class="p-4 border-t border-gray-800/80 flex justify-between items-center bg-gray-900"><div class="flex gap-1.5" role="list" aria-label="Traços de personalidade"><span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" role="listitem">Calmo</span><span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-violet-500/10 text-violet-400 border border-violet-500/20" role="listitem">Experiente</span></div><span class="text-green-500 text-sm font-bold group-hover:underline flex items-center gap-1">Chat <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg></span></div>
       </a>
+
     </div>
     <div class="mt-14 text-center reveal">
-      <a href="select.html" class="group inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-green-700 to-green-600 text-white rounded-2xl font-bold text-lg shadow-2xl shadow-green-500/20 hover:shadow-green-500/40 hover:scale-[1.03] active:scale-[0.98] transition-transform duration-200">
+      <a href="select.html" class="group inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-green-700 to-green-600 text-white rounded-2xl font-bold text-lg shadow-2xl shadow-green-500/20 hover:shadow-green-500/40 hover:scale-[1.03] active:scale-[0.98] transition-transform duration-200" aria-label="Ir para seletor de personas e começar a conversar">
         Escolher uma Persona
-        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
       </a>
     </div>
   </div>
 </section>
-<section class="py-24 bg-white relative overflow-hidden noise">
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-green-100 rounded-full blur-[120px] opacity-50"></div>
+
+<!-- CTA Section -->
+<section class="py-24 bg-white relative overflow-hidden noise" aria-labelledby="cta-title">
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-green-100 rounded-full blur-[120px] opacity-50" aria-hidden="true"></div>
   <div class="max-w-3xl mx-auto px-4 text-center relative z-10">
     <div class="reveal">
-      <div class="w-16 h-16 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-      </div>
-      <h2 class="text-3xl md:text-5xl font-black text-gray-900 mb-5 tracking-tight">Pronto para começar?</h2>
+      <div class="w-16 h-16 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6" aria-hidden="true"><svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg></div>
+      <h2 id="cta-title" class="text-3xl md:text-5xl font-black text-gray-900 mb-5 tracking-tight">Pronto para começar?</h2>
       <p class="text-gray-500 mb-10 text-lg leading-relaxed">Configure sua chave API e inicie conversas incríveis com nossas personas sintéticas. Sem complicação, direto ao ponto.</p>
-      <a href="select.html" class="group shimmer-hover inline-flex items-center gap-2 px-10 py-5 bg-green-800 text-white rounded-2xl font-bold text-lg shadow-2xl shadow-green-500/20 hover:shadow-green-500/40 hover:-translate-y-1 active:translate-y-0 transition-all duration-300">
+      <a href="select.html" class="group shimmer-hover inline-flex items-center gap-2 px-10 py-5 bg-green-800 text-white rounded-2xl font-bold text-lg shadow-2xl shadow-green-500/20 hover:shadow-green-500/40 hover:-translate-y-1 active:translate-y-0 transition-all duration-300" aria-label="Acessar AI Personas e configurar API Key">
         Acessar AI Personas
-        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
       </a>
     </div>
   </div>
 </section>
-<footer class="bg-gray-950 border-t border-gray-800 py-14 text-center">
+
+<!-- FAQ Section (Visível + Schema Microdata) -->
+<section id="faq" class="py-24 bg-gray-50 border-t border-gray-100" itemscope itemtype="https://schema.org/FAQPage" aria-labelledby="faq-title">
+  <div class="max-w-3xl mx-auto px-4">
+    <div class="text-center mb-16 reveal">
+      <span class="inline-block text-green-600 text-xs font-bold uppercase tracking-widest mb-3">Dúvidas Frequentes</span>
+      <h2 id="faq-title" class="text-3xl md:text-5xl font-black tracking-tight text-gray-900">Perguntas Frequentes</h2>
+    </div>
+    <div class="space-y-2" role="list" aria-label="Lista de perguntas frequentes">
+      
+      <details class="faq-item bg-white rounded-xl border border-gray-100 p-6 reveal" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+        <summary itemprop="name" class="text-gray-900 text-lg font-medium">O AI Personas é gratuito?</summary>
+        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p itemprop="text" class="text-gray-600">Sim, a interface e o acesso às personas são <strong>gratuitos</strong>. Você precisa apenas de uma chave API (API Key) de um provedor compatível (OpenRouter, Inception Labs ou Google AI) para que a IA processe as conversas. Alguns provedores oferecem créditos gratuitos iniciais (ex: Inception Labs oferece 10 milhões de tokens grátis).</p>
+        </div>
+      </details>
+
+      <details class="faq-item bg-white rounded-xl border border-gray-100 p-6 reveal reveal-delay-1" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+        <summary itemprop="name" class="text-gray-900 text-lg font-medium">Minha chave API é segura? Vocês armazenam ela?</summary>
+        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p itemprop="text" class="text-gray-600">Sim, é <strong>totalmente segura</strong>. Sua chave API é armazenada exclusivamente no <strong>localStorage do seu navegador</strong> (dispositivo local). Ela <strong>nunca é enviada para nossos servidores</strong> nem para terceiros, sendo usada apenas para fazer requisições diretas do seu navegador para a API do provedor escolhido.</p>
+        </div>
+      </details>
+
+      <details class="faq-item bg-white rounded-xl border border-gray-100 p-6 reveal reveal-delay-2" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+        <summary itemprop="name" class="text-gray-900 text-lg font-medium">Quais provedores de IA são suportados?</summary>
+        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p itemprop="text" class="text-gray-600">Suportamos três provedores principais: <strong>1) Open Router</strong> (acesso a centenas de modelos: GPT-4, Claude 3, Llama 3, Mistral); <strong>2) Inception Labs</strong> (modelos otimizados para conversação natural, com 10M tokens grátis); <strong>3) Google AI</strong> (modelos Gemini Pro). Você escolhe qual usar nas configurações do app.</p>
+        </div>
+      </details>
+
+      <details class="faq-item bg-white rounded-xl border border-gray-100 p-6 reveal reveal-delay-3" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+        <summary itemprop="name" class="text-gray-900 text-lg font-medium">O que são "Personas Sintéticas" e como diferem de chatbots comuns?</summary>
+        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p itemprop="text" class="text-gray-600">Nossas personas não são prompts genéricos. Cada uma possui um <strong>Perfil Sintético estruturado</strong>: nome, idade, cidade, história de vida, traços de personalidade baseados no modelo <strong>Big Five</strong> (Abertura, Conscienciosidade, Extroversão, Amabilidade, Neuroticismo), valores, medos, estilo de fala e memórias simuladas. Isso garante <strong>consistência comportamental de longo prazo</strong>, diferentemente de chatbots que "esquecem" a personalidade após poucas mensagens.</p>
+        </div>
+      </details>
+
+      <details class="faq-item bg-white rounded-xl border border-gray-100 p-6 reveal reveal-delay-4" itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">
+        <summary itemprop="name" class="text-gray-900 text-lg font-medium">Preciso instalar algo? Funciona no celular?</summary>
+        <div class="faq-answer" itemprop="acceptedAnswer" itemscope itemtype="https://schema.org/Answer">
+          <p itemprop="text" class="text-gray-600">Não requer instalação. É uma <strong>Progressive Web App (PWA)</strong> que roda direto no navegador (Chrome, Safari, Firefox, Edge) em desktop, tablet ou celular. Você pode "Instalar" o app pela opção do navegador para ter ícone na tela inicial e experiência fullscreen.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<footer class="bg-gray-950 border-t border-gray-800 py-14 text-center" role="contentinfo">
   <div class="flex items-center justify-center gap-2.5 mb-4">
-    <div class="w-8 h-8 bg-gradient-to-br from-green-600 to-green-500 text-white rounded-xl flex items-center justify-center font-bold text-xs shadow-lg shadow-green-500/20">AI P</div>
+    <div class="w-8 h-8 bg-gradient-to-br from-green-600 to-green-500 text-white rounded-xl flex items-center justify-center font-bold text-xs shadow-lg shadow-green-500/20" aria-hidden="true">AI P</div>
     <span class="font-bold text-lg text-gray-300">AI <span class="text-green-400">Personas</span></span>
   </div>
   <p class="text-gray-600 text-sm mb-5">TOKEN – Synthetic Language Personas</p>
-  <div class="flex items-center justify-center gap-6 mb-6">
+  
+  <nav class="flex items-center justify-center gap-6 mb-6 flex-wrap" aria-label="Navegação do rodapé">
     <a href="#como-funciona" class="text-gray-500 hover:text-green-400 text-sm transition">Como Funciona</a>
     <a href="#personas" class="text-gray-500 hover:text-green-400 text-sm transition">Personas</a>
     <a href="#api" class="text-gray-500 hover:text-green-400 text-sm transition">API</a>
-  </div>
-  <a href="https://tokenslp.com.br" target="_blank" rel="noopener" class="text-green-500/60 hover:text-green-400 text-sm transition">tokenslp.com.br</a>
+    <!-- LINKS LEGAIS OBRIGATÓRIOS (LGPD/GDPR) -->
+    <a href="privacidade.html" class="text-gray-500 hover:text-green-400 text-sm transition">Política de Privacidade</a>
+    <a href="termos.html" class="text-gray-500 hover:text-green-400 text-sm transition">Termos de Uso</a>
+  </nav>
+  
+  <a href="https://tokenslp.com.br" target="_blank" rel="noopener noreferrer" class="text-green-500/60 hover:text-green-400 text-sm transition">tokenslp.com.br</a>
+  
   <div class="mt-6 pt-6 border-t border-gray-800/50">
-    <p class="text-gray-700 text-xs">&copy; 2026 AI Personas. Todos os direitos reservados.</p>
+    <!-- ANO DINÂMICO VIA JS -->
+    <p class="text-gray-700 text-xs">&copy; <span id="current-year"></span> AI Personas. Todos os direitos reservados.</p>
   </div>
 </footer>
+
 <script>
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
+  // 1. Intersection Observer para Reveal Animations
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // 2. Nav Scroll Effect
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) nav.classList.add('nav-scrolled'); else nav.classList.remove('nav-scrolled');
+  }, { passive: true });
+
+  // 3. Hero Typing Effect (Acessível)
+  const words = ['sintéticos', 'reais', 'únicos', 'seus'];
+  let wordIndex = 0, charIndex = 0, isDeleting = false;
+  const typedEl = document.getElementById('heroTyped');
+  const cursorEl = document.getElementById('heroCursor');
+  function typeEffect() {
+    const currentWord = words[wordIndex];
+    if (!isDeleting) {
+      typedEl.textContent = currentWord.substring(0, charIndex + 1);
+      charIndex++;
+      if (charIndex === currentWord.length) { isDeleting = true; setTimeout(typeEffect, 2000); return; }
+      setTimeout(typeEffect, 100);
+    } else {
+      typedEl.textContent = currentWord.substring(0, charIndex - 1);
+      charIndex--;
+      if (charIndex === 0) { isDeleting = false; wordIndex = (wordIndex + 1) % words.length; setTimeout(typeEffect, 400); return; }
+      setTimeout(typeEffect, 60);
     }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-const nav = document.getElementById('mainNav');
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 20) {
-    nav.classList.add('nav-scrolled');
-  } else {
-    nav.classList.remove('nav-scrolled');
   }
-}, { passive: true });
-const words = ['sintéticos', 'reais', 'únicos', 'seus'];
-let wordIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-const typedEl = document.getElementById('heroTyped');
-const cursorEl = document.getElementById('heroCursor');
-function typeEffect() {
-  const currentWord = words[wordIndex];
-  if (!isDeleting) {
-    typedEl.textContent = currentWord.substring(0, charIndex + 1);
-    charIndex++;
-    if (charIndex === currentWord.length) {
-      isDeleting = true;
-      setTimeout(typeEffect, 2000);
-      return;
-    }
-    setTimeout(typeEffect, 100);
-  } else {
-    typedEl.textContent = currentWord.substring(0, charIndex - 1);
-    charIndex--;
-    if (charIndex === 0) {
-      isDeleting = false;
-      wordIndex = (wordIndex + 1) % words.length;
-      setTimeout(typeEffect, 400);
-      return;
-    }
-    setTimeout(typeEffect, 60);
+  // Inicia após renderização inicial para não bloquear FCP
+  requestAnimationFrame(() => setTimeout(typeEffect, 1000));
+
+  // 4. Contador de Estatísticas
+  const statObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target; const target = parseInt(el.dataset.target);
+        if (!target) return; let current = 0; const increment = target / 40;
+        const timer = setInterval(() => { current += increment; if (current >= target) { current = target; clearInterval(timer); } el.textContent = Math.round(current); }, 30);
+        statObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat-number[data-target]').forEach(el => statObserver.observe(el));
+
+  // 5. Tilt Card Effect (Desktop only)
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left; const y = e.clientY - rect.top;
+        const centerX = rect.width / 2; const centerY = rect.height / 2;
+        const rotateX = (y - centerY) / 20; const rotateY = (centerX - x) / 20;
+        card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateY(0)'; });
+    });
   }
-}
-setTimeout(typeEffect, 1000);
-const statObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const el = entry.target;
-      const target = parseInt(el.dataset.target);
-      if (!target) return;
-      let current = 0;
-      const increment = target / 40;
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-          current = target;
-          clearInterval(timer);
-        }
-        el.textContent = Math.round(current);
-      }, 30);
-      statObserver.unobserve(el);
-    }
-  });
-}, { threshold: 0.5 });
-document.querySelectorAll('.stat-number[data-target]').forEach(el => statObserver.observe(el));
-document.querySelectorAll('.tilt-card').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateX = (y - centerY) / 20;
-    const rotateY = (centerX - x) / 20;
-    card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) translateY(0)';
-  });
-});
+
+  // 6. Ano Dinâmico no Footer
+  document.getElementById('current-year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
