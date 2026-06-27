@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Termos de Uso – AI Personas | Token SLP</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#166534">
+  <meta name="description" content="Termos de Uso do AI Personas. Contrato de adesão para uso da plataforma de relacionamentos sintéticos. Regras de conduta, isenção de responsabilidade por IA, propriedade intelectual (Token SLP), 18+, foro do Rio de Janeiro.">
+  <link rel="canonical" href="https://aipersonas.com.br/termos.html" />
+  
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aipersonas.com.br/termos.html">
+  <meta property="og:title" content="Termos de Uso – AI Personas">
+  <meta property="og:description" content="Leia os termos antes de usar. 18+. Você é responsável pela sua chave API e pelo conteúdo que gera. Isenção de responsabilidade por alucinações da IA.">
+  <meta property="og:image" content="https://aipersonas.com.br/og-image.jpg">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="AI Personas - TOKEN SLP">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Termos de Uso – AI Personas">
+  <meta name="twitter:description" content="Contrato de adesão. Uso responsável de IA generativa. Sem garantias. Foro: Comarca da Capital - RJ.">
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+
+  <!-- JSON-LD WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": "https://aipersonas.com.br/termos.html#webpage",
+    "url": "https://aipersonas.com.br/termos.html",
+    "name": "Termos de Uso – AI Personas",
+    "description": "Termos e Condições de Uso do aplicativo AI Personas. Contrato de adesão, regras de conduta, isenção de responsabilidade, propriedade intelectual, 18+, foro Rio de Janeiro.",
+    "inLanguage": "pt-BR",
+    "isPartOf": { "@id": "https://aipersonas.com.br/#website" },
+    "publisher": { "@id": "https://aipersonas.com.br/#organization" },
+    "datePublished": "2026-05-15",
+    "dateModified": "2026-05-15"
+  }
+  </script>
+
+  <style>
+    * { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; } .reveal-delay-3 { transition-delay: 0.3s; }
+    .gradient-text { background: linear-gradient(135deg, #166534 0%, #22c55e 50%, #166534 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 4s ease infinite; }
+    @keyframes gradientShift { 0%,100% { background-position: 0% center; } 50% { background-position: 100% center; } }
+    .noise::before { content: ''; position: absolute; inset: 0; opacity: 0.03; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; }
+    .toc-link { transition: color 0.2s; } .toc-link:hover { color: #166534; }
+    ::selection { background: #bbf7d0; color: #14532d; }
+    details summary { list-style: none; cursor: pointer; } details summary::-webkit-details-marker { display: none; }
+    details summary::after { content: '+'; float: right; font-weight: 700; transition: transform 0.2s; }
+    details[open] summary::after { transform: rotate(45deg); }
+    .badge-law { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.4rem; border-radius: 9999px; background: #dcfce7; color: #166534; margin-left: 0.5rem; vertical-align: middle; }
+    .clause { counter-increment: clause-counter; }
+    .clause::before { content: counter(clause-counter) ". "; font-weight: 700; color: #166534; }
+    ol.clauses { counter-reset: clause-counter; list-style: none; padding-left: 1.5rem; }
+    ol.clauses li { position: relative; padding-left: 0.5rem; }
+  </style>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+<!-- NAV -->
+<nav class="w-full py-4 px-6 fixed top-0 z-50 bg-white/70 backdrop-blur-xl border-b border-gray-100 transition-all duration-300">
+  <div class="max-w-6xl mx-auto flex justify-between items-center">
+    <a href="index.html" class="flex items-center gap-2.5 group" aria-label="AI Personas - Início">
+      <div class="w-9 h-9 bg-gradient-to-br from-green-700 to-green-500 text-white rounded-xl flex items-center justify-center font-bold text-xs shadow-lg shadow-green-500/20 group-hover:shadow-green-500/40 transition" aria-hidden="true">AI P</div>
+      <span class="font-bold text-lg tracking-tight text-gray-900">AI <span class="text-green-700">Personas</span></span>
+    </a>
+    <div class="hidden md:flex items-center gap-6 text-sm font-medium text-gray-500">
+      <a href="index.html" class="hover:text-green-700 transition">App</a>
+      <a href="privacidade.html" class="hover:text-green-700 transition">Política de Privacidade</a>
+    </div>
+    <a href="index.html" class="bg-green-800 text-white px-5 py-2.5 rounded-full font-semibold text-sm hover:bg-green-700 transition-all shadow-lg shadow-green-500/20 hover:shadow-green-500/40">Voltar ao App</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="relative pt-28 pb-16 px-4 overflow-hidden bg-gradient-to-b from-green-50/80 via-white to-white noise">
+  <div class="absolute inset-0 opacity-50" aria-hidden="true"><div class="absolute top-10 -left-20 w-72 h-72 bg-green-300 rounded-full blur-[120px]"></div><div class="absolute bottom-0 right-[-100px] w-96 h-96 bg-emerald-200 rounded-full blur-[120px]"></div></div>
+  <div class="max-w-4xl mx-auto text-center relative z-10">
+    <div class="reveal inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-green-100/80 text-green-700 text-xs font-bold uppercase tracking-widest mb-6 border border-green-200/60 backdrop-blur-sm"><span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span> Contrato de Adesão</div>
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black mb-6 leading-[1.05] tracking-tight reveal">
+      Termos de <span class="gradient-text">Uso</span>
+    </h1>
+    <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-4 reveal reveal-delay-1">Última atualização: <strong>15 de Maio de 2025</strong> | Versão 1.0</p>
+    <p class="text-gray-500 max-w-2xl mx-auto reveal reveal-delay-2">Celebrados entre <strong>Você (Usuário/Titular)</strong> e <strong>Jorge Franck</strong> (Pessoa Física, CPF final **367-34**), doravante "<strong>Controlador</strong>" ou "<strong>AI Personas</strong>".</p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<main class="py-16 px-4 bg-white" role="main">
+  <div class="max-w-4xl mx-auto">
+    <!-- IMPORTANT NOTICE -->
+    <div class="reveal bg-amber-50 border-l-4 border-amber-500 p-5 mb-10 rounded-r-xl" role="alert">
+      <h2 class="font-bold text-amber-900 mb-2 flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg> Leia com Atenção Antes de Usar</h2>
+      <ul class="list-disc list-inside space-y-1 text-amber-800 text-sm">
+        <li>Ao acessar ou usar o <strong>AI Personas</strong>, você concorda integralmente com estes Termos.</li>
+        <li>Este é um <strong>Contrato de Adesão</strong> (CDC Art. 54). Não há negociação individual.</li>
+        <li><strong>Classificação 18+.</strong> Menores de 18 anos não podem usar.</li>
+        <li>Você é <strong>totalmente responsável</strong> pela sua Chave API, custos de tokens e conteúdo gerado.</li>
+        <li>A IA <strong>alucina, erra, não tem consciência</strong>. Não confie cegamente.</li>
+      </ul>
+    </div>
+
+    <!-- TABLE OF CONTENTS -->
+    <nav class="reveal bg-gray-50 border border-gray-200 rounded-2xl p-6 mb-12" aria-label="Sumário dos Termos de Uso">
+      <h2 class="font-bold text-lg text-gray-900 mb-4 flex items-center gap-2"><svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg> Sumário</h2>
+      <ol class="space-y-2 text-sm text-gray-600">
+        <li><a href="#definicoes" class="toc-link font-medium">1. Definições</a></li>
+        <li><a href="#aceitacao" class="toc-link font-medium">2. Aceitação e Capacidade (18+)</a></li>
+        <li><a href="#licenca" class="toc-link font-medium">3. Licença de Uso e Restrições</a></li>
+        <li><a href="#byok" class="toc-link font-medium">4. Modelo BYOK (Bring Your Own Key) — Responsabilidades</a></li>
+        <li><a href="#conduta" class="toc-link font-medium">5. Regras de Conduta e Conteúdo Proibido</a></li>
+        <li><a href="#propriedade" class="toc-link font-medium">6. Propriedade Intelectual (Token SLP)</a></li>
+        <li><a href="#isencao" class="toc-link font-medium">7. Isenção de Garantias e Limitação de Responsabilidade</a></li>
+        <li><a href="#privacidade" class="toc-link font-medium">8. Privacidade e Dados Pessoais</a></li>
+        <li><a href="#vigencia" class="toc-link font-medium">9. Vigência, Rescisão e Suspensão</a></li>
+        <li><a href="#disposicoes" class="toc-link font-medium">10. Disposições Gerais e Foro</a></li>
+      </ol>
+    </nav>
+
+    <!-- CLAUSE 1 -->
+    <article id="definicoes" class="reveal mb-10 pb-10 border-b border-gray-100">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">1. Definições</h2>
+      <dl class="space-y-4 text-gray-600">
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100"><dt class="font-semibold text-gray-900">"AI Personas", "App", "Plataforma"</dt><dd class="mt-1 text-sm">A aplicação web Single Page Application (SPA) acessível via navegador, composta por arquivos estáticos (HTML/CSS/JS) que permitem a interação com Personas Sintéticas via APIs de terceiros.</dd></div>
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100"><dt class="font-semibold text-gray- text-gray-900">"Persona Sintética" ou "Persona"</dt><dd class="mt-1 text-sm">Entidade digital simulada pela IA, dotada de perfil estruturado (nome, idade, história, traços Big Five, estilo de fala, memórias simuladas) definida pelo Controlador (arquivos de sistema/prompt), não pelo usuário.</dd></div>
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100"><dt class="font-semibold text-gray-900">"Provedor(es) de IA" ou "LLM Provider"</dt><dd class="mt-1 text-sm">Serviços de terceiros que executam os modelos de linguagem: <strong>OpenRouter</strong>, <strong>Inception Labs</strong>, <strong>Google AI (Gemini)</strong>. A lista pode ser atualizada.</dd></div>
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100"><dt class="font-semibold text-gray-900">"Chave API" / "API Key" / "BYOK"</dt><dd class="mt-1 text-sm">Credencial secreta (string) fornecida pelo Provedor de IA ao Usuário, que o Usuário insere no App para autenticar requisições. <strong>Propriedade e responsabilidade exclusivas do Usuário.</strong></dd></div>
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100"><dt class="font-semibold text-gray-900">"Token SLP"</dt><dd class="mt-1 text-sm">Marca/Conceito "Synthetic Language Personas" — a arquitetura de perfis sintéticos estruturados (Prompt Engineering Avançado + Contexto Longo) usada para dar personalidade consistente às Personas. Propriedade Intelectual do Controlador.</dd></div>
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100"><dt class="font-semibold text-gray-900">"Usuário", "Você", "Titular"</dt><dd class="mt-1 text-sm">Pessoa física, maior de 18 anos, que acessa o App, insere sua Chave API e interage com as Personas.</dd></div>
+        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100"><dt class="font-semibold text-gray-900">"Controlador", "Nós", "Nosso"</dt><dd class="mt-1 text-sm">Jorge Franck, Pessoa Física, CPF final **367-34**, residente na Rua Cotegipe, 71 - Taquara, Rio de Janeiro - RJ, CEP 22.723-115, e-mail <code>franckjlfp@gmail.com</code>.</dd></div>
+      </dl>
+    </article>
+
+    <!-- CLAUSE 2 -->
+    <article id="aceitacao" class="reveal reveal-delay-1 mb-10 pb-10 border-b border-gray-100">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">2. Aceitação e Capacidade Civil (18+)</h2>
+      <ol class="clauses space-y-4 text-gray-600">
+        <li class="clause">Ao clicar em "Começar Conversa", "Acessar App", inserir uma Chave API ou simplesmente navegar e interagir com o AI Personas, você <strong>declara ter lido, entendido e aceito integralmente</strong> estes Termos de Uso e a <a href="privacidade.html" class="text-green-700 underline hover:text-green-900 font-medium">Política de Privacidade</a>.</li>
+        <li class="clause"><strong>Idade Mínima: 18 (Dezoito) Anos Completos.</strong> O App simula relacionamentos, intimidade, roleplay adulto e conversas complexas. <strong>É terminantemente proibido o acesso e uso por menores de 18 anos.</strong> (LGPD Art. 14, ECA Art. 17, CDC Art. 6º).</li>
+        <li class="clause">Se você não tem 18 anos, <strong>não use o App</strong>. Saia imediatamente e limpe os dados do navegador (<code>localStorage</code>).</li>
+        <li class="clause">Se você está aceitando em nome de uma Pessoa Jurídica (empresa), declara ter poderes para vinculá-la.</li>
+        <li class="clause">O uso continuado após alterações nestes Termos (publicados nesta URL com nova data) constitui aceitação da nova versão.</li>
+      </ol>
+    </article>
+
+    <!-- CLAUSE 3 -->
+    <article id="licenca" class="reveal reveal-delay-2 mb-10 pb-10 border-b border-gray-100">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">3. Licença de Uso e Restrições</h2>
+      <h3 class="text-xl font-semibold text-green-800 mb-3">3.1 Licença Concedida</h3>
+      <p class="text-gray-600 mb-4">Concedemos a você uma licença <strong>limitada, não exclusiva, intransferível, revogável e gratuita</strong> para acessar e usar o App (código client-side) exclusivamente para fins pessoais, não comerciais, de acordo com estes Termos.</p>
+      
+      <h3 class="text-xl font-semibold text-red-700 mb-3">3.2 Restrições Expressas (O que você NÃO PODE fazer)</h3>
+      <ol class="clauses space-y-3 text-gray-600">
+        <li class="clause"><strong>Engenharia Reversa / Descompilação:</strong> Tentar obter código-fonte original (além do servido ao navegador), desofuscar, descompilar ou criar obras derivadas do código do App (exceto o permitido por lei expressa, ex: interoperabilidade Art. 6º Lei 9.609/98).</li>
+        <li class="clause"><strong>Uso Automatizado / Scraping / Bots:</strong> Usar scripts, bots, crawlers, extensões para automatizar interações, extrair prompts de sistema (System Prompts), perfis de Personas (Token SLP), ou gerar datasets.</li>
+        <li class="clause"><strong>Revenda / Comercialização:</strong> Vender, alugar, sublicenciar, oferecer "acesso premium" ao App ou às Personas usando nossa interface.</li>
+        <li class="clause"><strong>Interferência Técnica:</strong> Sobrecarregar a infraestrutura (GitHub Pages, Cloudflare), burlar WAF/Rate Limit, injetar código malicioso (XSS, CSRF), explorar vulnerabilidades sem divulgação responsável (via <code>franckjlfp@gmail.com</code>).</li>
+        <li class="clause"><strong>Remoção de Marca/Créditos:</strong> Remover, ocultar ou alterar logotipos "AI Personas", "Token SLP", links de atribuição, copyright notices no código ou interface.</li>
+        <li class="clause"><strong>Uso Ilegal / Ofensivo:</strong> Violar leis brasileiras (CP, Marco Civil, LGPD, Direitos Autorais, Propriedade Industrial) ou direitos de terceiros.</li>
+      </ol>
+    </article>
+
+    <!-- CLAUSE 4 - CRITICAL -->
+    <article id="byok" class="reveal mb-10 pb-10 border-b border-gray-100">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">4. Modelo BYOK (Bring Your Own Key) — Responsabilidades Exclusivas do Usuário <span class="badge-law">CDC Art. 6º, 14; Marco Civil Art. 15</span></h2>
+      <div class="bg-red-50 border border-red-200 rounded-xl p-5 mb-6">
+        <h3 class="font-bold text-red-900 mb-3 flex items-center gap-2"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"/></svg> LEIA COM MUITA ATENÇÃO: ESTA É A CLÁUSULA MAIS IMPORTANTE PARA SEU BOLSO E SEGURANÇA.</h3>
+      </div>
+      <ol class="clauses space-y-4 text-gray-600">
+        <li class="clause"><strong>Você Traz a Chave, Você Paga a Conta.</strong> O AI Personas <strong>NÃO FORNECE</strong> modelos de IA, NÃO PAGA tokens, NÃO TEM CONTA nos Provedores. Você deve criar conta em <strong>OpenRouter</strong>, <strong>Inception Labs</strong> e/ou <strong>Google AI Studio</strong>, gerar suas <strong>Chaves API Secretas</strong> e inseri-las no App.</li>
+        <li class="clause"><strong>Custos São Seus.</strong> Cada mensagem gasta tokens (entrada + saída). Custos variam por Provedor e Modelo (ex: GPT-4o custa mais que Llama 3 70B; Inception tem 10M grátis; Gemini Flash é barato). <strong>Monitore seu uso/creditos no painel do Provedor.</strong> Não nos responsabilizamos por contas inesperadas, banimento de chave por abuso, ou falhas de cobrança do Provedor.</li>
+        <li class="clause"><strong>Segredo é Seu.</strong> A Chave API é uma <strong>senha de alto privilégio</strong>. Quem a possui gasta seus créditos. <strong>Nunca compartilhe, cole em Issues GitHub, logs, prints, e-mails, chats.</strong> Armazenamos apenas no <code>localStorage</code> do <strong>seu navegador</strong>. Se seu dispositivo for comprometido (malware, acesso físico), a chave vazou. <strong>Revogue imediatamente no Provedor se suspeitar.</strong></li>
+        <li class="clause"><strong>Configuração de Modelo é Sua Responsabilidade.</strong> Você escolhe o Modelo (ex: <code>openrouter/auto</code>, <code>inception/mercury</code>, <code>gemini-1.5-pro</code>), Temperatura, Max Tokens, Safety Settings. Configurações ruins = respostas ruins / custos altos / violação de políticas do Provedor. Não damos suporte a configuração de terceiros.</li>
+        <li class="clause"><strong>Conformidade com Termos dos Provedores.</strong> Ao usar a chave no nosso App, você concorda em respeitar os <strong>Termos de Serviço, Políticas de Uso Aceitável (AUP) e Políticas de Conteúdo</strong> de <strong>CADA Provedor</strong> que você habilitar.
+          <ul class="list-disc list-inside mt-2 ml-4 space-y-1 text-sm">
+            <li>OpenRouter: <a href="https://openrouter.ai/terms" target="_blank" rel="noopener" class="text-green-700 underline">Termos</a> / <a href="https://openrouter.ai/privacy" target="_blank" rel="noopener" class="text-green-700 underline">Privacidade</a></li>
+            <li>Inception Labs: <a href="https://inceptionlabs.ai/terms" target="_blank" rel="noopener" class="text-green-700 underline">Termos</a> / <a href="https://inceptionlabs.ai/privacy" target="_blank" rel="noopener" class="text-green-700 underline">Privacidade</a></li>
+            <li>Google AI / Gemini: <a href="https://ai.google.dev/gemini-api/terms" target="_blank" rel="noopener" class="text-green-700 underline">Termos API</a> / <a href="https://policies.google.com/terms" target="_blank" rel="noopener" class="text-green-700 underline">Termos Gerais</a> / <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" class="text-green-700 underline">Privacidade</a> <em>(Atenção: Tier gratuito pode usar dados para treino)</em></li>
+          </ul>
+        </li>
+        <li class="clause"><strong>Falhas dos Provedores.</strong> Se OpenRouter cai, Inception buga, Gemini retorna erro 500 / 429 / 400: <strong>Não é problema nosso.</strong> O App apenas exibe o erro retornado pela API. Aguarde ou troque de Provedor/Modelo nas configurações.</li>
+      </ol>
+    </article>
+
+    <!-- CLAUSE 5 -->
+    <article id="conduta" class="reveal reveal-delay-1 mb-10 pb-10 border-b border-gray-100">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">5. Regras de Conduta e Conteúdo Proibido (User Generated Content via IA)</h2>
+      <p class="text-gray-600 mb-4">Você é o <strong>único responsável</strong> pelo que digita (Prompts) e pelo que a IA gera (Completions) usando sua chave. O App é um "canal". Mesmo não armazenando, exigimos conduta ética e legal.</p>
+      <div class="space-y-3">
+        <h3 class="font-semibold text-red-700 flex items-center gap-2">🚫 Estritamente Proibido Gerar / Solicitar / Facilitar:</h3>
+        <ul class="clauses space-y-2 text-gray-600 pl-4">
+          <li class="clause"><strong>CSAM / Exploração Sexual Infantil:</strong> Qualquer conteúdo sexual envolvendo menores (real, simulado, desenhado, textual). <strong>Crime hediondo (Lei 8.069/90 Art. 241-A a E). Denúncia obrigatória (Marco Civil Art. 20).</strong></li>
+          <li class="clause"><strong>Violência Extrema / Gore / Snuff:</strong> Apologia, incentivo, instrução ou representação gráfica de violência gratuita, tortura, automutilação, suicídio.</li>
+          <li class="clause"><strong>Discurso de Ódio / Discriminação:</strong> Ataques a grupos protegidos (raça, etnia, religião, gênero, orientação sexual, deficiência, origem). Lei 7.716/89, Lei 12.288/10.</li>
+          <li class="clause"><strong>Atividades Ilegais:</strong> Instrução para crimes (fabricação de armas, drogas, hacking, fraude, lavagem de dinheiro, terrorismo).</li>
+          <li class="clause"><strong>Violação de Direitos Autorais / Propriedade Industrial:</strong> Pedir para a IA reproduzir obras protegidas na íntegra (letras, livros, código proprietário), criar deepfakes de pessoas reais sem consentimento, plagiar.</li>
+          <li class="clause"><strong>Dados Pessoais Sensíveis de Terceiros (Doxing):</strong> Inserir CPF, RG, endereço, telefone, prontuário médico, biometria de outras pessoas nos prompts.</li>
+          <li class="clause"><strong>Spam / Phishing / Engenharia Social:</strong> Usar a IA para gerar campanhas de golpe, e-mails fraudulentos, mensagens em massa não solicitadas.</li>
+          <li class="clause"><strong>Uso Profissional de Alto Risco sem Supervisão:</strong> Usar como único diagnóstico médico, jurídico, financeiro, psicológico, engenharia crítica. <strong>A IA ERRA (Alucina).</strong></li>
+        </ul>
+      </div>
+      <div class="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
+        <h3 class="font-semibold text-amber-900 mb-2">⚠️ Moderação e Consequências</h3>
+        <p class="text-amber-800 text-sm">Como <strong>não temos acesso ao conteúdo</strong> (Client-Side), <strong>não fazemos moderação prévia nem reativa no App</strong>. Porém:</p>
+        <ol class="list-decimal list-inside mt-2 space-y-1 text-amber-800 text-sm">
+          <li>Os <strong>Provedores de IA (OpenRouter, Inception, Google) monitoram e moderam</strong> o tráfego na API deles. Eles podem <strong>banir sua chave, banir sua conta, reportar às autoridades</strong> se detectarem violação grave (CSAM, Terrorismo, etc.).</li>
+          <li>Se formos notificados judicialmente ou por autoridade (ANPD, Polícia Federal, MP) sobre uso ilícito <strong>originado do seu IP/Dispositivo</strong> (logs Cloudflare/GitHub), <strong>cooperaremos plenamente</strong> (Marco Civil Art. 15, LGPD Art. 7º II).</li>
+          <li>Podemos <strong>bloquear seu IP no Cloudflare (WAF)</strong> se detectarmos padrões de ataque/abuso automatizado contra nossa infraestrutura.</li>
+        </ol>
+      </div>
+    </article>
+
+    <!-- CLAUSE 6 -->
+    <article id="propriedade" class="reveal reveal-delay-2 mb-10 pb-10 border-b border-gray-100">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">6. Propriedade Intelectual (Token SLP e Industrial e Token SLP)</h2>
+      <ol class="clauses space-y-4 text-gray-600">
+        <li class="clause"><strong>Nosso (Controlador):</strong> Todo o código-fonte (HTML, CSS, JS, Lógica de App, Prompts de Sistema/Estrutura de Personas), design, logotipos ("AI Personas", "Token SLP"), marca "Token SLP – Synthetic Language Personas", arquitetura de perfis sintéticos (Big Five + História + Estilo), documentação. <strong>Protegidos por Lei 9.609/98 (Software), Lei 9.279/96 (Marcas/Patentes), Lei 9.610/98 (Direitos Autorais).</strong></li>
+        <li class="clause"><strong>Seu (Usuário):</strong> Seus Prompts (inputs) e as Completions (outputs) gerados pela IA <strong>usando sua chave API</strong>. Você detém os direitos sobre o que você cria com a ferramenta (sujeito aos Termos do Provedor da IA).</li>
+        <li class="clause"><strong>Dos Provedores de IA:</strong> Os modelos, pesos, arquiteturas, marcas (GPT, Claude, Gemini, Llama, Mercury, etc.) pertencem aos respectivos donos (OpenAI, Anthropic, Google, Meta, Inception, etc.). Licenciados para você via API.</li>
+        <li class="clause"><strong>Licença de Uso do Token SLP (Perfis de Persona):</strong> Os arquivos de definição de Persona (JSON/Markdown com traços, história, exemplos de fala) são <strong>Propriedade Intelectual do Controlador</strong>. Você tem licença para <strong>usá-los dentro do App</strong> durante a vigência destes Termos. <strong>Não pode exportar, copiar, redistribuir, vender, treinar outros modelos com esses perfis (Model Extraction / Distillation).</strong></li>
+        <li class="clause"><strong>Feedback / Sugestões:</strong> Se você nos enviar sugestões de melhoria, novas personas, correções de bugs (via e-mail), você nos concede licença <strong>irrevogável, perpétua, mundial, royalty-free</strong> para usar, modificar, incorporar no App, sem obrigação de crédito ou pagamento.</li>
+      </ol>
+    </article>
+
+    <!-- CLAUSE 7 - LIABILITY -->
+    <article id="isencao" class="reveal mb-10 pb-10 border-b border-gray-100">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">7. Isenção de Garantias e Limitação de Responsabilidade <span class="badge-law">CDC Art. 6º, 14, §3º; Código Civil Art. 927, 944</span></h2>
+      <div class="bg-gray-100 border border-gray-200 rounded-xl p-5 mb-6 text-sm">
+        <p class="font-bold text-gray-900 mb-3">O AI PERSONAS É FORNECIDO "NO ESTADO EM QUE SE ENCONTRA" (<strong>AS IS</strong>) E "CONFORME DISPONIBILIDADE" (<strong>AS AVAILABLE</strong>), SEM GARANTIAS DE QUALQUER TIPO, EXPRESSAS OU IMPLÍCITAS.</p>
+      </div>
+      <ol class="clauses space-y-4 text-gray-600">
+        <li class="clause"><strong>Sem Garantia de Funcionamento Contínuo:</strong> O App é estático no GitHub Pages + Cloudflare. Pode haver downtime (manutenção GitHub, erro Cloudflare, DNS, CDN). Não garantimos 99.9% uptime. Não há SLA.</li>
+        <li class="clause"><strong>IA Alucina (Hallucination).</strong> Modelos LLM <strong>inventam fatos, citam fontes inexistentes, contradições, erros de lógica, viés</strong>. <strong>NÃO CONFIE CEGAMENTE.</strong> Verifique informações críticas independentemente. Não somos responsáveis por decisões tomadas baseadas em output da IA.</li>
+        <li class="clause"><strong>Não é Humano / Não é Profissional.</strong> Personas <strong>simulam</strong> empatia, personalidade, opinião. <strong>Não têm consciência, sentimentos, intenção, responsabilidade profissional.</strong> Não substituem: Médico, Psicólogo, Advogado, Contador, Engenheiro, Terapeuta, Conselheiro Financeiro.</li>
+        <li class="clause"><strong>Limitação de Danos:</strong> Em nenhuma hipótese o Controlador (Jorge Franck) será responsável por <strong>danos indiretos, incidentais, consequenciais, lucros cessantes, perda de dados, perda de oportunidade, danos morais</strong> decorrentes do uso ou impossibilidade de uso do App, mesmo que avisado da possibilidade. Responsabilidade total máxima limitada a <strong>R$ 0,00 (zero reais)</strong> (App gratuito).</li>
+        <li class="clause"><strong>Links de Terceiros:</strong> Links para OpenRouter, Inception, Google, GitHub, Cloudflare, tokenslp.com.br são conveniência. Não endossamos, não controlamos, não somos responsáveis por conteúdo, privacidade, segurança deles.</li>
+        <li class="clause"><strong>Força Maior:</strong> Não respondemos por falhas causadas por eventos fora de controle razoável (guerra, greve, catástrofe, falha de infraestrutura global de internet, ação governamental).</li>
+      </ol>
+    </article>
+
+    <!-- CLAUSE 8 -->
+    <article id="privacidade" class="reveal reveal-delay-1 mb-10 pb-10 border-b border-gray-100">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">8. Privacidade e Proteção de Dados Pessoais</h2>
+      <p class="text-gray-600 mb-4">O tratamento de dados pessoais rege-se pela <a href="privacidade.html" class="text-green-700 underline hover:text-green-900 font-medium">Política de Privacidade</a> (documento separado, parte integrante destes Termos). Pontos-chave do contrato:</p>
+      <ul class="list-disc list-inside space-y-2 text-gray-600">
+        <li>Controlador: Jorge Franck (PF). Encarregado (DPO): Jorge Franck (<code>franckjlfp@gmail.com</code>).</li>
+        <li>Arquitetura <strong>Client-Side Only (BYOK)</strong>: Suas Chaves API e Conversas ficam no <strong>seu navegador (localStorage)</strong>. Nós <strong>não acessamos, não lemos, não armazenamos em servidor</strong>.</li>
+        <li>Logs de Segurança (IP, User-Agent) processados por <strong>Legítimo Interesse</strong> (Cloudflare/GitHub) para proteção contra abuso/DDoS.</li>
+        <li>Transferência Internacional para EUA 🇺🇸: Cloudflare, GitHub/Microsoft, OpenRouter, Inception Labs, Google. Cláusulas Contratuais Padrão (SCC) aplicáveis.</li>
+        <li>Seus Direitos (LGPD Art. 18): Acesso (autoatendimento via DevTools/localStorage), Correção (autoatendimento), Eliminação (autoatendimento + revogação chave no Provedor), Portabilidade (JSON), Oposição (e-mail).</li>
+        <li>Não há compartilhamento com terceiros para marketing. Não vendemos dados.</li>
+      </ul>
+    </article>
+
+    <!-- CLAUSE 9 -->
+    <article id="vigencia" class="reveal reveal-delay-2 mb-10 pb-10 border-b border-gray-100">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">9. Vigência, Rescisão e Suspensão</h2>
+      <ol class="clauses space-y-4 text-gray-600">
+        <li class="clause"><strong>Vigência:</strong> Estes Termos entram em vigor na data de aceitação (primeiro uso) e vigoram por prazo indeterminado.</li>
+        <li class="clause"><strong>Rescisão por Você:</strong> Você pode parar de usar a qualquer momento. Para "excluir sua conta" (dados locais): Limpe o <code>localStorage</code> do domínio, revogue as Chaves API nos Provedores. Pronto. Não há "conta" no nosso servidor para excluir.</li>
+        <li class="clause"><strong>Rescisão/Suspensão por Nós (Justa Causa):</strong> Podemos bloquear seu IP (Cloudflare WAF) ou descontinuar o App (GitHub Pages delete) a qualquer momento, sem aviso prévio, se: (a) Violção grave destes Termos (Cláusula 5); (b) Ataque à infraestrutura; (c) Ordem judicial/administrativa; (d) Decisão unilateral de encerrar o projeto (hobby/estudo).</li>
+        <li class="clause"><strong>Efeitos da Rescisão:</strong> Licença (Cláusula 3) cessa imediatamente. Cláusulas de Propriedade Intelectual (6), Isenção (7), Privacidade (8), Foro (10) sobrevivem.</li>
+      </ol>
+    </article>
+
+    <!-- CLAUSE 10 -->
+    <article id="disposicoes" class="reveal reveal-delay-3">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">10. Disposições Gerais e Foro</h2>
+      <ol class="clauses space-y-4 text-gray-600">
+        <li class="clause"><strong>Lei Aplicável:</strong> Leis da República Federativa do Brasil (LGPD, CDC, Marco Civil, Código Civil, Lei de Software, Propriedade Industrial).</li>
+        <li class="clause"><strong>Foro de Eleição:</strong> Fica eleito o <strong>Foro da Comarca da Capital do Estado do Rio de Janeiro (Rio de Janeiro - RJ)</strong>, com renúncia a qualquer outro, por mais privilegiado que seja, para dirimir quaisquer controvérsias oriundas destes Termos. (CDC Art. 101, I - consumidor pode escolher foro de seu domicílio, mas como é PF vs PF/Adesão gratuita, fixamos foro do Controlador; se você for consumidor final domiciliado em outra comarca, pode arguir competência do seu domicílio).</li>
+        <li class="clause"><strong>Idioma:</strong> Versão em Português (PT-BR) é a única oficial. Traduções são cortesia.</li>
+        <li class="clause"><strong>Integralidade:</strong> Estes Termos + Política de Privacidade constituem o acordo integral entre você e o Controlador. Substituem quaisquer entendimentos anteriores (verbais, e-mails, chats).</li>
+        <li class="clause"><strong>Não Renúncia:</strong> Nossa falha em exigir direito não constitui renúncia. Tolerância não altera termos.</li>
+        <li class="clause"><strong>Cessão:</strong> Não podemos ceder este contrato sem seu consentimento (exceto sucessão empresarial/herdeiros). Você não pode ceder sua posição (licença pessoal/intransferível).</li>
+        <li class="clause"><strong>Validade Parcial:</strong> Se cláusula for nula/inexequível, as demais permanecem. Partes negociarão substituta válida com efeito econômico mais próximo.</li>
+        <li class="clause"><strong>Comunicações Oficiais:</strong> Serão feitas via e-mail <code>franckjlfp@gmail.com</code> ou banner no App. Você concorda em receber comunicações eletrônicas legais (LGPD, Rescisão, Mudanças) por este canal.</li>
+      </ol>
+      
+      <div class="mt-10 pt-6 border-t border-gray-200 text-center">
+        <p class="text-gray-500 text-sm mb-4"><strong>AI Personas – Token SLP</strong></p>
+        <p class="text-gray-500 text-sm">Jorge Franck • CPF final 367-34 • Rua Cotegipe, 71 - Taquara, Rio de Janeiro - RJ</p>
+        <p class="text-gray-500 text-sm"><a href="mailto:franckjlfp@gmail.com" class="text-green-700 underline hover:text-green-900">franckjlfp@gmail.com</a> | <a href="https://tokenslp.com.br" target="_blank" rel="noopener" class="text-green-700 underline hover:text-green-900">tokenslp.com.br</a></p>
+        <p class="text-gray-400 text-xs mt-4">© 2025. Todos os direitos reservados. Versão 1.0 – 15/05/2025.</p>
+      </div>
+    </article>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-gray-950 border-t border-gray-800 py-12 text-center" role="contentinfo">
+  <div class="flex items-center justify-center gap-2.5 mb-4">
+    <div class="w-8 h-8 bg-gradient-to-br from-green-600 to-green-500 text-white rounded-xl flex items-center justify-center font-bold text-xs shadow-lg shadow-green-500/20">AI P</div>
+    <span class="font-bold text-lg text-gray-300">AI <span class="text-green-400">Personas</span></span>
+  </div>
+  <p class="text-gray-600 text-sm mb-5">TOKEN – Synthetic Language Personas</p>
+  <nav class="flex items-center justify-center gap-6 mb-6 flex-wrap" aria-label="Navegação do rodapé">
+    <a href="index.html" class="text-gray-500 hover:text-green-400 text-sm transition">Voltar ao App</a>
+    <a href="privacidade.html" class="text-gray-500 hover:text-green-400 text-sm transition">Política de Privacidade</a>
+  </nav>
+  <a href="https://tokenslp.com.br" target="_blank" rel="noopener" class="text-green-500/60 hover:text-green-400 text-sm transition">tokenslp.com.br</a>
+  <div class="mt-6 pt-6 border-t border-gray-800/50">
+    <p class="text-gray-700 text-xs">&copy; 2025 AI Personas. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<script>
+  // Reveal Animation
+  const revealObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  
+  // Smooth scroll for TOC links
+  document.querySelectorAll('.toc-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute('href').substring(1);
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, '', `#${targetId}`);
+      }
+    });
+  });
+</script>
+</body>
+</html>
