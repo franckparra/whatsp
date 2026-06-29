@@ -9,7 +9,6 @@
 <meta name="description" content="Chat com persona sintética – Tiago Martins">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-
 <!-- ========== PWA: Início – Meta tags e Manifest ========== -->
 <link rel="manifest" href="manifest-tiago.json">
 <link rel="apple-touch-icon" href="tiago.jpg">
@@ -17,10 +16,8 @@
 <meta name="apple-mobile-web-app-title" content="Tiago Martins">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <!-- ========== PWA: Fim ========== -->
-
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-
 <style>
     /* Animação customizada para os pontinhos de digitação */
     @keyframes typing-bounce {
@@ -33,13 +30,11 @@
     .dot-1 { animation-delay: 0s; }
     .dot-2 { animation-delay: 0.2s; }
     .dot-3 { animation-delay: 0.4s; }
-
     /* CORREÇÃO MOBILE: Usar dvh (dynamic viewport height) */
     .app-container {
         height: 100vh;
         height: 100dvh; /* Dynamic viewport height para mobile */
     }
-
     /* Ajuste para iPhone com notch */
     @supports (padding-top: env(safe-area-inset-top)) {
         #chatHeader {
@@ -49,18 +44,15 @@
             padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
         }
     }
-
     /* Garantir que o textarea não seja zoomado no iOS */
     textarea {
         font-size: 16px !important;
     }
-
     /* Scroll suave */
     #chat {
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
     }
-
     /* Esconder scrollbar mas permitir scroll */
     #chat::-webkit-scrollbar {
         width: 4px;
@@ -69,7 +61,6 @@
         background: #ccc;
         border-radius: 4px;
     }
-
     /* ========== PWA: Animações do Modal iOS ========== */
     @keyframes slideUp {
         from { transform: translateY(100%); opacity: 0; }
@@ -97,10 +88,8 @@
 </head>
 <!-- CORREÇÃO: Remover overflow-hidden do body, usar no container -->
 <body class="flex flex-col font-inter bg-gray-100 text-gray-800 m-0 p-0">
-
 <!-- CONTAINER PRINCIPAL COM ALTURA DINÂMICA -->
 <div class="app-container flex flex-col overflow-hidden">
-
     <!-- HEADER FIXO -->
     <header id="chatHeader" class="flex-shrink-0 bg-green-800 text-white flex items-center justify-between px-3 py-2 sm:p-3 border-b border-gray-300 shadow-md z-10">
       <div class="flex items-center gap-2 sm:gap-3">
@@ -119,18 +108,14 @@
         </div>
       </div>
     </header>
-
     <!-- CONTROLES DA CONVERSA -->
     <div class="flex-shrink-0 flex justify-center gap-3 p-2 bg-gray-200/50 border-b border-gray-300">
       <button class="bg-green-800 text-white px-3 py-1.5 rounded text-xs hover:bg-green-900 transition active:scale-95" onclick="exitChat()">Sair</button>
-
       <!-- ========== PWA: Botão Adicionar à Tela Início ========== -->
       <button id="installBtn" class="bg-blue-600 text-white px-3 py-1.5 rounded text-xs hover:bg-blue-700 transition active:scale-95 hidden" onclick="installApp()">📱 Instalar</button>
       <!-- ========== PWA: Fim ========== -->
-
       <button class="bg-gray-600 text-white px-3 py-1.5 rounded text-xs hover:bg-gray-700 transition active:scale-95" onclick="clearChat()">Limpar</button>
     </div>
-
     <!-- CHAT AREA (ÚNICA ÁREA QUE ROLA) -->
     <!-- flex-1 ocupa espaço restante, overflow-y-auto permite scroll -->
     <div id="chat" class="flex-1 overflow-y-auto overflow-x-hidden p-3 sm:p-4 flex flex-col gap-3 sm:gap-4 bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')] bg-repeat bg-fixed">
@@ -143,23 +128,19 @@
         <blockquote id="welcomeQuote" class="bg-white border-l-4 border-green-800 p-3 sm:p-4 rounded-lg shadow-md max-w-sm sm:max-w-md text-left text-gray-700 italic text-sm mx-2"></blockquote>
       </div>
     </div>
-
     <!-- INPUT AREA FIXO (RODAPÉ) -->
     <!-- flex-shrink-0 impede que ele colapse -->
     <div class="input-area flex-shrink-0 bg-white border-t border-gray-300 p-2 sm:p-3 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
       <div class="flex items-end gap-2 max-w-4xl mx-auto">
         <button id="configBtn" class="w-9 h-9 sm:w-10 sm:h-10 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300 transition active:scale-95 flex-shrink-0"
                 title="Configurações" onclick="toggleConfig()">⚙</button>
-        
         <button id="micBtn" class="w-9 h-9 sm:w-10 sm:h-10 bg-gray-200 text-gray-600 rounded-full flex items-center justify-center hover:bg-gray-300 transition active:scale-95 flex-shrink-0"
                 title="Gravar voz">🎤</button>
-                
         <textarea id="userInput" rows="1"
                   class="flex-1 bg-gray-100 border border-gray-300 rounded-2xl px-3 sm:px-4 py-2 sm:py-3 resize-none focus:outline-none focus:ring-2 focus:ring-green-500 focus:bg-white transition-all max-h-32 text-sm sm:text-base min-h-[44px]"
                   placeholder="Mensagem..."
                   onkeydown="handleKey(event)"
                   oninput="autoResize(this);updateSendButton()"></textarea>
-                  
         <button id="sendBtn" onclick="sendMessage()" class="w-10 h-10 sm:w-11 sm:h-11 bg-green-800 text-white rounded-full flex items-center justify-center hover:bg-green-900 transition active:scale-95 shadow-md disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0" disabled>
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:h-6 sm:w-6 transform rotate-45 sm:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -167,9 +148,7 @@
         </button>
       </div>
     </div>
-
 </div> <!-- FIM DO CONTAINER PRINCIPAL -->
-
 <!-- CONFIG PANEL -->
 <div id="configPanel"
      class="fixed inset-0 bg-white/95 backdrop-blur-sm flex flex-col p-4 sm:p-6 transform translate-x-full transition-transform duration-300 overflow-y-auto z-50">
@@ -177,25 +156,23 @@
     <h2 class="text-xl sm:text-2xl font-bold text-gray-800">⚙ Configurações</h2>
     <button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200" onclick="toggleConfig()">✕</button>
   </div>
-  
   <div class="space-y-4 max-w-lg mx-auto w-full pb-20">
     <div class="bg-blue-50 p-3 rounded-lg text-xs text-blue-800 border border-blue-100 mb-4">
       <p><strong>Token Synthetic Language Personas</strong></p>
       <p class="mt-1">Configure a conexão com a IA para esta persona.</p>
     </div>
-
     <div>
       <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Provedor de IA</label>
+      <!-- FIX: onchange passa 'false' para indicar que o usuário trocou o provedor intencionalmente -->
       <select id="provider"
               class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm text-sm"
-              onchange="updateProviderUI()">
+              onchange="updateProviderUI(false)">
         <option value="inception">Inception (Mercury 2)</option>
         <option value="openrouter">OpenRouter</option>
         <option value="google">Google AI Studio</option>
         <option value="ollama">Ollama Local</option>
       </select>
     </div>
-    
     <div class="relative">
       <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Chave de API</label>
       <input type="password" id="apiKey"
@@ -204,7 +181,6 @@
       <button id="helpBtn" class="absolute right-3 top-9 text-xs font-bold text-green-700 hover:text-green-900"
               onclick="toggleHelp()">?</button>
       <p id="apiHint" class="text-xs text-gray-500 mt-1">Inception: platform.inceptionlabs.ai</p>
-      
       <div id="helpPopup"
            class="hidden absolute left-0 bottom-full mb-2 w-full bg-white border border-gray-200 rounded-lg p-4 shadow-xl text-xs text-gray-700 z-10">
         <p class="mb-2">Pegue sua chave de API na plataforma selecionada.</p>
@@ -212,21 +188,18 @@
            class="block w-full text-center bg-green-600 text-white py-2 rounded hover:bg-green-700 font-medium">🔑 Criar conta</a>
       </div>
     </div>
-
     <div>
       <label class="block text-xs font-bold uppercase text-gray-500 mb-1">Modelo</label>
       <input type="text" id="modelName"
              class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm font-mono text-sm"
              value="mercury-2">
     </div>
-
     <div id="ollamaUrlGroup" class="hidden">
       <label class="block text-xs font-bold uppercase text-gray-500 mb-1">URL do Ollama</label>
       <input type="text" id="ollamaUrl"
              class="w-full bg-white border border-gray-300 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm font-mono text-sm"
              value="http://localhost:11434">
     </div>
-
     <div class="pt-4 flex gap-3">
       <button class="flex-1 bg-green-800 text-white px-4 py-3 rounded-lg hover:bg-green-900 font-medium shadow-lg shadow-green-800/20"
               onclick="saveConfig()">Salvar</button>
@@ -235,7 +208,6 @@
     </div>
   </div>
 </div>
-
 <!-- ========== PWA: Modal Instruções iOS ========== -->
 <div id="iosInstallModal" class="fixed inset-0 bg-black/60 z-50 flex items-end justify-center hidden ios-modal-overlay">
   <div class="w-full max-w-md bg-white rounded-t-2xl p-6 pb-10 ios-modal-content">
@@ -249,7 +221,6 @@
         <p class="text-xs text-gray-500">Acesse rapidamente como um app</p>
       </div>
     </div>
-
     <!-- Passo 1 -->
     <div class="flex items-start gap-3 mb-4">
       <div class="w-8 h-8 rounded-full bg-green-100 text-green-800 flex items-center justify-center text-sm font-bold flex-shrink-0">1</div>
@@ -264,7 +235,6 @@
         </svg>
       </div>
     </div>
-
     <!-- Passo 2 -->
     <div class="flex items-start gap-3 mb-4">
       <div class="w-8 h-8 rounded-full bg-green-100 text-green-800 flex items-center justify-center text-sm font-bold flex-shrink-0">2</div>
@@ -280,20 +250,18 @@
         </p>
       </div>
     </div>
-
     <!-- Passo 3 -->
     <div class="flex items-start gap-3 mb-6">
       <div class="w-8 h-8 rounded-full bg-green-100 text-green-800 flex items-center justify-center text-sm font-bold flex-shrink-0">3</div>
       <div class="flex-1">
         <p class="text-sm text-gray-700 font-medium">Toque em <strong>"Adicionar"</strong> no canto superior direito</p>
-        <p class="text-xs text-gray-500 mt-0.5">O ícone do Tiago Martins ficará na sua tela inicial!</p>
+        <p class="text-xs text-gray-500 mt-0.5">O ícone da Tiago Martins ficará na sua tela inicial!</p>
       </div>
       <!-- Preview do ícone -->
       <div class="w-10 h-10 rounded-xl overflow-hidden flex-shrink-0 shadow-md">
         <img src="tiago.jpg" alt="Preview" class="w-full h-full object-cover">
       </div>
     </div>
-
     <!-- Botão fechar -->
     <button class="w-full bg-green-800 text-white py-3 rounded-xl hover:bg-green-900 font-semibold text-sm transition active:scale-[0.98]" onclick="closeIOSModal()">
       Entendi ✕
@@ -301,14 +269,12 @@
   </div>
 </div>
 <!-- ========== PWA: Fim ========== -->
-
 <!-- TOAST -->
 <div id="toast"
      class="fixed bottom-28 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-6 py-3 rounded-full shadow-2xl hidden z-50 flex items-center gap-2 text-sm font-medium transition-opacity duration-300 max-w-[90%] text-center">
   <span id="toastIcon">ℹ️</span>
   <span id="toastMsg">Mensagem</span>
 </div>
-
 <script>
 /* -------------------------------------------------
    PERSONAS – Tiago Martins
@@ -324,7 +290,6 @@ const PERSONAS = {
     "apiUrl":"https://api.zap06.tokenslp.com.br"
   }
 };
-
 /* -------------------------------------------------
    UTILIDADES
    ------------------------------------------------- */
@@ -336,28 +301,23 @@ function getPersonaGender(pid){
   const femaleIds = ['maria','laura','fernanda'];
   return femaleIds.includes(pid) ? 'female' : 'male';
 }
-
 /* -------------------------------------------------
    CARREGAR DADOS DA PERSONA
    ------------------------------------------------- */
 function loadPersona(){
   const pid = getPersonaId();
   const p = PERSONAS[pid] || PERSONAS['tiago'];
-  
   document.getElementById('avatarHeader').src = p.avatar;
   document.getElementById('headerName').textContent = p.nome;
   document.getElementById('headerBadge').textContent = p.badge;
-  
   const welcomeAvatar = document.getElementById('welcomeAvatar');
   welcomeAvatar.innerHTML = `<img src="${p.avatar}" alt="${p.nome}" class="w-full h-full object-cover rounded-full border-2 border-white shadow-sm">`;
   document.getElementById('welcomeBadge').textContent = p.badge;
   document.getElementById('welcomeTitle').textContent = p.welcomeTitle;
   document.getElementById('welcomeSubtitle').textContent = p.welcomeSubtitle;
   document.getElementById('welcomeQuote').textContent = p.welcomeQuote;
-  
   document.title = `AI Personas – ${p.nome}`;
 }
-
 /* -------------------------------------------------
    ESTADO & CONFIGURAÇÕES
    ------------------------------------------------- */
@@ -369,7 +329,6 @@ let config = {
   model:'mercury-2',
   ollamaUrl:'http://localhost:11434'
 };
-
 /* -------------------------------------------------
    INICIALIZAÇÃO
    ------------------------------------------------- */
@@ -382,9 +341,9 @@ function init(){
     document.getElementById('modelName').value = config.model||'mercury-2';
     document.getElementById('provider').value = config.provider||'inception';
     document.getElementById('ollamaUrl').value = config.ollamaUrl||'';
-    updateProviderUI();
+    // FIX: Chama com 'true' para preservar o modelo carregado do localStorage
+    updateProviderUI(true); 
   }
-  
   const savedHistory = localStorage.getItem('whats_personas_history');
   if(savedHistory){
     conversationHistory = JSON.parse(savedHistory);
@@ -397,12 +356,10 @@ function init(){
   }
   // Scroll para o final após inicialização
   setTimeout(() => scrollToBottom(), 100);
-
   /* ========== PWA: Inicialização do botão instalar ========== */
   initInstallButton();
   /* ========== PWA: Fim ========== */
 }
-
 /* -------------------------------------------------
    CONFIGURAÇÕES UI
    ------------------------------------------------- */
@@ -418,7 +375,11 @@ function toggleHelp(){
   const popup=document.getElementById('helpPopup');
   popup.classList.toggle('hidden');
 }
-function updateProviderUI(){
+
+/* FIX: Função updateProviderUI agora aceita 'preserveModel' (default true).
+   - Se true (init): NÃO mexe no input #modelName (mantém o salvo no config).
+   - Se false (onchange select): Atualiza #modelName para o padrão do novo provedor. */
+function updateProviderUI(preserveModel = true){
   const provider=document.getElementById('provider').value;
   const hints={
     inception:'Inception: platform.inceptionlabs.ai — 10M tokens gratuitos.',
@@ -433,7 +394,13 @@ function updateProviderUI(){
     ollama:'llama3.1'
   };
   document.getElementById('apiHint').textContent=hints[provider];
-  document.getElementById('modelName').value=models[provider];
+  
+  // FIX: Só atualiza o modelo visual se NÃO for para preservar (ex: usuário trocou o select)
+  if (!preserveModel) {
+    document.getElementById('modelName').value = models[provider];
+  }
+  // Se preserveModel=true, o valor atual do input (carregado do config no init) permanece intacto.
+  
   document.getElementById('ollamaUrlGroup').classList.toggle('hidden',provider!=='ollama');
 }
 function saveConfig(){
@@ -454,7 +421,6 @@ function clearChat(){
 function exitChat(){
   window.location.href='select.html';
 }
-
 /* -------------------------------------------------
    BOTÃO DE ENVIO
    ------------------------------------------------- */
@@ -462,14 +428,12 @@ function updateSendButton(){
   const input=document.getElementById('userInput');
   const btn=document.getElementById('sendBtn');
   btn.disabled = input.value.trim().length===0 || isLoading;
-  
   if(!btn.disabled){
      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M12 5l7 7-7 7" /></svg>`;
   } else {
      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform rotate-45 sm:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>`;
   }
 }
-
 /* -------------------------------------------------
    RENDERIZAÇÃO DE MENSAGENS
    ------------------------------------------------- */
@@ -477,26 +441,20 @@ function renderMessage(role,content,animate=true){
   const chat=document.getElementById('chat');
   const welcome=document.getElementById('welcome');
   if(welcome && welcome.style.display !== 'none') welcome.style.display='none';
-  
   const isBot=role==='debora';
   const p=PERSONAS[getPersonaId()];
-  
-  const avatarSrc = isBot ? p.avatar : ''; 
-  const avatarHTML = isBot 
+  const avatarSrc = isBot ? p.avatar : '';
+  const avatarHTML = isBot
     ? `<div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full overflow-hidden flex-shrink-0 mt-1"><img src="${avatarSrc}" class="w-full h-full object-cover"></div>`
     : `<div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-green-100 text-green-700 flex items-center justify-center flex-shrink-0 mt-1 text-xs font-bold">EU</div>`;
-    
   const alignClass = isBot ? 'justify-start' : 'justify-end';
-  const msgBubbleClass = isBot 
-    ? 'bg-white text-gray-800 rounded-tr-2xl border border-gray-200' 
+  const msgBubbleClass = isBot
+    ? 'bg-white text-gray-800 rounded-tr-2xl border border-gray-200'
     : 'bg-green-100 text-gray-800 rounded-tl-2xl border border-green-200';
-    
   const nameText = isBot ? p.nome : 'Você';
   const nameColor = isBot ? 'text-green-700' : 'text-green-800';
-  
   const msgDiv=document.createElement('div');
   msgDiv.className=`flex gap-2 mb-2 w-full ${alignClass}`;
-  
   const bubbleContent = `
     <div class="max-w-[85%] sm:max-w-[75%]">
         <div class="flex items-baseline gap-2 ${isBot ? 'flex-row' : 'flex-row-reverse'}">
@@ -510,9 +468,7 @@ function renderMessage(role,content,animate=true){
     </div>
     ${avatarHTML}
   `;
-  
   msgDiv.innerHTML = bubbleContent;
-  
   if(animate) {
     msgDiv.classList.add('opacity-0', 'translate-y-4');
     chat.appendChild(msgDiv);
@@ -526,12 +482,10 @@ function renderMessage(role,content,animate=true){
     scrollToBottom();
   }
 }
-
 function scrollToBottom() {
     const chat = document.getElementById('chat');
     chat.scrollTop = chat.scrollHeight;
 }
-
 function formatMessage(text){
   let html=text
     .replace(/```(\w+)?\n?([\s\S]*?)```/g,(_,lang,code)=>`<pre class="bg-gray-800 text-green-100 p-2 rounded text-xs overflow-x-auto my-2"><code>${escapeHtml(code.trim())}</code></pre>`)
@@ -542,8 +496,7 @@ function formatMessage(text){
     .replace(/\n/g,'<br>');
   return html;
 }
-function escapeHtml(t){return t.replace(/[&<>]/g,ch=>({ '&':'&','<':'<','>':'>' }[ch]));}
-
+function escapeHtml(t){return t.replace(/[&<>]/g,ch=>({ '&':'&amp;','<':'<','>':'>' }[ch]));}
 /* -------------------------------------------------
    INDICADOR DE DIGITAÇÃO
    ------------------------------------------------- */
@@ -569,7 +522,6 @@ function removeTyping(){
   const el=document.getElementById('typing-indicator');
   if(el) el.remove();
 }
-
 /* -------------------------------------------------
    ENVIO DE MENSAGENS
    ------------------------------------------------- */
@@ -577,23 +529,19 @@ async function sendMessage(){
   const input=document.getElementById('userInput');
   const text=input.value.trim();
   if(!text || isLoading) return;
-  
   if(!config.apiKey && config.provider!=='ollama'){
     showToast('Configure sua chave de API ⚙','error');
     toggleConfig();
     return;
   }
-  
   input.value='';
   input.style.height = 'auto';
   updateSendButton();
-  
   isLoading=true;
   setStatus('loading','Digitando...');
   renderMessage('user',text);
   conversationHistory.push({role:'user',content:text});
   showTyping();
-  
   try{
     const reply=await callAPI();
     removeTyping();
@@ -611,7 +559,6 @@ async function sendMessage(){
   updateSendButton();
   input.focus();
 }
-
 /* -------------------------------------------------
    CHAMADA À API
    ------------------------------------------------- */
@@ -637,16 +584,13 @@ async function callAPI(){
   if(!data.reply)throw new Error('Resposta vazia');
   return data.reply;
 }
-
 /* -------------------------------------------------
    TTS - VERSÃO FINAL CORRIGIDA
    ------------------------------------------------- */
 let currentUtterance = null;
-
 function toggleSpeak(btn) {
   const txt = decodeURIComponent(btn.dataset.text);
   if (!txt) return;
-
   if (btn.classList.contains('speaking')) {
     window.speechSynthesis.cancel();
     btn.classList.remove('speaking');
@@ -654,19 +598,16 @@ function toggleSpeak(btn) {
     currentUtterance = null;
     return;
   }
-
   window.speechSynthesis.cancel();
   document.querySelectorAll('button[data-text].speaking').forEach(b => {
     b.classList.remove('speaking');
     b.textContent = '🔊';
   });
-
   const clean = txt.replace(/\*\*/g, '').replace(/\*/g, '').replace(/^#+\s/gm, '').trim();
   const utter = new SpeechSynthesisUtterance(clean);
   utter.lang = 'pt-BR';
   utter.rate = 0.88;
   utter.pitch = 1.0;
-
   utter.onstart = () => {
     btn.classList.add('speaking');
     btn.textContent = '⏹';
@@ -681,15 +622,11 @@ function toggleSpeak(btn) {
     btn.textContent = '🔊';
     currentUtterance = null;
   };
-
   currentUtterance = utter;
-
   const speak = () => {
     const voices = window.speechSynthesis.getVoices();
     const gender = getPersonaGender(getPersonaId());
-
     let selectedVoice = null;
-
     if (gender === 'female') {
       selectedVoice = voices.find(v =>
         v.lang.includes('pt-BR') &&
@@ -703,15 +640,12 @@ function toggleSpeak(btn) {
       );
       utter.pitch = 0.9;
     }
-
     if (!selectedVoice) {
       selectedVoice = voices.find(v => v.lang.includes('pt-BR')) || voices.find(v => v.lang.startsWith('pt'));
     }
-
     if (selectedVoice) utter.voice = selectedVoice;
     window.speechSynthesis.speak(utter);
   };
-
   if (window.speechSynthesis.getVoices().length === 0) {
     window.speechSynthesis.onvoiceschanged = () => {
       window.speechSynthesis.onvoiceschanged = null;
@@ -721,7 +655,6 @@ function toggleSpeak(btn) {
     speak();
   }
 }
-
 /* -------------------------------------------------
    SPEECH-TO-TEXT
    ------------------------------------------------- */
@@ -752,14 +685,12 @@ recognition?.addEventListener('result',e=>{
   updateSendButton();
 });
 recognition?.addEventListener('end',()=>{listening=false;micBtn.classList.remove('bg-red-100', 'text-red-600', 'animate-pulse');});
-
 /* -------------------------------------------------
    UI HELPERS
    ------------------------------------------------- */
 function setStatus(type,text){
   const dot=document.getElementById('statusDot');
   const label=document.getElementById('statusText');
-  
   if(type==='loading'){
     dot.className='w-2 h-2 rounded-full bg-yellow-400 animate-spin flex-shrink-0';
     label.textContent=text;
@@ -771,15 +702,12 @@ function setStatus(type,text){
     label.textContent='Online';
   }
 }
-
 function showToast(msg,type='info'){
   const t=document.getElementById('toast');
   const icon = document.getElementById('toastIcon');
   const txt = document.getElementById('toastMsg');
-  
   txt.textContent=msg;
   t.className='fixed bottom-28 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-2xl z-50 flex items-center gap-2 text-sm font-medium transition-all duration-300 translate-y-0 opacity-100 max-w-[90%] text-center';
-  
   if(type==='error'){
     t.classList.add('bg-red-600', 'text-white');
     icon.textContent='⚠️';
@@ -787,14 +715,12 @@ function showToast(msg,type='info'){
     t.classList.add('bg-gray-800', 'text-white');
     icon.textContent='✅';
   }
-  
   t.classList.remove('hidden');
   setTimeout(()=>{
     t.classList.add('opacity-0', 'translate-y-4');
     setTimeout(()=>t.classList.add('hidden'),300);
   },3000);
 }
-
 function handleKey(e){
   if(e.key==='Enter' && !e.shiftKey){
     e.preventDefault();
@@ -805,14 +731,12 @@ function autoResize(el){
   el.style.height='auto';
   el.style.height=Math.min(el.scrollHeight,120)+'px';
 }
-
 /* -------------------------------------------------
    AJUSTE MOBILE: Recalcular altura quando teclado aparecer
    ------------------------------------------------- */
 window.addEventListener('resize', () => {
   scrollToBottom();
 });
-
 function fixMobileHeight() {
   const dvh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--dvh', `${dvh}px`);
@@ -820,8 +744,6 @@ function fixMobileHeight() {
 }
 window.addEventListener('load', fixMobileHeight);
 window.addEventListener('orientationchange', fixMobileHeight);
-
-
 /* ==========================================================
    PWA: Service Worker + Instalação na Tela Início
    ==========================================================
@@ -830,21 +752,16 @@ window.addEventListener('orientationchange', fixMobileHeight);
    2. installApp()         – Dispara prompt Android OU modal iOS
    3. closeIOSModal()      – Fecha o modal de instruções iOS
    ========================================================== */
-
 // Variável para armazenar o evento beforeinstallprompt (Android)
 let deferredPrompt = null;
-
 /**
- * Inicializa o botão de instalação.
- * - Registra o Service Worker
- * - Detecta se é Android (beforeinstallprompt) ou iOS (Safari)
- * - Mostra o botão "📱 Instalar" quando apropriado
- */
-
-
+* Inicializa o botão de instalação.
+* - Registra o Service Worker
+* - Detecta se é Android (beforeinstallprompt) ou iOS (Safari)
+* - Mostra o botão "📱 Instalar" quando apropriado
+*/
 function initInstallButton() {
   const installBtn = document.getElementById('installBtn');
-
   /* ----- PWA: Registro do Service Worker ----- */
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js')
@@ -855,48 +772,49 @@ function initInstallButton() {
         console.warn('[PWA] Falha ao registrar SW:', err);
       });
   }
-
+  /* ----- PWA: Detecção de plataforma ----- */
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
+                       window.navigator.standalone === true;
+  // Se já está instalado como app standalone, esconde o botão
+  if (isStandalone) {
+    console.log('[PWA] App já instalado como standalone');
+    installBtn.classList.add('hidden');
+    return;
+  }
   /* ----- PWA: Android – Captura do beforeinstallprompt ----- */
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    console.log('[PWA] beforeinstallprompt capturado – instalação disponível');
+    console.log('[PWA] beforeinstallprompt capturado');
+    // Botão já está visível por padrão, mas garante se estiver escondido
     installBtn.classList.remove('hidden');
-    // Atualiza o texto para indicar que o prompt nativo está disponível
-    installBtn.textContent = '📱 Instalar';
-    installBtn.dataset.hasPrompt = 'true';
   });
-
-  // Quando ESTA persona for instalada com sucesso, atualiza o botão
+  // Quando o app for instalado com sucesso, esconde o botão
   window.addEventListener('appinstalled', () => {
     console.log('[PWA] App instalado com sucesso!');
+    installBtn.classList.add('hidden');
     deferredPrompt = null;
-    delete installBtn.dataset.hasPrompt;
-    // Não esconde o botão – permite instalar outras personas
-    installBtn.textContent = '✅ Instalado';
     showToast('App instalado na tela inicial!', 'success');
   });
-
-  /* ----- PWA: Detecção de plataforma para log ----- */
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  /* ----- PWA: Log da plataforma detectada ----- */
   if (isIOS) {
     console.log('[PWA] iOS detectado – botão abrirá modal de instruções');
+  } else if (deferredPrompt) {
+    console.log('[PWA] Android – prompt de instalação disponível');
+  } else {
+    console.log('[PWA] Plataforma desktop/outros – botão visível para teste');
   }
 }
-
-
-
-
 /**
- * Dispara a instalação do PWA.
- * - Android: usa o prompt nativo do beforeinstallprompt
- * - iOS: abre o modal com instruções passo-a-passo
- */
+* Dispara a instalação do PWA.
+* - Android: usa o prompt nativo do beforeinstallprompt
+* - iOS: abre o modal com instruções passo-a-passo
+*/
 function installApp() {
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) ||
                 (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-
   if (deferredPrompt) {
     /* ----- PWA: Android – Prompt nativo ----- */
     deferredPrompt.prompt();
@@ -917,25 +835,20 @@ function installApp() {
     showToast('Abra no celular para instalar como app', 'info');
   }
 }
-
 /**
- * Fecha o modal de instruções iOS
- */
+* Fecha o modal de instruções iOS
+*/
 function closeIOSModal() {
   const modal = document.getElementById('iosInstallModal');
   modal.classList.add('hidden');
 }
-
 // Fechar modal iOS ao clicar no overlay (fora do conteúdo)
 document.getElementById('iosInstallModal').addEventListener('click', (e) => {
   if (e.target === e.currentTarget) {
     closeIOSModal();
   }
 });
-
 /* ========== PWA: Fim ========== */
-
-
 /* -------------------------------------------------
    INICIALIZAÇÃO
    ------------------------------------------------- */
