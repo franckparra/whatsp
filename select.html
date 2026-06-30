@@ -10,11 +10,13 @@
 <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
 <body class="flex flex-col h-[100dvh] overflow-hidden bg-gray-100 text-gray-800 font-sans">
-
 <!-- HEADER FIXO (TOPO) -->
 <header class="shrink-0 bg-green-800 text-white flex items-center justify-between p-4 border-b border-green-900 shadow-md z-10">
   <div class="flex items-center gap-3">
-    <div class="w-9 h-9 bg-gradient-to-br from-green-700 to-green-500 text-white rounded-xl flex items-center justify-center font-bold text-xs shadow-lg shadow-green-500/20 transition">AI P</div>
+    <!-- LOGO COM LINK PARA HOME -->
+    <a href="index.html" aria-label="AI Personas – Início" class="flex-shrink-0" title="Voltar ao início">
+      <img src="logot.png" alt="Logo AI Personas" class="w-19 h-19 rounded-xl object-cover transition-transform hover:scale-105" width="50" height="50">
+    </a>
     <div>
       <span class="font-bold text-lg tracking-tight text-white">AI <span class="text-green-200">Personas</span></span>
       <p class="text-xs text-green-100 opacity-90">Selecione uma persona</p>
@@ -26,13 +28,11 @@
     </svg>
   </div>
 </header>
-
-<!-- LISTA DE PERSONAS (CENTRO SCROLLÁVEL) -->
+<!-- LISTA DE PERSONAS (CENTRO (CENTRO SCROLLÁVEL) -->
 <main class="flex-1 overflow-y-auto overflow-x-hidden py-3 px-2 bg-gray-100 scroll-smooth">
   <div class="flex flex-col gap-3 max-w-2xl mx-auto w-full">
-
     <!-- Card 1 – Maria Clara -->
-    <a href="maria.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
+    <a href="zap01.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
       <img src="maria.jpg" alt="Maria Clara" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
       <div class="flex-1 min-w-0">
         <p class="font-semibold text-gray-800 truncate">Maria Clara</p>
@@ -43,9 +43,8 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
       </svg>
     </a>
-
     <!-- Card 2 – Laura Oliveira -->
-    <a href="laura.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
+    <a href="zap02.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
       <img src="laura.jpg" alt="Laura Oliveira" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
       <div class="flex-1 min-w-0">
         <p class="font-semibold text-gray-800 truncate">Laura Oliveira</p>
@@ -56,9 +55,8 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
       </svg>
     </a>
-
     <!-- Card 3 – Fernanda Ribeiro -->
-    <a href="fernanda.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
+    <a href="zap03.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
       <img src="fernanda.jpg" alt="Fernanda Ribeiro" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
       <div class="flex-1 min-w-0">
         <p class="font-semibold text-gray-800 truncate">Fernanda Ribeiro</p>
@@ -69,9 +67,8 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
       </svg>
     </a>
-
     <!-- Card 4 – Flávio Carvalho -->
-    <a href="flavio.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
+    <a href="zap04.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
       <img src="flavio.jpg" alt="Flávio Carvalho" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
       <div class="flex-1 min-w-0">
         <p class="font-semibold text-gray-800 truncate">Flávio Carvalho</p>
@@ -82,7 +79,6 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
       </svg>
     </a>
-
     <!-- Card 5 – Ricardo Costa -->
     <a href="zap05.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
       <img src="ricardo.jpg" alt="Ricardo Costa" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
@@ -95,7 +91,6 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
       </svg>
     </a>
-
     <!-- Card 6 – Tiago Martins -->
     <a href="zap06.html" class="group flex items-center gap-4 p-3 bg-white border border-gray-200 rounded-xl hover:bg-green-50 hover:border-green-200 transition-all duration-200 shadow-sm active:scale-[0.98]">
       <img src="tiago.jpg" alt="Tiago Martins" class="w-14 h-14 rounded-full border border-gray-100 object-cover shadow-sm group-hover:shadow-md">
@@ -108,16 +103,13 @@
         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
       </svg>
     </a>
-
     <div class="h-2"></div>
   </div>
 </main>
-
 <!-- FOOTER FIXO (RODAPÉ) -->
 <footer class="shrink-0 text-center text-[10px] text-gray-400 bg-white p-3 border-t border-gray-200 shadow-[0_-2px_5px_rgba(0,0,0,0.02)]">
   <p>TOKEN – Synthetic Language Personas</p>
   <a href="https://tokenslp.com.br" target="_blank" rel="noopener" class="text-green-700 font-medium hover:underline">tokenslp.com.br</a>
 </footer>
-
 </body>
 </html>
