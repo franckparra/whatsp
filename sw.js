@@ -15,6 +15,7 @@ const ASSETS_TO_CACHE = [
   './ricardo.html',
   './tiago.html',
   './emily.html',
+  './camille.html',
   './maria.jpg',
   './laura.jpg',
   './fernanda.jpg',
@@ -22,12 +23,14 @@ const ASSETS_TO_CACHE = [
   './ricardo.jpg',
   './tiago.jpg',
   './emily.jpg',
+  './camille.jpg',
   './manifest-maria.json',
   './manifest-fernanda.json',
   './manifest-flavio.json',
   './manifest-ricardo.json',
   './manifest-tiago.json',
   './manifest-emily.json',
+  './manifest-camille.json',
   './manifest-laura.json'
 ];
 
