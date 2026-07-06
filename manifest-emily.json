@@ -2,7 +2,7 @@
   "name": "Emily Carter",
   "short_name": "Emily Carter",
   "description": "Chat com Emily Carter – Persona Sintética",
-  "start_url": "./emily.html?p=tiago",
+  "start_url": "./emily.html?p=emily",
   "display": "standalone",
   "background_color": "#25D366",
   "theme_color": "#25D366",

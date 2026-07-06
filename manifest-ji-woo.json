@@ -1,21 +1,21 @@
 {
-  "name": "Camille Dubois",
-  "short_name": "Camille Dubois",
-  "description": "Chat com Camille Dubois – Persona Sintética",
-  "start_url": "./camille.html?p=camille",
+  "name": "Ji-woo Park",
+  "short_name": "Ji-woo Park",
+  "description": "Chat com Ji-woo Park – Persona Sintética",
+  "start_url": "./ji-woo.html?p=ji-woo",
   "display": "standalone",
   "background_color": "#25D366",
   "theme_color": "#25D366",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "camille.jpg",
+      "src": "ji-woo.jpg",
       "sizes": "192x192",
       "type": "image/jpeg",
       "purpose": "any"
     },
     {
-      "src": "camille.jpg",
+      "src": "ji-woo.jpg",
       "sizes": "512x512",
       "type": "image/jpeg",
       "purpose": "any"
